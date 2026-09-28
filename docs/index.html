@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="theme-color" content="#1E272B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Denkmalkarte">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<title>Denkmalkarte München</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+.leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane,.leaflet-pane>canvas,.leaflet-pane>svg,.leaflet-tile,.leaflet-tile-container,.leaflet-zoom-box{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:0 0}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-bottom,.leaflet-top{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform .25s cubic-bezier(0,0,.25,1);-moz-transition:-moz-transform .25s cubic-bezier(0,0,.25,1);transition:transform .25s cubic-bezier(0,0,.25,1)}.leaflet-pan-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}.leaflet-control,.leaflet-popup-pane{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-image-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-image-layer.leaflet-interactive,.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}.leaflet-container{background:#ddd;outline-offset:1px}.leaflet-container a{color:#0078a8}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:.75rem;line-height:1.5}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}.leaflet-bar a:focus,.leaflet-bar a:hover{background-color:#f4f4f4}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,.4);background:#fff;border-radius:5px}.leaflet-control-layers-toggle{background-image:url(images/layers.png);width:36px;height:36px}.leaflet-retina .leaflet-control-layers-toggle{background-image:url(images/layers-2x.png);background-size:26px 26px}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px}.leaflet-default-icon-path{background-image:url(images/marker-icon.png)}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,.8);margin:0}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}.leaflet-control-attribution a{text-decoration:none}.leaflet-control-attribution a:focus,.leaflet-control-attribution a:hover{text-decoration:underline}.leaflet-attribution-flag{display:inline!important;vertical-align:baseline!important;width:1em;height:.6669em}.leaflet-left .leaflet-control-scale{margin-left:5px}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers{box-shadow:none}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-layers{border:2px solid rgba(0,0,0,.2);background-clip:padding-box}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:0 0}.leaflet-container a.leaflet-popup-close-button:focus,.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}.leaflet-popup-scrolled{overflow:auto}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto}.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999}.leaflet-div-icon{background:#fff;border:1px solid #666}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before,.leaflet-tooltip-top:before{position:absolute;pointer-events:none;border:6px solid transparent;background:0 0;content:""}.leaflet-tooltip-bottom{margin-top:6px}.leaflet-tooltip-top{margin-top:-6px}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}.leaflet-tooltip-left{margin-left:-6px}.leaflet-tooltip-right{margin-left:6px}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+<style>
+:root{
+  --bg:#F2F3EF; --panel:#FBFBF9; --ink:#1E272B; --ink-2:#4B575C; --ink-3:#7C878B; --line:#DADDD6; --chip:#ECEEE8;
+  --accent:#B87A12; --accent-ink:#8A5A08; --accent-soft:#F4E6C8; --focus:#2F6DB5;
+  --land:#EDEEE8; --water:#B9D2DB; --water-line:#8FB3C1; --green:#D3E1C8; --green-2:#C4D8B7;
+  --road:#FFFFFF; --road-case:#D2D4CC; --road-major:#FFF3D6; --road-major-case:#DCC79A; --rail:#A7ABA3;
+  --bezirk:#9AA3A0; --city:#6E7B78; --label:#56625F; --label-halo:rgba(237,238,232,.92);
+  --c-wohnen:#8C7B6B; --c-villa:#A34D78; --c-sakral:#6F3E96; --c-schloss:#C98A12; --c-denkmal:#C23B2A;
+  --c-park:#3F8A3A; --c-oeffentlich:#2863A8; --c-technik:#2E8A86; --c-gewerbe:#D06A1E; --c-laendlich:#7C8A23; --c-sonstig:#8E969A;
+  --c-ensemble:#B87A12;
+  --c-boden:#8A6A3B; --me:#1F6FEB;
+  --ok:#2F8A4E; --new:#2F8A4E; --chg:#C98A12; --del:#C23B2A; --ins-bg:#DDF0E2; --del-bg:#F8DEDA;
+  --shadow:0 1px 2px rgba(20,30,30,.08),0 8px 24px rgba(20,30,30,.10);
+  --f-display:"Young Serif",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#15191B; --panel:#1B2023; --ink:#E7EAE6; --ink-2:#B3BBB8; --ink-3:#83908D; --line:#2D3438; --chip:#242A2D;
+    --accent:#E0A73C; --accent-ink:#F0C06A; --accent-soft:#3A3120; --focus:#7FB0EE;
+    --land:#1A1F21; --water:#1F3842; --water-line:#2C4E5B; --green:#1F2D22; --green-2:#223325;
+    --road:#353C3F; --road-case:#23292B; --road-major:#4A4536; --road-major-case:#2B2920; --rail:#4B5256;
+    --bezirk:#4E5A5A; --city:#7C8B88; --label:#9DA8A5; --label-halo:rgba(26,31,33,.9);
+    --c-wohnen:#B3A393; --c-villa:#E07FAE; --c-sakral:#B28BE0; --c-schloss:#E9B040; --c-denkmal:#F0705E;
+    --c-park:#77C46F; --c-oeffentlich:#6DA7EE; --c-technik:#55C6C0; --c-gewerbe:#F39A55; --c-laendlich:#B5C452; --c-sonstig:#A6AFB3;
+    --c-ensemble:#E0A73C;
+    --c-boden:#C9A26A; --me:#5AA2FF;
+    --c-boden:#C9A26A; --me:#5AA2FF;
+  --ok:#5CC57F; --new:#5CC57F; --chg:#E9B040; --del:#F0705E; --ins-bg:#1E3A27; --del-bg:#43231F;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#15191B; --panel:#1B2023; --ink:#E7EAE6; --ink-2:#B3BBB8; --ink-3:#83908D; --line:#2D3438; --chip:#242A2D;
+  --accent:#E0A73C; --accent-ink:#F0C06A; --accent-soft:#3A3120; --focus:#7FB0EE;
+  --land:#1A1F21; --water:#1F3842; --water-line:#2C4E5B; --green:#1F2D22; --green-2:#223325;
+  --road:#353C3F; --road-case:#23292B; --road-major:#4A4536; --road-major-case:#2B2920; --rail:#4B5256;
+  --bezirk:#4E5A5A; --city:#7C8B88; --label:#9DA8A5; --label-halo:rgba(26,31,33,.9);
+  --c-wohnen:#B3A393; --c-villa:#E07FAE; --c-sakral:#B28BE0; --c-schloss:#E9B040; --c-denkmal:#F0705E;
+  --c-park:#77C46F; --c-oeffentlich:#6DA7EE; --c-technik:#55C6C0; --c-gewerbe:#F39A55; --c-laendlich:#B5C452; --c-sonstig:#A6AFB3;
+  --c-ensemble:#E0A73C;
+  --ok:#5CC57F; --new:#5CC57F; --chg:#E9B040; --del:#F0705E; --ins-bg:#1E3A27; --del-bg:#43231F;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.45);
+}
+html,body{height:100%}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--f-body);overflow:hidden}
+*{box-sizing:border-box}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.app{display:grid;grid-template-columns:380px minmax(0,1fr);height:100%}
+#map{height:100%;background:var(--land);position:relative;min-width:0}
+.leaflet-container{background:var(--land);font:inherit}
+
+/* Sidebar */
+.side{display:flex;flex-direction:column;min-height:0;min-width:0;background:var(--panel);border-right:1px solid var(--line);z-index:2}
+.side-head{padding:18px 20px 12px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.brand h1{font:400 26px/1.1 var(--f-display);margin:0;letter-spacing:-.01em;text-wrap:balance}
+.brand p{margin:4px 0 0;color:var(--ink-2);font-size:12.5px}
+.brand p b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.search{position:relative}
+.search input{width:100%;padding:10px 34px 10px 36px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.search input::placeholder{color:var(--ink-3)}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--ink-3)}
+.search .clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;padding:4px 6px;cursor:pointer;color:var(--ink-3);font-size:16px;line-height:1}
+.sheet-toggle{display:none}
+
+.side-body{overflow:auto;min-height:0;flex:1;display:flex;flex-direction:column}
+.block{padding:14px 20px;border-bottom:1px solid var(--line);display:grid;gap:8px}
+.block-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.lbl em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400}
+.link-btn{border:0;background:none;padding:0;color:var(--accent-ink);cursor:pointer;font-size:12px}
+.link-btn:hover{text-decoration:underline}
+
+.cats{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px 4px 7px;border-radius:999px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:12.5px;line-height:1.3;transition:background .12s,opacity .12s}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.chip .n{color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:11.5px}
+.chip[aria-pressed="false"]{opacity:.45;background:transparent}
+.chip[aria-pressed="false"] .dot{background:transparent;box-shadow:inset 0 0 0 1.5px var(--c)}
+.chip:hover{background:var(--chip)}
+.chip.sty{padding:3px 9px}
+.chip.sty[aria-pressed="false"]{opacity:1}
+.chip.sty[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.chip.sty.zero{opacity:.4}
+
+.eras{display:grid;gap:3px}
+.eras.off{opacity:.45;pointer-events:none}
+.era{display:grid;grid-template-columns:96px 1fr 44px;align-items:center;gap:8px;padding:3px 6px;margin:0 -6px;border:0;border-radius:6px;background:none;cursor:pointer;text-align:left;font-size:12.5px}
+.era:hover{background:var(--chip)}
+.era .bar{height:8px;border-radius:2px;background:var(--chip);position:relative;overflow:hidden}
+.era .bar i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:2px}
+.era .n{text-align:right;color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:11.5px}
+.era[aria-pressed="false"]{opacity:.4}
+.era[aria-pressed="false"] .bar i{background:var(--ink-3)}
+.note{font-size:12px;color:var(--ink-3);margin:0}
+
+.arch-in{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.arch-in::placeholder{color:var(--ink-3)}
+.arch-list{list-style:none;margin:0 -6px;padding:0;display:grid;gap:1px;max-height:212px;overflow:auto}
+.arch{display:grid;grid-template-columns:1fr 60px 28px;gap:8px;align-items:center;width:100%;padding:4px 6px;border:0;border-radius:6px;background:none;cursor:pointer;text-align:left;font-size:13px}
+.arch:hover{background:var(--chip)}
+.arch .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arch .bar{height:6px;border-radius:2px;background:var(--chip);position:relative;overflow:hidden}
+.arch .bar i{position:absolute;inset:0 auto 0 0;background:var(--ink-3);border-radius:2px}
+.arch .n{text-align:right;color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:11.5px}
+.arch-active{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px 7px 12px;border-radius:8px;background:var(--accent-soft);border:1px solid var(--accent)}
+.arch-active b{font-weight:600}
+.arch-active small{color:var(--ink-2);display:block;font-size:11.5px}
+.arch-active button{border:0;background:none;cursor:pointer;font-size:18px;line-height:1;color:var(--ink-2);padding:2px 6px}
+
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);flex:1;min-width:0}
+.toggle{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;user-select:none}
+.toggle input{accent-color:var(--accent);width:16px;height:16px;margin:0}
+.ens-swatch{width:16px;height:11px;border:1.5px dashed var(--c-ensemble);border-radius:2px;background:color-mix(in srgb,var(--c-ensemble) 12%,transparent)}
+
+.results-h{position:sticky;top:0;background:var(--panel);padding:12px 20px 8px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:8px;z-index:1}
+.results-h .cnt{font-variant-numeric:tabular-nums;font-weight:600}
+.results-h small{color:var(--ink-3);font-size:11.5px}
+.list{list-style:none;margin:0;padding:4px 0 24px}
+.item{display:grid;grid-template-columns:10px 1fr;gap:10px;padding:8px 20px;cursor:pointer;border:0;background:none;width:100%;text-align:left}
+.item:hover,.item.on{background:var(--chip)}
+.item .dot{width:10px;height:10px;border-radius:50%;background:var(--c);margin-top:5px}
+.item .dot.ens{border-radius:2px;background:none;border:1.5px dashed var(--c-ensemble)}
+.item .t{font-weight:500;line-height:1.35;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.item .a{color:var(--ink-2);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.item .y{color:var(--ink-3);font-variant-numeric:tabular-nums}
+.more{padding:10px 20px;color:var(--ink-3);font-size:12.5px}
+.empty{padding:24px 20px;color:var(--ink-2)}
+.src{padding:14px 20px 22px;color:var(--ink-3);font-size:11.5px;border-top:1px solid var(--line);margin-top:auto}
+.src a{color:inherit}
+
+/* Detail card */
+.detail{position:absolute;top:14px;right:14px;width:min(420px,calc(100% - 28px));max-height:calc(100% - 28px);display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);z-index:1000;overflow:hidden}
+.d-scroll{overflow:auto;padding:18px 20px 20px;display:grid;gap:12px;position:relative}
+.d-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.d-cat{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.d-cat .dot{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.d-cat .dot.ens{border-radius:2px;background:none;border:1.5px dashed var(--c-ensemble)}
+.x{border:0;background:var(--chip);width:30px;height:30px;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none}
+.x svg{width:14px;height:14px;stroke:var(--ink-2)}
+.d-title{font:400 24px/1.18 var(--f-display);margin:0;text-wrap:balance}
+.d-addr{font-weight:500;color:var(--ink-2);margin:0}
+.d-addr .more-addr{border:0;background:none;padding:0;color:var(--accent-ink);cursor:pointer;font-size:12.5px;font-weight:400}
+.d-text{margin:0;max-width:65ch;line-height:1.6;font-size:14px}
+.gl{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:help;text-decoration:underline dotted var(--accent);text-decoration-thickness:1.5px;text-underline-offset:3px}
+.gl:hover,.gl.on{color:var(--accent-ink);text-decoration-style:solid}
+.gloss-pop{position:absolute;z-index:5;width:min(300px,calc(100% - 40px));background:var(--ink);color:var(--panel);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.45;box-shadow:var(--shadow)}
+.gloss-pop b{display:block;font-family:var(--f-display);font-weight:400;font-size:15px;margin-bottom:2px}
+.d-meta{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:12.5px;border-top:1px solid var(--line);padding-top:12px}
+.d-meta dt{color:var(--ink-3)}
+.d-meta dd{margin:0;min-width:0;overflow-wrap:anywhere;display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline}
+.alink{border:0;background:none;padding:0;color:var(--accent-ink);cursor:pointer;font:inherit;text-align:left;text-decoration:underline;text-underline-offset:2px;text-decoration-color:color-mix(in srgb,var(--accent) 50%,transparent)}
+.alink small{color:var(--ink-3);text-decoration:none}
+.stag{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--chip);border:1px solid var(--line);cursor:pointer;font-size:12px}
+.stag:hover{border-color:var(--accent)}
+.mono{font-family:var(--f-mono);font-size:12px}
+.copy{border:1px solid var(--line);background:none;border-radius:5px;font-size:11px;padding:0 6px;cursor:pointer;color:var(--ink-2)}
+.d-links{display:flex;flex-wrap:wrap;gap:8px}
+.d-links a{font-size:12.5px;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+.d-links a:hover{background:var(--chip)}
+.d-nav{display:flex;justify-content:space-between;gap:8px;padding:10px 20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-3)}
+.d-nav button{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:4px 10px;cursor:pointer}
+.d-nav button:disabled{opacity:.4;cursor:default}
+
+/* Timeline */
+.tl{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:950;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);width:min(640px,calc(100% - 28px))}
+.tl.closed{width:auto}
+.tl-open{border:0;background:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 14px;font-weight:500;font-size:13px;white-space:nowrap}
+.tl-open svg{width:16px;height:16px;stroke:var(--accent)}
+.tl-open small{color:var(--ink-3);font-weight:400}
+.tl-body{display:grid;grid-template-columns:auto auto 1fr auto;gap:12px;align-items:center;padding:10px 12px 8px}
+.tl-play{width:36px;height:36px;border-radius:50%;border:0;background:var(--accent);color:#fff;cursor:pointer;display:grid;place-items:center}
+.tl-play svg{width:14px;height:14px;fill:#1B1406}
+.tl-year{font:400 30px/1 var(--f-display);font-variant-numeric:tabular-nums;min-width:3.1ch}
+.tl-year small{display:block;font:500 11px/1.3 var(--f-body);color:var(--ink-3);white-space:nowrap}
+.tl-track{position:relative;min-width:0}
+.tl-hist{display:block;width:100%;height:34px}
+.tl-hist rect{fill:var(--ink-3);opacity:.35}
+.tl-hist rect.in{fill:var(--accent);opacity:1}
+.tl-range{width:100%;margin:2px 0 0;accent-color:var(--accent)}
+.tl-ticks{position:relative;height:14px;font-size:10.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tl-ticks span{position:absolute;translate:-50% 0}
+.tl-ticks span.brk{color:var(--ink-3);opacity:.7}
+.tl-close{border:0;background:var(--chip);width:28px;height:28px;border-radius:50%;cursor:pointer;display:grid;place-items:center;align-self:start}
+.tl-close svg{width:12px;height:12px;stroke:var(--ink-2)}
+
+/* Map chrome */
+.leaflet-control-zoom a{background:var(--panel)!important;color:var(--ink)!important;border-color:var(--line)!important}
+.leaflet-bar{border:1px solid var(--line)!important;box-shadow:var(--shadow)!important}
+.leaflet-control-attribution{background:color-mix(in srgb,var(--panel) 85%,transparent)!important;color:var(--ink-3)!important;font-size:10.5px}
+.leaflet-control-attribution a{color:var(--ink-2)!important}
+.leaflet-tooltip.tt{background:var(--panel);color:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:6px;padding:5px 8px;font:12.5px/1.35 var(--f-body);max-width:260px;white-space:normal}
+.leaflet-tooltip.tt small{display:block;color:var(--ink-2)}
+.leaflet-tooltip-top.tt:before{border-top-color:var(--line)}
+.lbl-street{color:var(--label);font:italic 11px/1 var(--f-body);white-space:nowrap;text-shadow:0 0 3px var(--label-halo),0 0 3px var(--label-halo),0 0 2px var(--label-halo);pointer-events:none}
+.lbl-street span{display:inline-block;transform-origin:50% 50%;translate:-50% -50%}
+.lbl-bezirk{color:var(--label);font:600 10.5px/1.15 var(--f-body);letter-spacing:.12em;text-transform:uppercase;text-align:center;white-space:nowrap;text-shadow:0 0 3px var(--label-halo),0 0 3px var(--label-halo);pointer-events:none}
+.lbl-bezirk span{display:inline-block;translate:-50% -50%}
+.loading{position:absolute;inset:0;display:grid;place-items:center;z-index:1200;background:var(--land);color:var(--ink-2);font-size:13px}
+
+
+/* Tabs & panels */
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--chip);border-radius:9px;padding:3px}
+.tab{border:0;background:none;border-radius:7px;padding:6px 4px;font-size:12.5px;font-weight:500;color:var(--ink-2);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.2}
+.tab small{font-size:10.5px;font-weight:400;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tab[aria-selected="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.panel{display:flex;flex-direction:column;flex:none}
+.pad{padding:14px 20px;display:grid;gap:12px}
+.p-intro{margin:0;color:var(--ink-2);font-size:13px;line-height:1.55}
+
+/* Tours */
+.tour-cards{list-style:none;margin:0;padding:0 0 18px;display:grid}
+.tcard{display:grid;gap:4px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;padding:12px 20px;cursor:pointer}
+.tcard:hover{background:var(--chip)}
+.tcard h3{margin:0;font:400 17px/1.25 var(--f-display);text-wrap:balance}
+.tcard .meta,.t-meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tcard .meta b,.t-meta b{color:var(--ink-2);font-weight:600}
+.tcard p{margin:0;font-size:12.5px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prog{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2)}
+.prog .bar{flex:1;height:6px;background:var(--chip);border-radius:3px;overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--ok);border-radius:3px}
+.back{border:0;background:none;padding:0;color:var(--accent-ink);cursor:pointer;font-size:12.5px;justify-self:start}
+.t-title{margin:0;font:400 22px/1.2 var(--f-display);text-wrap:balance}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 12px;font-size:12.5px;cursor:pointer;color:var(--ink);text-decoration:none}
+.btn:hover{background:var(--chip)}
+.btn svg{width:14px;height:14px;flex:none}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1B1406;font-weight:500}
+.btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.btn.ok[aria-pressed="true"]{background:color-mix(in srgb,var(--ok) 16%,var(--panel));border-color:var(--ok)}
+.stops{list-style:none;margin:0;padding:0 0 18px}
+.stop{display:grid;grid-template-columns:26px 1fr;gap:10px;width:100%;text-align:left;border:0;background:none;padding:8px 20px;cursor:pointer;position:relative}
+.stop:hover,.stop.on{background:var(--chip)}
+.num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#1B1406;font:600 12px/24px var(--f-body);text-align:center;font-variant-numeric:tabular-nums}
+.num.done{background:var(--ok);color:#fff}
+.stop .t{font-weight:500;line-height:1.35}
+.stop .a{display:block;color:var(--ink-2);font-size:12.5px}
+.leg{padding:0 20px 0 56px;font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tstop{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#1B1406;font:600 12px/1 var(--f-body);border:2px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.3);translate:-50% -50%;cursor:pointer}
+.tstop.done{background:var(--ok);color:#fff}
+.tstop.on{outline:3px solid var(--ink);outline-offset:1px}
+
+/* Mine */
+.mine-sum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
+.tile b{font:400 26px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.tile span{font-size:12px;color:var(--ink-2)}
+.sub-h{padding:12px 20px 4px;display:flex;justify-content:space-between;align-items:baseline}
+.store-note{font-size:11.5px;color:var(--ink-3);margin:0}
+
+/* Changes */
+.chg-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chg-sum .tile{cursor:pointer;text-align:left;background:var(--panel);font:inherit;color:inherit}
+.chg-sum .tile[aria-pressed="false"]{opacity:.45}
+.chg-sum .tile i{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:1px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.badge.n{background:color-mix(in srgb,var(--new) 16%,transparent);color:var(--new)}
+.badge.c{background:color-mix(in srgb,var(--chg) 18%,transparent);color:var(--accent-ink)}
+.badge.d{background:color-mix(in srgb,var(--del) 16%,transparent);color:var(--del)}
+.item .badge{margin-left:4px;font-size:9.5px;padding:1px 6px;vertical-align:1px}
+.diff{font-size:13px;line-height:1.6;margin:0;padding:10px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.diff ins{background:var(--ins-bg);text-decoration:none;border-radius:2px}
+.diff del{background:var(--del-bg);text-decoration:line-through;text-decoration-color:var(--del);border-radius:2px;color:var(--ink-2)}
+.diff-h{font-size:11.5px;color:var(--ink-3);margin:0 0 4px}
+.chg-box{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.chg-box .row{justify-content:space-between}
+
+/* Detail actions + chat */
+.d-actions{display:flex;flex-wrap:wrap;gap:8px}
+.chat{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:12px}
+.chat-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.chat-h b{font:400 16px/1.2 var(--f-display)}
+.chat-h small{color:var(--ink-3);font-size:11px}
+.sugg{display:flex;flex-wrap:wrap;gap:6px}
+.sugg button{border:1px dashed var(--line);background:none;border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--ink-2)}
+.sugg button:hover{border-color:var(--accent);color:var(--ink)}
+.msgs{display:grid;gap:8px}
+.msg{padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.55;max-width:100%;overflow-wrap:anywhere}
+.msg.user{background:var(--accent-soft);justify-self:end;border-bottom-right-radius:3px;max-width:88%}
+.msg.model{background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:3px}
+.msg.model p{margin:0 0 6px}.msg.model p:last-child{margin:0}
+.msg.model ul{margin:4px 0 6px;padding-left:18px}
+.msg .src-l{margin-top:6px;font-size:11.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:4px 10px}
+.msg .src-l a{color:var(--ink-2)}
+.msg.err{background:var(--del-bg);border:0}
+.typing{color:var(--ink-3);font-size:12.5px}
+.chat-in{display:flex;gap:6px}
+.chat-in textarea{flex:1;min-width:0;resize:none;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:8px 10px;font:inherit;font-size:13.5px;min-height:40px;max-height:120px}
+.chat-in button{border:0;background:var(--accent);color:#1B1406;border-radius:8px;padding:0 14px;font-weight:600;cursor:pointer}
+.chat-in button:disabled{opacity:.5;cursor:default}
+.handoff{display:grid;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.handoff p{margin:0}
+
+/* Layers */
+.layers{display:grid;gap:6px}
+.layers .toggle small{color:var(--ink-3);font-variant-numeric:tabular-nums}
+.sw-bd{width:16px;height:11px;border:1.5px dotted var(--c-boden);border-radius:2px;background:color-mix(in srgb,var(--c-boden) 18%,transparent)}
+.sw-um{width:11px;height:11px;border-radius:50%;border:2px solid var(--c-wohnen);background:color-mix(in srgb,var(--c-wohnen) 40%,transparent);margin:0 2.5px}
+.item .dot.bd{border-radius:2px;background:color-mix(in srgb,var(--c-boden) 25%,transparent);border:1.5px dotted var(--c-boden)}
+.item .dot.um{background:transparent;border:2px solid var(--c)}
+.item .dist{color:var(--accent-ink);font-variant-numeric:tabular-nums}
+
+/* Photos */
+.d-photo{margin:0 -20px;display:grid;gap:0}
+.d-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--chip)}
+.d-photo.small{margin:0;grid-template-columns:auto 1fr;gap:12px;align-items:end}
+.d-photo.small img{width:168px;aspect-ratio:4/3;border-radius:8px}
+.d-photo figcaption{font-size:11px;color:var(--ink-3);padding:6px 20px 0;line-height:1.4}
+.d-photo.small figcaption{padding:0}
+.d-photo figcaption a{color:var(--ink-2)}
+.d-scroll>.d-photo:first-child{margin-top:-18px}
+.myph{display:grid;gap:8px}
+.myph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}
+.ph{aspect-ratio:1;border:0;padding:0;border-radius:8px;overflow:hidden;background:var(--chip);cursor:pointer;position:relative}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph.add{display:grid;place-items:center;border:1.5px dashed var(--line);background:none;color:var(--ink-2);font-size:12px;text-align:center;line-height:1.3}
+.ph.add:hover{border-color:var(--accent);color:var(--ink)}
+.ph.add input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.ph.busy{display:grid;place-items:center;font-size:11px;color:var(--ink-3)}
+.lb{position:fixed;inset:0;z-index:3000;background:rgba(10,12,13,.92);display:grid;grid-template-rows:1fr auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 12px)}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;margin:auto;display:block;min-height:0}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#E7EAE6;font-size:13px;padding-top:10px;flex-wrap:wrap}
+.lb-bar button{border:1px solid rgba(255,255,255,.3);background:none;color:#fff;border-radius:999px;padding:6px 14px;cursor:pointer;font-size:13px}
+.lb-bar button.danger{border-color:#F0705E;color:#FFB4A8}
+
+/* Location + toast */
+.loc-btn{width:34px;height:34px;display:grid;place-items:center;background:var(--panel);border:0;cursor:pointer;color:var(--ink)}
+.loc-btn svg{width:18px;height:18px}
+.loc-btn.on{color:var(--me)}
+.loc-btn.wait svg{animation:spin 1.2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:2000;background:var(--ink);color:var(--panel);padding:10px 14px;border-radius:10px;font-size:13px;box-shadow:var(--shadow);width:max-content;max-width:calc(100% - 28px)}
+.toast a{color:inherit}
+.key-form{display:grid;gap:6px}
+.key-form input{border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:8px 10px;font:inherit;font-size:13px;min-width:0}
+
+@media (max-width:1100px){ .detail:not([hidden]) ~ .tl{display:none} }
+@media (max-width:760px){
+  .tab{font-size:12px}
+  .pad{padding:12px 16px}
+  .tcard,.stop{padding-left:16px;padding-right:16px}
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+  #map{grid-row:1;grid-column:1}
+  .side{grid-row:1;grid-column:1;align-self:end;height:auto;max-height:44%;border-right:0;border-top:1px solid var(--line);border-radius:14px 14px 0 0;box-shadow:var(--shadow);padding-bottom:env(safe-area-inset-bottom,0px);transition:max-height .25s ease;z-index:1001}
+  .side.open{max-height:88%}
+  .side-head{padding:10px 16px 10px;gap:8px}
+  .brand h1{font-size:20px}
+  .brand p{display:none}
+  .sheet-toggle{display:flex;justify-content:center;border:0;background:none;padding:2px 0 0;cursor:pointer}
+  .sheet-toggle i{width:40px;height:4px;border-radius:2px;background:var(--line)}
+  .block{padding:12px 16px}
+  .results-h{padding:10px 16px 6px}
+  .item{padding:8px 16px}
+  .src{padding:12px 16px 18px}
+  .detail{top:auto;bottom:0;right:0;left:0;width:100%;max-height:70%;border-radius:14px 14px 0 0;padding-bottom:env(safe-area-inset-bottom,0px);z-index:1100}
+  .tl{top:calc(env(safe-area-inset-top,0px) + 10px);bottom:auto;left:10px;transform:none;width:calc(100% - 64px)}
+  .tl.closed{width:auto}
+  .tl-body{grid-template-columns:auto auto 1fr auto;gap:8px;padding:8px}
+  .tl-year{font-size:22px}
+  .leaflet-top.leaflet-right{top:env(safe-area-inset-top,0px)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="app">
+  <aside class="side" id="side" aria-label="Suche und Filter">
+    <div class="side-head">
+      <button class="sheet-toggle" id="sheetToggle" aria-label="Filter und Liste ein- oder ausklappen"><i></i></button>
+      <div class="brand">
+        <h1>Denkmalkarte München</h1>
+        <p><b id="nTotal">6.911</b> Baudenkmäler und <b id="nEns">87</b> Ensembles aus der Bayerischen Denkmalliste, Stand 25.09.2026</p>
+      </div>
+      <label class="search" for="q">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Straße, Bauwerk, Stichwort …" autocomplete="off" aria-label="Denkmäler durchsuchen">
+        <button class="clear" id="qClear" aria-label="Suche leeren" hidden>×</button>
+      </label>
+      <div class="tabs" role="tablist" aria-label="Bereiche">
+        <button class="tab" role="tab" data-tab="explore" aria-selected="true">Entdecken<small id="tbExplore"></small></button>
+        <button class="tab" role="tab" data-tab="tours" aria-selected="false">Rundgänge<small id="tbTours"></small></button>
+        <button class="tab" role="tab" data-tab="mine" aria-selected="false">Meine Liste<small id="tbMine">0</small></button>
+        <button class="tab" role="tab" data-tab="changes" aria-selected="false">Änderungen<small id="tbChanges"></small></button>
+      </div>
+    </div>
+    <div class="side-body" id="sideBody">
+     <div class="panel" id="pExplore">
+      <div class="block">
+        <div class="block-h"><span class="lbl">Bauaufgabe</span><button class="link-btn" id="catAll">alle</button></div>
+        <div class="cats" id="cats"></div>
+      </div>
+      <div class="block">
+        <div class="block-h"><span class="lbl">Architekten &amp; Künstler <em id="archN"></em></span></div>
+        <div id="archActive"></div>
+        <input class="arch-in" id="archQ" type="search" placeholder="Namen suchen, z. B. Fischer, Klenze …" autocomplete="off" aria-label="Architekten suchen">
+        <ul class="arch-list" id="archList"></ul>
+      </div>
+      <div class="block">
+        <div class="block-h"><span class="lbl">Baustil</span><button class="link-btn" id="styAll" hidden>zurücksetzen</button></div>
+        <div class="cats" id="styles"></div>
+        <p class="note">Aus dem Listentext erkannt. Mehrfachauswahl zeigt Bauten mit mindestens einem der Stile.</p>
+      </div>
+      <div class="block">
+        <div class="block-h"><span class="lbl">Bauzeit</span><button class="link-btn" id="eraAll">alle</button></div>
+        <div class="eras" id="eras"></div>
+        <p class="note" id="eraNote" hidden>Während der Zeitreise steuert der Regler auf der Karte die Bauzeit.</p>
+      </div>
+      <div class="block">
+        <div class="row">
+          <select id="bezirk" aria-label="Stadtbezirk"><option value="">Alle Stadtbezirke</option></select>
+        </div>
+      </div>
+      <div class="block">
+        <span class="lbl">Ebenen</span>
+        <div class="layers">
+          <label class="toggle"><input type="checkbox" id="ensToggle" checked> <span class="ens-swatch"></span> Ensembles <small id="nEnsL"></small></label>
+          <label class="toggle"><input type="checkbox" id="bdToggle"> <span class="sw-bd"></span> Bodendenkmäler <small id="nBd"></small></label>
+          <label class="toggle"><input type="checkbox" id="umToggle"> <span class="sw-um"></span> Baudenkmäler im Umland <small id="nUm"></small></label>
+        </div>
+      </div>
+      <div class="results-h"><span><span class="cnt" id="cnt">0</span> Treffer</span><small>nächstgelegene zuerst</small></div>
+      <ul class="list" id="list"></ul>
+     </div>
+     <div class="panel" id="pTours" hidden></div>
+     <div class="panel" id="pMine" hidden></div>
+     <div class="panel" id="pChanges" hidden></div>
+      <div class="src">Daten: Denkmalliste und Geodaten des <a href="https://www.blfd.bayern.de/" target="_blank" rel="noopener">Bayerischen Landesamts für Denkmalpflege</a> (Aktennummer D-1-62-000-…), Kartengrundlage © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-Mitwirkende (ODbL). Baujahr, Baustil und Namen sind automatisch aus dem Listentext gelesen und können Fehler enthalten. Vergleichsstand: Denkmalliste vom 21.12.2024. Die Rechtsverbindlichkeit liegt allein bei der amtlichen Liste.</div>
+    </div>
+  </aside>
+  <div id="map">
+    <div class="loading" id="loading">Karte und 6.911 Denkmäler werden geladen …</div>
+    <section class="detail" id="detail" hidden aria-live="polite"></section>
+    <div class="tl closed" id="tl">
+      <button class="tl-open" id="tlOpen"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Zeitreise <small>München wächst, Jahr für Jahr</small></button>
+      <div class="tl-body" id="tlBody" hidden>
+        <button class="tl-play" id="tlPlay" aria-label="Abspielen"></button>
+        <div class="tl-year" id="tlYear">2026<small id="tlCount"></small></div>
+        <div class="tl-track">
+          <svg class="tl-hist" id="tlHist" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <input class="tl-range" id="tlRange" type="range" min="0" max="1000" step="1" value="1000" aria-label="Baujahr bis">
+          <div class="tl-ticks" id="tlTicks"></div>
+        </div>
+        <button class="tl-close" id="tlClose" aria-label="Zeitreise beenden"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* Glossar: [Anzeigename, Muster (Teilwort, ohne Groß/Klein), Erklärung]. Reihenfolge = Priorität (spezifisch vor allgemein). */
+const GLOSSAR=[
+ ['Mansarddach','mansard','Dach mit geknickten Flächen: unten steil (meist mit Wohnräumen und Gauben), oben flach geneigt. Benannt nach dem französischen Baumeister Jules Hardouin-Mansart.'],
+ ['Krüppelwalm','krüppelwalm','Satteldach, dessen Giebelspitze durch eine kleine, schräge Dachfläche abgeschnitten ist. In Süddeutschland auch Schopfwalm genannt.'],
+ ['Schopfwalm','schopfwalm','Süddeutsch für Krüppelwalm: Die Giebelspitze eines Satteldachs ist durch eine kleine, schräge Dachfläche abgeschnitten.'],
+ ['Walmdach','walm','Dach, das auch an den Schmalseiten geneigte Dachflächen (Walme) hat. Es gibt daher keine senkrechten Giebelwände.'],
+ ['Satteldach','satteldach','Die Grundform des Dachs: zwei geneigte Flächen, die sich am First treffen. An den Stirnseiten entstehen Giebel.'],
+ ['Zeltdach','zeltdach','Pyramidenförmiges Dach über quadratischem oder vieleckigem Grundriss. Alle Flächen laufen in einer Spitze zusammen.'],
+ ['Pultdach','pultdach','Dach mit nur einer geneigten Fläche, wie ein Schreibpult.'],
+ ['Traufseitbau','traufseit|traufständig','Die Traufe ist die untere, waagrechte Dachkante. Ein Traufseitbau zeigt der Straße seine Längsseite mit der Traufe; der First läuft parallel zur Straße. Typisch für die Münchner Mietshäuser.'],
+ ['Giebelständig','giebelständig|giebelbau|giebelseit','Das Haus zeigt der Straße seinen Giebel; der First steht senkrecht zur Straße. Typisch für ältere Bürger- und Bauernhäuser.'],
+ ['Zwerchgiebel','zwerchgiebel','Giebel quer zum Hauptdach („zwerch“ = quer), der aus der Fassadenflucht aufsteigt und die Traufe unterbricht.'],
+ ['Zwerchhaus','zwerchh','Ein- oder mehrgeschossiger Dachaufbau quer zum Hauptdach, dessen Vorderwand in der Flucht der Fassade liegt und oben mit eigenem Giebel abschließt. Anders als eine Gaube sitzt es nicht zurückgesetzt auf der Dachfläche.'],
+ ['Gaube','gaube|gaupe','Dachaufbau mit Fenster, der zurückgesetzt auf der Dachfläche sitzt und den Dachraum belichtet.'],
+ ['Kastenerker','kastenerker','Erker mit rechteckigem Grundriss.'],
+ ['Polygonalerker','polygonalerker','Erker mit vieleckigem Grundriss, oft drei Seiten eines Achtecks.'],
+ ['Balkonerker','balkonerker','Erker, der mit Balkonen kombiniert ist oder oben in einen Balkon übergeht.'],
+ ['Turmerker','turmerker','Erker, der turmartig über die Traufe hinausragt und ein eigenes Dach (Helm) trägt. Oft an Hausecken.'],
+ ['Erker','erker','Geschlossener Vorbau an der Fassade über ein oder mehrere Geschosse, der vorkragt und nicht bis zum Boden reicht.'],
+ ['Altan','altan','Balkonartiger Austritt, der anders als ein Balkon nicht frei vorkragt, sondern vom Boden aus auf Stützen oder Mauern steht.'],
+ ['Loggia','loggia','Nach außen offener, in den Baukörper eingetiefter Raum. Anders als ein Balkon springt sie nicht vor.'],
+ ['Risalit','risalit','Gebäudeteil, der in ganzer Höhe aus der Fassadenflucht vortritt (Mittel-, Eck- oder Seitenrisalit). Er gliedert und betont die Fassade.'],
+ ['Lisene','lisene','Flacher, senkrechter Mauerstreifen ohne Basis und Kapitell. Im Unterschied zum Pilaster rein gliedernd.'],
+ ['Pilaster','pilaster','Flacher Wandpfeiler mit Basis und Kapitell, der die Fassade wie eine in die Wand gedrückte Säule gliedert.'],
+ ['Kolossalordnung','kolossal','Säulen oder Pilaster, die über mehrere Geschosse reichen und die Fassade monumental zusammenfassen.'],
+ ['Gurtgesims','gurtgesims','Waagrechtes, vorspringendes Band, das die Geschosse an der Fassade voneinander trennt.'],
+ ['Sohlbankgesims','sohlbank','Waagrechtes Gesims auf Höhe der Fensterbänke (Sohlbänke), das die Fenster eines Geschosses verbindet.'],
+ ['Traufgesims','traufgesims|kranzgesims|hauptgesims','Das oberste, meist kräftigste Gesims unter der Dachkante. Es schließt die Fassade nach oben ab.'],
+ ['Gesims','gesims','Waagrecht aus der Wand vortretender Streifen. Er gliedert die Fassade und leitet Regenwasser ab.'],
+ ['Rustika','rustika|bossen|bossiert','Mauerwerk aus grob behauenen, kräftig vortretenden Quadern, oder die Nachahmung in Putz. Meist im Sockel- oder Erdgeschoss, um Festigkeit auszudrücken.'],
+ ['Eckquaderung','eckquader','Betonung der Hausecken durch Quader aus Stein oder Putz, abwechselnd lang und kurz.'],
+ ['Verdachung','verdachung','Kleines Gesims oder Giebelchen über einem Fenster oder einer Tür, als Schmuck und Wetterschutz.'],
+ ['Schweifgiebel','schweifgiebel','Giebel mit geschwungenen, S-förmigen Umrisslinien. Typisch für die deutsche Renaissance und die Neurenaissance um 1890.'],
+ ['Volutengiebel','volutengiebel','Giebel, dessen Seiten mit schneckenförmig eingerollten Voluten besetzt sind.'],
+ ['Dreiecksgiebel','dreiecksgiebel','Giebel in Form eines flachen Dreiecks, aus der antiken Tempelarchitektur übernommen.'],
+ ['Segmentbogen','segmentbogen|stichbogen','Flacher Bogen, der nur einen Ausschnitt eines Kreises beschreibt, also flacher als ein Halbkreis.'],
+ ['Stuck','stuck','Plastischer Schmuck aus Gips- oder Kalkmörtel an Fassaden, Decken und Wänden: Ranken, Masken, Rahmungen.'],
+ ['Putzgliederung','putzgliederung|putzfassade','Gliederung der Fassade durch Rahmungen, Bänder und Felder aus Putz statt aus Naturstein. In München die übliche Bauweise des Historismus.'],
+ ['Sichtziegel','sichtziegel|sichtbackstein','Unverputztes Backsteinmauerwerk, dessen Ziegel sichtbar bleiben.'],
+ ['Haustein','haustein','Naturstein, der zu passgenauen Werkstücken behauen ist.'],
+ ['Nagelfluh','nagelfluh','Konglomeratgestein aus dem Alpenvorland, auch im Isartal. In München oft für Sockel, Ufermauern und Brücken verwendet.'],
+ ['Fachwerk','fachwerk','Tragendes Gerüst aus Holzbalken, dessen Felder (Gefache) mit Lehm oder Ziegeln ausgefüllt sind.'],
+ ['Kniestock','kniestock|drempel','Niedrige Wand zwischen oberster Geschossdecke und Dachansatz. Sie hebt das Dach an und macht den Dachraum besser nutzbar.'],
+ ['Mezzanin','mezzanin','Niedriges Zwischengeschoss, oft unter dem Dach oder über dem Erdgeschoss.'],
+ ['Attika','attika','Niedriger Wandaufbau über dem Hauptgesims, der das Dach teilweise verdeckt.'],
+ ['Balustrade','balustrade','Brüstung aus einer Reihe kleiner, gedrungener Säulchen (Baluster) mit Deckplatte.'],
+ ['Portikus','portikus','Säulenvorhalle vor dem Eingang eines Gebäudes, meist mit Dreiecksgiebel.'],
+ ['Ädikula','ädikula','Rahmung eines Portals, Fensters oder einer Nische aus zwei Säulen oder Pilastern mit Gebälk und Giebel, wie ein kleines Haus in der Wand.'],
+ ['Arkade','arkade','Reihe von Bögen auf Pfeilern oder Säulen; auch der Laubengang dahinter.'],
+ ['Dachreiter','dachreiter','Kleines Türmchen auf dem Dachfirst, oft für eine Glocke oder Uhr.'],
+ ['Zwiebelhaube','zwiebel','Zwiebelförmiges Turmdach, prägend für den Barock in Bayern, etwa an der Frauenkirche.'],
+ ['Spitzhelm','spitzhelm','Hohes, spitz zulaufendes Turmdach.'],
+ ['Laterne','laterne','Kleiner, befensterter Aufsatz auf einer Kuppel oder einem Turmdach.'],
+ ['Kartusche','kartusche','Ornamental gerahmtes Schmuckfeld, oft mit Wappen, Inschrift oder Jahreszahl.'],
+ ['Fries','fries','Waagrechter Schmuckstreifen an einer Wand, etwa als Rundbogen- oder Zahnschnittfries.'],
+ ['Chor','\\bchor','Raum um den Hauptaltar einer Kirche, meist nach Osten ausgerichtet.'],
+ ['Langhaus','langhaus','Hauptraum einer Kirche für die Gemeinde, zwischen Eingang und Chor.'],
+ ['Saalkirche','saalbau|saalkirche','Kirche mit einem einzigen, ungeteilten Innenraum ohne Seitenschiffe.'],
+ ['Basilika','basilika','Kirche mit erhöhtem Mittelschiff und niedrigeren Seitenschiffen. Das Mittelschiff erhält Licht durch eigene Fenster darüber (Obergaden).'],
+ ['Einfriedung','einfriedung','Zaun, Mauer oder Gitter um ein Grundstück. Historische Einfriedungen stehen oft mit unter Schutz.'],
+ ['Remise','remise','Wagen- oder Geräteschuppen, oft im Hof von Villen und Palais.'],
+ ['Stadel','stadel','Bairisch für Scheune.'],
+ ['Einfirsthof','einfirsthof|wohnstall','Bauernhof, bei dem Wohnteil, Stall und Scheune unter einem gemeinsamen First liegen. Typisch für das Münchner Umland.'],
+ ['Zeilenbau','zeilenbau','Wohnblöcke in parallelen Reihen statt geschlossener Blockrandbebauung. Typisch für den Siedlungsbau ab den 1920er Jahren, für Licht und Luft.'],
+ ['Fassadentektur','fassadentektur','Entwurf der Fassadengestaltung. Im Münchner Mietshausbau lieferte oft ein eigener Architekt die Fassade, während ein Baumeister das Haus plante und ausführte.'],
+ ['Mietshaus','mietshaus|miethaus','Mehrgeschossiges Wohnhaus mit Mietwohnungen. Es prägt die Münchner Stadterweiterung ab etwa 1870 und ist die häufigste Denkmalgattung der Stadt.'],
+ ['Staffelbauordnung','staffelbau','Münchner Bauordnung von 1904 auf Grundlage der Planungen Theodor Fischers. Sie stufte die zulässige Bauhöhe in Zonen („Staffeln“) von der Innenstadt nach außen ab.'],
+ ['Herbergshaus','herberge','Kleines Haus in den alten Vorstädten Au, Haidhausen und Giesing, dessen Wohnungen einzelnen Eigentümern gehörten. Unterkunft von Tagelöhnern und Handwerkern.'],
+];
+(async function(){
+const CATS=[
+ ['wohnen','Wohn- & Mietshaus'],['villa','Villa & Landhaus'],['sakral','Kirche & Kapelle'],['schloss','Schloss & Palais'],
+ ['oeffentlich','Öffentlicher Bau'],['gewerbe','Gasthaus & Gewerbe'],['technik','Technik & Verkehr'],['denkmal','Denkmal & Brunnen'],
+ ['park','Park & Friedhof'],['laendlich','Ländlicher Bau'],['sonstig','Sonstiges']];
+const CATN=Object.fromEntries(CATS); CATN.boden='Bodendenkmal';
+const ERAS=[['m','vor 1800',y=>y<1800],['k','1800–1869',y=>y>=1800&&y<1870],['g','1870–1918',y=>y>=1870&&y<=1918],['z','1919–1945',y=>y>1918&&y<=1945],['n','ab 1946',y=>y>1945],['u','ohne Angabe',null]];
+const $=s=>document.querySelector(s);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt=n=>n.toLocaleString('de-DE');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+const IN_ARTIFACT=!!(window.claude&&window.claude.use);
+const opt=f=>fetch(f).then(r=>r.ok?r.json():null).catch(()=>null);
+const [DM,BASE,CH,TOURS,UMD,BDD,FT]=await Promise.all([...['denkmaeler.json','basiskarte.json','aenderungen.json','rundgaenge.json'].map(f=>fetch(f).then(r=>r.json())),opt('umland.json'),opt('bodendenkmaeler.json'),opt('fotos.json')]);
+const M=DM.m, E=DM.e, BEZ=BASE.bezirke.map(b=>b.n), AR=DM.A, STY=DM.S;
+M.forEach(m=>{m.id='D-1-62-000-'+m.i; m.era=m.y==null?'u':ERAS.find(e=>e[2]&&e[2](m.y))[0];
+  m.h=(m.t+' '+m.a+' '+m.d+' '+m.id+' '+(m.f||'')).toLowerCase(); m.ll=L.latLng(m.z,m.x);});
+E.forEach(e=>{e.id='E-1-62-000-'+e.i; e.h=(e.t+' '+e.d+' '+e.id).toLowerCase(); e.ll=L.latLng((e.b[1]+e.b[3])/2,(e.b[0]+e.b[2])/2); e.ens=1;});
+// Listenvergleich 21.12.2024 -> 25.09.2026
+const NEU=new Set(CH.neu_ids);
+M.forEach(m=>{ if(NEU.has(m.i)) m.chg='n'; else if(CH.geaendert[m.i]){ m.chg=CH.geaendert[m.i].k; m.cd=CH.geaendert[m.i]; } });
+E.forEach(e=>{ if(NEU.has(e.id)) e.chg='n'; else if(CH.geaendert[e.id]){ e.chg='t'; e.cd=CH.geaendert[e.id]; } });
+const DEL=CH.gestrichen.filter(g=>g.x!=null).map(g=>({i:g.i,id:'D-1-62-000-'+g.i,a:g.a,t:g.t,d:g.d,c:'sonstig',del:1,ll:L.latLng(g.z,g.x),b:[g.x,g.z,g.x,g.z],h:(g.t+' '+g.a+' '+g.d+' D-1-62-000-'+g.i).toLowerCase()}));
+const U=(UMD||[]).map(o=>({...o,id:o.i,um:1,ll:L.latLng(o.z,o.x),h:(o.t+' '+o.a+' '+o.d+' '+o.i+' '+o.g+' '+(o.f||'')).toLowerCase()}));
+const BD=(BDD||[]).map(o=>({...o,id:o.i,bd:1,c:'boden',a:'',ll:L.latLng((o.b[1]+o.b[3])/2,(o.b[0]+o.b[2])/2),h:(o.t+' '+o.d+' '+o.i+' bodendenkmal').toLowerCase()}));
+const BYID={}; M.concat(E,DEL,U,BD).forEach(o=>BYID[o.id]=o);
+$('#nTotal').textContent=fmt(M.length); $('#nEns').textContent=fmt(E.length);
+
+/* ---------- Map + hand-drawn base map ---------- */
+const map=L.map('map',{zoomControl:false,preferCanvas:true,minZoom:11,maxZoom:19,zoomSnap:.5,
+  maxBounds:[[47.98,11.22],[48.33,11.86]],attributionControl:true}).setView([48.1395,11.5760],14);
+L.control.zoom({position:'topright'}).addTo(map);
+map.attributionControl.setPrefix(false).addAttribution('© OpenStreetMap · Denkmaldaten © BLfD');
+['base','basetop','ens','mon','lbl'].forEach((p,i)=>{map.createPane(p).style.zIndex=200+i*50;});
+map.getPane('lbl').style.pointerEvents='none';
+const rBase=L.canvas({pane:'base',padding:.4}), rTop=L.canvas({pane:'basetop',padding:.4}),
+      rEns=L.canvas({pane:'ens',padding:.4,tolerance:2}), rMon=L.canvas({pane:'mon',padding:.4,tolerance:4});
+const toLL=a=>{const o=[];for(let i=0;i<a.length;i+=2)o.push([a[i+1],a[i]]);return o;};
+const multi=list=>list.map(toLL);
+
+const base={};
+base.green=L.polygon(BASE.green.map(p=>p.map(toLL)),{renderer:rBase,stroke:false,fillOpacity:1,interactive:false});
+base.water=L.polygon(BASE.water.map(p=>p.map(toLL)),{renderer:rBase,stroke:false,fillOpacity:1,interactive:false});
+base.river=L.polyline(multi(BASE.rivers),{renderer:rBase,interactive:false,lineCap:'round'});
+base.rail=L.polyline(multi(BASE.rail),{renderer:rBase,interactive:false,dashArray:'6 4'});
+const RC=['minor','tertiary','secondary','major'];
+RC.forEach(k=>{
+  base['case_'+k]=L.polyline(multi(BASE.roads[k]),{renderer:rBase,interactive:false,lineCap:'round',lineJoin:'round'});
+  base['road_'+k]=L.polyline(multi(BASE.roads[k]),{renderer:rTop,interactive:false,lineCap:'round',lineJoin:'round'});
+});
+base.bezirk=L.polyline(BASE.bezirke.flatMap(b=>b.r.map(toLL)),{renderer:rTop,interactive:false,dashArray:'2 5',weight:1.2});
+base.city=L.polyline(BASE.city.map(toLL),{renderer:rTop,interactive:false,weight:2.2});
+const order=['green','water','river','rail','case_minor','case_tertiary','case_secondary','case_major','road_minor','road_tertiary','road_secondary','road_major','bezirk','city'];
+const W={
+  major:z=>z<12?1.4:z<13?2.2:z<14?3:z<15?4.5:z<16?7:z<17?10:14,
+  secondary:z=>z<12?.8:z<13?1.4:z<14?2.2:z<15?3.5:z<16?6:z<17?9:12,
+  tertiary:z=>z<13?.7:z<14?1.4:z<15?2.6:z<16?4.5:z<17?7:10,
+  minor:z=>z<14?.6:z<15?1.4:z<16?3:z<17?5:8};
+function styleBase(){
+  const z=map.getZoom();
+  base.green.setStyle({fillColor:css('--green')});
+  base.water.setStyle({fillColor:css('--water')});
+  base.river.setStyle({color:css('--water'),weight:z<13?2:z<15?4:6});
+  base.rail.setStyle({color:css('--rail'),weight:z<14?1:1.6});
+  RC.forEach(k=>{
+    const w=W[k](z), maj=k==='major';
+    base['road_'+k].setStyle({color:css(maj?'--road-major':'--road'),weight:w});
+    base['case_'+k].setStyle({color:css(maj?'--road-major-case':'--road-case'),weight:w+(z>=14?1.6:.8)});
+  });
+  base.bezirk.setStyle({color:css('--bezirk'),opacity:z>=15?.5:.9});
+  base.city.setStyle({color:css('--city')});
+}
+order.forEach(k=>base[k].addTo(map));
+
+const lblLayer=L.layerGroup().addTo(map);
+function divLabel(ll,html,cls){return L.marker(ll,{pane:'lbl',interactive:false,keyboard:false,icon:L.divIcon({className:cls,html,iconSize:[0,0]})});}
+const bezLabels=BASE.bezirke.map(b=>divLabel([b.c[1],b.c[0]],'<span>'+esc(b.n).replace(/-/g,'-<br>')+'</span>','lbl-bezirk'));
+const streetLabels=BASE.labels;
+function drawLabels(){
+  lblLayer.clearLayers(); const z=map.getZoom(), bnd=map.getBounds().pad(.1);
+  if(z>=11.5&&z<14.5) bezLabels.forEach(l=>lblLayer.addLayer(l));
+  if(z>=15.5){
+    let n=0; const minRank=z>=17?0:z>=16?1:2;
+    for(const s of streetLabels){ if(s[4]<minRank)continue; if(!bnd.contains([s[1],s[0]]))continue;
+      lblLayer.addLayer(divLabel([s[1],s[0]],'<span style="rotate:'+s[2]+'deg">'+esc(s[3])+'</span>','lbl-street'));
+      if(++n>260)break; }
+  }
+}
+
+/* ---------- State & filtering ---------- */
+const monLayer=L.layerGroup().addTo(map), ensLayer=L.layerGroup().addTo(map);
+let shown=[], sel=null, selMark=null;
+const st={cats:new Set(CATS.map(c=>c[0])),eras:new Set(ERAS.map(e=>e[0])),bez:'',q:'',ens:true,arch:null,styles:new Set(),tl:false,year:2026,tab:'explore',tour:null,onlyMine:false,bd:false,um:false};
+const terms=()=>st.q.toLowerCase().split(/\s+/).filter(Boolean);
+// skip: name of the facet to ignore (for facet counts)
+function pass(m,skip,t){
+  if(skip!=='c'&&!st.cats.has(m.c))return false;
+  if(skip!=='e'&&!st.tl&&!st.eras.has(m.era))return false;
+  if(st.bez!==''&&m.k!=+st.bez)return false;
+  if(st.tab==='mine'&&st.onlyMine&&!store.saved.has(m.id)&&!store.visited.has(m.id))return false;
+  if(skip!=='a'&&st.arch!=null&&!(m.ar&&m.ar.includes(st.arch)))return false;
+  if(skip!=='s'&&st.styles.size&&!(m.s&&m.s.some(x=>st.styles.has(x))))return false;
+  return t.every(w=>m.h.includes(w));
+}
+function passE(e,t){
+  if(st.arch!=null&&!(e.ar&&e.ar.includes(st.arch)))return false;
+  if(st.styles.size&&!(e.s&&e.s.some(x=>st.styles.has(x))))return false;
+  return t.every(w=>e.h.includes(w));
+}
+
+/* ---------- Monument layers (cached per zoom mode + theme) ---------- */
+const R=z=>z<12?1.8:z<13?2.4:z<14?3:z<15?4:z<16?5:6;
+function shortAddr(a){const p=a.split(';').map(s=>s.trim()).filter(Boolean);return p.length>2?p[0]+' u. a.':p.join('; ');}
+function buildLayers(){
+  const z=map.getZoom(), fp=z>=17, r=R(z), halo=css('--panel'), colors={};
+  CATS.forEach(c=>colors[c[0]]=css('--c-'+c[0]));
+  for(const m of M){
+    const bw=(m.b[2]-m.b[0])*74000, bh=(m.b[3]-m.b[1])*111000;
+    const lay=(fp&&bw<90&&bh<90&&bw>3&&bh>3)
+      ?L.rectangle([[m.b[1],m.b[0]],[m.b[3],m.b[2]]],{renderer:rMon,color:colors[m.c],weight:1.5,fillColor:colors[m.c],fillOpacity:.35})
+      :L.circleMarker(m.ll,{renderer:rMon,radius:r,color:halo,weight:z<13?.6:1.2,fillColor:colors[m.c],fillOpacity:.95});
+    lay.on('click',()=>select(m,false));
+    lay.bindTooltip('<b>'+esc(m.t)+'</b><small>'+esc(shortAddr(m.a))+(m.y?' · '+m.y:'')+'</small>',{className:'tt',direction:'top',offset:[0,-4]});
+    m.L=lay;
+  }
+}
+let visible=new Set();
+function drawMonuments(){
+  // shown = all filters except timeline year; timeline cuts by year
+  const want=st.tl?shown.filter(m=>m.y!=null&&m.y<=st.year):shown;
+  const next=new Set(want);
+  for(const m of visible) if(!next.has(m)) monLayer.removeLayer(m.L);
+  for(const m of want) if(!visible.has(m)) monLayer.addLayer(m.L);
+  visible=next;
+  if(st.tl) $('#tlCount').textContent=fmt(want.length)+' Denkmäler';
+}
+function redrawAll(){monLayer.clearLayers();visible=new Set();buildLayers();drawMonuments();}
+function drawEnsembles(){
+  ensLayer.clearLayers(); if(!st.ens||st.tl)return; const c=css('--c-ensemble'), t=terms();
+  for(const e of E){ if(!passE(e,t)) continue;
+    const lay=L.rectangle([[e.b[1],e.b[0]],[e.b[3],e.b[2]]],{renderer:rEns,color:c,weight:1.6,dashArray:'6 5',fillColor:c,fillOpacity:.06});
+    lay.on('click',()=>select(e,false));
+    lay.bindTooltip('<b>'+esc(e.t)+'</b><small>Ensemble · Umriss vereinfacht</small>',{className:'tt',sticky:true});
+    ensLayer.addLayer(lay);}
+}
+function applyFilter(){
+  const t=terms();
+  shown=M.filter(m=>pass(m,null,t));
+  drawMonuments(); drawEnsembles(); drawExtra(); renderList(); updateCounts(); renderArch(); drawHist();
+}
+
+/* ---------- Sidebar: categories, eras, styles ---------- */
+const catCount={},eraCount={};
+M.forEach(m=>{catCount[m.c]=(catCount[m.c]||0)+1;eraCount[m.era]=(eraCount[m.era]||0)+1;});
+$('#cats').innerHTML=CATS.filter(c=>catCount[c[0]]).map(c=>`<button class="chip" style="--c:var(--c-${c[0]})" data-c="${c[0]}" aria-pressed="true"><span class="dot"></span>${c[1]} <span class="n" data-n="${c[0]}">${fmt(catCount[c[0]])}</span></button>`).join('');
+$('#eras').innerHTML=ERAS.map(e=>`<button class="era" data-e="${e[0]}" aria-pressed="true"><span>${e[1]}</span><span class="bar"><i></i></span><span class="n"></span></button>`).join('');
+$('#styles').innerHTML=STY.map((s,i)=>`<button class="chip sty" data-s="${i}" aria-pressed="false">${esc(s)} <span class="n" data-sn="${i}"></span></button>`).join('');
+const bezSel=$('#bezirk');
+BEZ.map((n,i)=>[n,i]).sort((a,b)=>a[0].localeCompare(b[0],'de')).forEach(([n,i])=>bezSel.insertAdjacentHTML('beforeend',`<option value="${i}">${esc(n)}</option>`));
+
+function toggleSet(set,key,all,btns,attr){
+  if(set.size===all.length){set.clear();set.add(key);} else if(set.has(key)){set.delete(key); if(!set.size) all.forEach(k=>set.add(k));} else set.add(key);
+  btns.forEach(b=>b.setAttribute('aria-pressed',set.has(b.dataset[attr])));
+}
+$('#cats').addEventListener('click',ev=>{const b=ev.target.closest('.chip');if(!b)return;toggleSet(st.cats,b.dataset.c,CATS.map(c=>c[0]),[...document.querySelectorAll('#cats .chip')],'c');applyFilter();});
+$('#eras').addEventListener('click',ev=>{const b=ev.target.closest('.era');if(!b)return;toggleSet(st.eras,b.dataset.e,ERAS.map(e=>e[0]),[...document.querySelectorAll('.era')],'e');applyFilter();});
+function setStyles(){document.querySelectorAll('.chip.sty').forEach(b=>b.setAttribute('aria-pressed',st.styles.has(+b.dataset.s)));$('#styAll').hidden=!st.styles.size;}
+$('#styles').addEventListener('click',ev=>{const b=ev.target.closest('.chip');if(!b)return;const k=+b.dataset.s;st.styles.has(k)?st.styles.delete(k):st.styles.add(k);setStyles();applyFilter();});
+$('#styAll').onclick=()=>{st.styles.clear();setStyles();applyFilter();};
+$('#catAll').onclick=()=>{CATS.forEach(c=>st.cats.add(c[0]));document.querySelectorAll('#cats .chip').forEach(b=>b.setAttribute('aria-pressed','true'));applyFilter();};
+$('#eraAll').onclick=()=>{ERAS.forEach(e=>st.eras.add(e[0]));document.querySelectorAll('.era').forEach(b=>b.setAttribute('aria-pressed','true'));applyFilter();};
+bezSel.onchange=()=>{st.bez=bezSel.value; applyFilter();
+  if(st.bez!==''){const b=BASE.bezirke[+st.bez]; map.flyToBounds(L.latLngBounds(b.r.flatMap(toLL)),{padding:[30,30],duration:.8});}};
+$('#ensToggle').onchange=ev=>{st.ens=ev.target.checked;drawEnsembles();renderList();};
+let qT; const qIn=$('#q');
+function fitShown(){ if(shown.length&&shown.length<=600){map.flyToBounds(L.latLngBounds(shown.map(m=>m.ll)),{padding:[40,40],maxZoom:17,duration:.8});} }
+qIn.addEventListener('input',()=>{$('#qClear').hidden=!qIn.value;clearTimeout(qT);qT=setTimeout(()=>{st.q=qIn.value.trim();applyFilter();if(st.q)fitShown();},220);});
+$('#qClear').onclick=()=>{qIn.value='';$('#qClear').hidden=true;st.q='';applyFilter();qIn.focus();};
+
+function updateCounts(){
+  const t=terms(), cc={}, ec={}, sc={};
+  for(const m of M){
+    if(pass(m,'c',t)) cc[m.c]=(cc[m.c]||0)+1;
+    if(pass(m,'e',t)) ec[m.era]=(ec[m.era]||0)+1;
+    if(m.s&&pass(m,'s',t)) for(const x of m.s) sc[x]=(sc[x]||0)+1;
+  }
+  document.querySelectorAll('[data-n]').forEach(n=>n.textContent=fmt(cc[n.dataset.n]||0));
+  const mx=Math.max(1,...Object.values(ec));
+  document.querySelectorAll('.era').forEach(b=>{const k=b.dataset.e;b.querySelector('.n').textContent=fmt(ec[k]||0);b.querySelector('i').style.width=((ec[k]||0)/mx*100)+'%';});
+  document.querySelectorAll('[data-sn]').forEach(n=>{const v=sc[n.dataset.sn]||0;n.textContent=fmt(v);n.parentElement.classList.toggle('zero',!v&&!st.styles.has(+n.dataset.sn));});
+}
+
+/* ---------- Architects ---------- */
+const arCount=new Array(AR.length).fill(0);
+M.forEach(m=>(m.ar||[]).forEach(i=>arCount[i]++));
+$('#archN').textContent='· '+fmt(AR.length)+' Namen';
+const arNorm=AR.map(a=>a.toLowerCase());
+function renderArch(){
+  const box=$('#archActive');
+  if(st.arch!=null){
+    const n=shown.length;
+    box.innerHTML=`<div class="arch-active"><span><b>${esc(AR[st.arch])}</b><small>${fmt(n)} ${n===1?'Denkmal':'Denkmäler'} auf der Karte</small></span><button id="archX" aria-label="Architekt-Filter entfernen">×</button></div>`;
+    $('#archX').onclick=()=>setArch(null);
+  } else box.innerHTML='';
+  const q=$('#archQ').value.trim().toLowerCase();
+  let idx=AR.map((_,i)=>i);
+  if(q) idx=idx.filter(i=>arNorm[i].includes(q));
+  idx=idx.filter(i=>arCount[i]>0).sort((a,b)=>arCount[b]-arCount[a]).slice(0,q?60:25);
+  const mx=Math.max(1,...idx.map(i=>arCount[i]));
+  $('#archList').innerHTML=idx.length?idx.map(i=>`<li><button class="arch" data-a="${i}"><span class="nm">${esc(AR[i])}</span><span class="bar"><i style="width:${arCount[i]/mx*100}%"></i></span><span class="n">${arCount[i]}</span></button></li>`).join(''):'<li class="note" style="padding:4px 6px">Kein Name gefunden.</li>';
+}
+function setArch(i,fit=true){
+  st.arch=i; applyFilter();
+  if(i!=null&&fit) fitShown();
+}
+$('#archList').addEventListener('click',ev=>{const b=ev.target.closest('.arch');if(!b)return;setArch(+b.dataset.a);});
+$('#archQ').addEventListener('input',renderArch);
+
+/* ---------- List ---------- */
+let listed=[];
+function renderList(){
+  const c=map.getCenter(), t=terms();
+  const ens=(st.ens&&!st.tl)?E.filter(e=>passE(e,t)):[];
+  const mons=st.tl?[...visible]:shown;
+  const all=mons.concat(ens,st.tl?[]:EX.um,st.tl?[]:EX.bd);
+  const org=st.me||c;
+  const extra=EX.um.length+EX.bd.length;
+  $('#cnt').textContent=fmt(mons.length)+(ens.length?' + '+ens.length+' Ens.':'')+(extra&&!st.tl?' + '+fmt(extra)+' weitere':'');
+  $('.results-h small').textContent=st.me?'nächstgelegene zu dir':'nächstgelegene zuerst';
+  const dd=new Map(); listed=all.map(o=>[o,org.distanceTo(o.ll)]).sort((a,b)=>a[1]-b[1]).slice(0,120).map(a=>{dd.set(a[0],a[1]);return a[0];});
+  const ul=$('#list');
+  if(!all.length){ul.innerHTML='<li class="empty">Keine Denkmäler für diese Auswahl. Filter zurücksetzen oder anderen Suchbegriff probieren.</li>';return;}
+  const dist=o=>st.me?` <span class="dist">· ${distTxt(dd.get(o))}</span>`:'';
+  ul.innerHTML=listed.map((o,i)=>{
+    const dot=o.ens?'<span class="dot ens"></span>':o.bd?'<span class="dot bd"></span>':o.um?'<span class="dot um"></span>':'<span class="dot"></span>';
+    const sub=o.ens?'Ensemble · '+esc(o.id):o.bd?'Bodendenkmal · '+esc(o.id):(o.um?esc(o.g)+' · ':'')+esc(shortAddr(o.a))+(o.y?` <span class="y">· ${o.y}</span>`:'');
+    return `<li><button class="item${sel===o?' on':''}" data-i="${i}" data-id="${esc(o.id)}" style="--c:var(--c-${o.c||'ensemble'})">${dot}<span><span class="t">${esc(o.t)}${chgBadge(o,true)}</span><span class="a">${sub}${dist(o)}</span></span></button></li>`;}).join('')
+    +(all.length>listed.length?`<li class="more">${fmt(all.length-listed.length)} weitere in der Karte. Verschieben oder Suche verfeinern.</li>`:'');
+}
+$('#list').addEventListener('click',ev=>{const b=ev.target.closest('.item');if(!b)return;select(listed[+b.dataset.i],true);});
+
+/* ---------- Glossary markup ---------- */
+const GL=GLOSSAR.map(([n,p,x])=>({n,x,re:new RegExp(p,'i')}));
+function glossify(text){
+  // wrap whole words that contain a glossary stem; each term once per text
+  const used=new Set();
+  return text.split(/([\p{L}\-]+)/u).map((tok,i)=>{
+    if(i%2===0||tok.length<4) return esc(tok);
+    const g=GL.find(g=>!used.has(g.n)&&g.re.test(tok));
+    if(!g) return esc(tok);
+    used.add(g.n);
+    return `<button class="gl" data-g="${GL.indexOf(g)}">${esc(tok)}</button>`;
+  }).join('');
+}
+let pop=null;
+function closePop(){if(pop){pop.remove();pop=null;}document.querySelectorAll('.gl.on').forEach(b=>b.classList.remove('on'));}
+function openPop(btn){
+  closePop(); const g=GL[+btn.dataset.g]; const sc=btn.closest('.d-scroll');
+  pop=document.createElement('div'); pop.className='gloss-pop'; pop.setAttribute('role','tooltip');
+  pop.innerHTML=`<b>${esc(g.n)}</b>${esc(g.x)}`; sc.appendChild(pop); btn.classList.add('on');
+  const br=btn.getBoundingClientRect(), sr=sc.getBoundingClientRect();
+  let left=br.left-sr.left+sc.scrollLeft-12; left=Math.max(12,Math.min(left,sc.clientWidth-pop.offsetWidth-12));
+  let top=br.bottom-sr.top+sc.scrollTop+6;
+  if(br.bottom+pop.offsetHeight+10>sr.bottom) top=br.top-sr.top+sc.scrollTop-pop.offsetHeight-6;
+  pop.style.left=left+'px'; pop.style.top=top+'px';
+}
+
+/* ---------- Detail ---------- */
+const det=$('#detail');
+det.addEventListener('click',ev=>{
+  const g=ev.target.closest('.gl'); if(g){ev.stopPropagation(); g.classList.contains('on')?closePop():openPop(g); return;}
+  if(!ev.target.closest('.gloss-pop')) closePop();
+  const a=ev.target.closest('[data-arch]'); if(a){ setArch(+a.dataset.arch); return; }
+  const s=ev.target.closest('[data-sty]'); if(s){ st.styles=new Set([+s.dataset.sty]); setStyles(); applyFilter(); fitShown(); }
+});
+function navList(o){
+  if(st.tab==='tours'&&st.tour&&st.tour.sm.includes(o)) return {arr:st.tour.sm,lbl:(i,n)=>`Station ${i+1} von ${n}`};
+  if(st.tab==='changes'&&chgShown.includes(o)) return {arr:chgShown,lbl:(i,n)=>`${i+1} von ${n} Änderungen`};
+  if(st.tab==='mine'&&mineList.includes(o)) return {arr:mineList,lbl:(i,n)=>`${i+1} von ${n} in meiner Liste`};
+  return {arr:listed,lbl:(i,n)=>`${i+1} von ${n} in der Nähe`};
+}
+function select(o,fly){
+  sel=o; closePop(); if(selMark){map.removeLayer(selMark);selMark=null;}
+  const acc=css('--accent');
+  if(o.ens){
+    selMark=L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{pane:'mon',color:acc,weight:3,fill:false,interactive:false}).addTo(map);
+    if(fly) map.flyToBounds(selMark.getBounds(),{padding:[40,40],duration:.8});
+  } else {
+    const g=[L.circleMarker(o.ll,{pane:'mon',radius:14,color:acc,weight:3,fill:false,interactive:false})];
+    const bw=(o.b[2]-o.b[0])*74000,bh=(o.b[3]-o.b[1])*111000;
+    if(bw>3&&bh>3&&bw<600&&bh<600) g.push(L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{pane:'mon',color:acc,weight:2.5,fillColor:acc,fillOpacity:.2,interactive:false}));
+    selMark=L.layerGroup(g).addTo(map);
+    if(fly) map.flyTo(o.ll,Math.max(map.getZoom(),17),{duration:.8});
+  }
+  renderDetail(o); markActive();
+  try{history.replaceState(null,'','#'+(o.del?'x':o.ens?'e':'d')+o.i);}catch(e){}
+  if(window.innerWidth<=760) $('#side').classList.remove('open');
+}
+function markActive(){
+  document.querySelectorAll('.item,.stop').forEach(b=>b.classList.toggle('on',!!sel&&b.dataset.id===sel.id));
+  document.querySelectorAll('.tstop').forEach(b=>b.classList.toggle('on',!!sel&&b.dataset.id===sel.id));
+}
+const ICON={
+  star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/></svg>',
+  starOn:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3c.6 4.6 3.9 8 8.5 8.5v1C15.9 13 12.6 16.4 12 21h-.1c-.6-4.6-3.9-8-8.4-8.5v-1C8 11 11.3 7.6 11.9 3z"/></svg>',
+  map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg>',
+};
+function chgBadge(o,short){
+  if(o.del) return '<span class="badge d">gestrichen</span>';
+  if(!o.chg) return '';
+  if(o.chg==='n') return '<span class="badge n">neu</span>';
+  return `<span class="badge c">${short?'geändert':o.chg.includes('t')?'Text geändert':'Adresse geändert'}</span>`;
+}
+function renderDiff(o){
+  const d=o.cd; if(!d) return '';
+  let h='';
+  if(d.d&&d.d.length) h+=`<p class="diff-h">Beschreibung, Stand 21.12.2024 → 25.09.2026</p><p class="diff">${d.d.map(([op,t])=>op==='='?esc(t):op==='+'?`<ins>${esc(t)}</ins>`:`<del>${esc(t)}</del>`).join('')}</p>`;
+  if((d.aa&&d.aa.length)||(d.an&&d.an.length)) h+=`<p class="diff-h">Adressen</p><p class="diff">${(d.an||[]).map(a=>`<ins>+ ${esc(a)}</ins>`).join('<br>')}${d.an&&d.an.length&&d.aa&&d.aa.length?'<br>':''}${(d.aa||[]).map(a=>`<del>− ${esc(a)}</del>`).join('<br>')}</p>`;
+  return h;
+}
+function renderDetail(o){
+  const addrs=(o.ens?[]:o.a.split(';').map(s=>s.trim()).filter(Boolean));
+  const osm=`https://www.openstreetmap.org/?mlat=${o.ll.lat.toFixed(6)}&mlon=${o.ll.lng.toFixed(6)}#map=18/${o.ll.lat.toFixed(5)}/${o.ll.lng.toFixed(5)}`;
+  const gm=`https://www.google.com/maps/search/?api=1&query=${o.ll.lat.toFixed(6)},${o.ll.lng.toFixed(6)}`;
+  const nl=navList(o), idx=nl.arr.indexOf(o);
+  const arch=(o.ar||[]).map(i=>`<button class="alink" data-arch="${i}" title="Alle Denkmäler von ${esc(AR[i])} zeigen">${esc(AR[i])} <small>(${arCount[i]})</small></button>`).join('');
+  const sty=(o.s||[]).map(i=>`<button class="stag" data-sty="${i}" title="Alle Denkmäler dieses Stils zeigen">${esc(STY[i])}</button>`).join('');
+  const sv=store.saved.has(o.id), vi=store.visited.has(o.id);
+  let chg='';
+  if(o.del) chg=`<div class="chg-box"><p class="p-intro">Dieses Denkmal stand in der Liste vom 21.12.2024 und fehlt im Stand vom 25.09.2026. Die Lage ist aus der Adresse ermittelt und kann ungenau sein. Der Text unten ist der frühere Listeneintrag.</p></div>`;
+  else if(o.chg==='n') chg=`<div class="chg-box"><p class="p-intro">Neu in die Denkmalliste aufgenommen, nach dem Stand vom 21.12.2024.</p></div>`;
+  else if(o.chg) chg=`<div class="chg-box"><div class="row"><span class="p-intro">Eintrag geändert seit 21.12.2024</span><button class="link-btn" id="dDiffBtn">Änderungen zeigen</button></div><div id="dDiff" hidden>${renderDiff(o)}</div></div>`;
+  det.innerHTML=`<div class="d-scroll">
+    <figure class="d-photo" id="dPhoto" hidden></figure>
+    <div class="d-top"><span class="d-cat" style="--c:var(--c-${o.c||'ensemble'})"><span class="dot${o.ens?' ens':''}"></span>${o.del?'Früheres Denkmal':o.ens?'Ensemble':o.bd?'Bodendenkmal':esc(CATN[o.c])+(o.um?' · '+esc(o.g):'')}${o.y?' · '+o.y:''} ${chgBadge(o)}</span>
+      <button class="x" id="dClose" aria-label="Schließen"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <h2 class="d-title">${esc(o.t)}</h2>
+    ${addrs.length?`<p class="d-addr" id="dAddr">${esc(addrs.slice(0,3).join(' · '))}${addrs.length>3?` <button class="more-addr" id="dMore">+ ${addrs.length-3} weitere Adressen</button>`:''}</p>`:''}
+    ${o.del?'':`<div class="d-actions">
+      <button class="btn" id="dSave" aria-pressed="${sv}">${sv?ICON.starOn:ICON.star}${sv?'Gemerkt':'Merken'}</button>
+      <button class="btn ok" id="dVisit" aria-pressed="${vi}">${ICON.check}${vi?'Besucht':'Schon besucht?'}</button>
+      <button class="btn" id="dAsk" aria-expanded="false">${ICON.chat}Frag Gemini</button>
+    </div>`}
+    ${st.me?`<p class="d-addr" id="dDist" style="color:var(--me)">${distTxt(st.me.distanceTo(o.ll))} von dir</p>`:''}
+    <div class="chat" id="chat" hidden></div>
+    <div class="myph" id="myPh" hidden></div>
+    <p class="d-text">${glossify(o.d)}</p>
+    ${chg}
+    <dl class="d-meta">
+      ${arch?`<dt>Namen im Text</dt><dd>${arch}</dd>`:''}
+      ${sty?`<dt>Baustil</dt><dd>${sty}</dd>`:''}
+      <dt>Aktennummer</dt><dd><span class="mono">${o.id}</span><button class="copy" id="dCopy">kopieren</button></dd>
+      ${o.f?`<dt>Funktion</dt><dd>${esc(o.f)}</dd>`:''}
+      ${o.um?`<dt>Gemeinde</dt><dd>${esc(o.g)}</dd>`:''}
+      ${o.k!=null&&BEZ[o.k]?`<dt>Stadtbezirk</dt><dd>${esc(BEZ[o.k])}</dd>`:''}
+      ${o.ens?`<dt>Fläche</dt><dd>Auf der Karte als vereinfachtes Rechteck dargestellt</dd>`:''}
+    </dl>
+    <div class="d-links"><a href="${osm}" target="_blank" rel="noopener">In OpenStreetMap öffnen ↗</a><a href="${gm}" target="_blank" rel="noopener">Google Maps ↗</a></div>
+  </div>
+  ${idx>=0?`<div class="d-nav"><button id="dPrev" ${idx<=0?'disabled':''}>← Vorheriges</button><span>${nl.lbl(idx,nl.arr.length)}</span><button id="dNext" ${idx>=nl.arr.length-1?'disabled':''}>Nächstes →</button></div>`:''}`;
+  det.hidden=false; det.querySelector('.d-scroll').scrollTop=0;
+  $('#dClose').onclick=closeDetail;
+  const more=$('#dMore'); if(more) more.onclick=()=>{$('#dAddr').textContent=addrs.join(' · ');};
+  $('#dCopy').onclick=async ev=>{const b=ev.currentTarget;try{await navigator.clipboard.writeText(o.id);b.textContent='kopiert';}catch(e){const r=document.createRange();r.selectNodeContents(det.querySelector('.mono'));getSelection().removeAllRanges();getSelection().addRange(r);b.textContent='markiert';}};
+  if($('#dPrev')) $('#dPrev').onclick=()=>select(nl.arr[idx-1],true);
+  if($('#dNext')) $('#dNext').onclick=()=>select(nl.arr[idx+1],true);
+  renderPhoto(o); renderMyPhotos(o);
+  if($('#dDiffBtn')) $('#dDiffBtn').onclick=ev=>{const d=$('#dDiff');d.hidden=!d.hidden;ev.currentTarget.textContent=d.hidden?'Änderungen zeigen':'Änderungen ausblenden';};
+  if($('#dSave')){
+    $('#dSave').onclick=()=>{toggleStore('saved',o.id);};
+    $('#dVisit').onclick=()=>{toggleStore('visited',o.id);};
+    $('#dAsk').onclick=ev=>{const c=$('#chat');c.hidden=!c.hidden;ev.currentTarget.setAttribute('aria-expanded',!c.hidden);if(!c.hidden){renderChat(o);const ta=$('#chatQ');if(ta)ta.focus();}};
+    if(chats[o.id]&&chats[o.id].msgs.length){ $('#chat').hidden=false; $('#dAsk').setAttribute('aria-expanded','true'); renderChat(o); }
+  }
+}
+function refreshDetailButtons(){
+  if(!sel||det.hidden||!$('#dSave')) return;
+  const sv=store.saved.has(sel.id), vi=store.visited.has(sel.id);
+  const b1=$('#dSave'), b2=$('#dVisit');
+  b1.setAttribute('aria-pressed',sv); b1.innerHTML=(sv?ICON.starOn:ICON.star)+(sv?'Gemerkt':'Merken');
+  b2.setAttribute('aria-pressed',vi); b2.innerHTML=ICON.check+(vi?'Besucht':'Schon besucht?');
+}
+function closeDetail(){closePop();det.hidden=true;sel=null;if(selMark){map.removeLayer(selMark);selMark=null;}markActive();try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}}
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape'){ if(pop) closePop(); else if(!det.hidden) closeDetail(); }});
+$('#sheetToggle').onclick=()=>$('#side').classList.toggle('open');
+qIn.addEventListener('focus',()=>{if(window.innerWidth<=760)$('#side').classList.add('open');});
+
+/* ---------- Timeline ("Zeitreise") ---------- */
+// piecewise year scale: 1150–1800 → 0–200, 1800–2026 → 200–1000 (the 19th/20th c. hold 95 % of the monuments)
+const Y0=1150,YB=1800,Y1=2026,VB=200;
+const y2v=y=>y<=YB?(y-Y0)/(YB-Y0)*VB:VB+(y-YB)/(Y1-YB)*(1000-VB);
+const v2y=v=>Math.round(v<=VB?Y0+v/VB*(YB-Y0):YB+(v-VB)/(1000-VB)*(Y1-YB));
+const bins=[]; for(let y=Y0;y<YB;y+=50)bins.push([y,Math.min(y+50,YB)]); for(let y=YB;y<Y1;y+=5)bins.push([y,Math.min(y+5,Y1)]);
+$('#tlTicks').innerHTML=[1200,1500,1800,1850,1900,1950,2000].map(y=>`<span${y===1800?' class="brk"':''} style="left:${y2v(y)/10}%">${y}</span>`).join('');
+function drawHist(){
+  const cnt=bins.map(()=>0);
+  for(const m of shown){ if(m.y==null)continue; const i=m.y<YB?Math.floor((m.y-Y0)/50):(YB-Y0)/50+Math.floor((m.y-YB)/5); if(cnt[i]!=null)cnt[i]++; }
+  // sqrt scale keeps the handful of medieval buildings visible next to 1,000+ Gründerzeit houses
+  const mx=Math.sqrt(Math.max(1,...cnt)), H=34;
+  $('#tlHist').setAttribute('viewBox','0 0 1000 '+H);
+  $('#tlHist').innerHTML=bins.map((b,i)=>{ if(!cnt[i])return''; const x0=y2v(b[0]),x1=y2v(b[1]),h=Math.max(1.5,Math.sqrt(cnt[i])/mx*H);
+    return `<rect data-y="${b[0]}" x="${x0+.4}" width="${Math.max(.8,x1-x0-.8)}" y="${H-h}" height="${h}"/>`;}).join('');
+  paintHist();
+}
+function paintHist(){ const yr=st.tl?st.year:Y1; document.querySelectorAll('#tlHist rect').forEach(r=>r.classList.toggle('in',+r.dataset.y<=yr)); }
+const PLAY='<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>', PAUSE='<svg viewBox="0 0 24 24"><path d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg>';
+let timer=null;
+function setYear(y){ st.year=y; $('#tlYear').firstChild.nodeValue=y; drawMonuments(); paintHist(); }
+function openTl(){
+  st.tl=true; $('#tl').classList.remove('closed'); $('#tlOpen').hidden=true; $('#tlBody').hidden=false;
+  $('#eras').classList.add('off'); $('#eraNote').hidden=false; drawEnsembles();
+  if(map.getZoom()>13.5) map.flyTo([48.1395,11.5700],12.5,{duration:.8});
+  $('#tlRange').value=0; setYear(Y0); renderList(); play();
+}
+function closeTl(){
+  stop(); st.tl=false; $('#tl').classList.add('closed'); $('#tlOpen').hidden=false; $('#tlBody').hidden=true;
+  $('#eras').classList.remove('off'); $('#eraNote').hidden=true; st.year=Y1; drawMonuments(); drawEnsembles(); renderList(); paintHist();
+}
+function play(){
+  if(+$('#tlRange').value>=1000){ $('#tlRange').value=0; setYear(Y0); }
+  $('#tlPlay').innerHTML=PAUSE; $('#tlPlay').setAttribute('aria-label','Anhalten');
+  clearInterval(timer);
+  timer=setInterval(()=>{ let v=+$('#tlRange').value+(+$('#tlRange').value<VB?8:3); if(v>=1000){v=1000;stop();} $('#tlRange').value=v; setYear(v2y(v)); if(v>=1000)renderList(); },90);
+}
+function stop(){ clearInterval(timer); timer=null; $('#tlPlay').innerHTML=PLAY; $('#tlPlay').setAttribute('aria-label','Abspielen'); }
+$('#tlPlay').innerHTML=PLAY;
+$('#tlOpen').onclick=openTl; $('#tlClose').onclick=closeTl;
+$('#tlPlay').onclick=()=>timer?stop():play();
+$('#tlRange').addEventListener('input',ev=>{stop(); setYear(v2y(+ev.target.value));});
+$('#tlRange').addEventListener('change',renderList);
+
+/* ---------- Merkliste & besucht (Konto-Speicher wenn verfügbar, sonst Browser) ---------- */
+const store={saved:new Set(),visited:new Set(),where:'browser'};
+try{const j=JSON.parse(localStorage.getItem('dk-merkliste')||'{}');(j.saved||[]).forEach(x=>store.saved.add(x));(j.visited||[]).forEach(x=>store.visited.add(x));}catch(e){}
+let dbDoc=null, saveT=null;
+function persist(){
+  const data={saved:[...store.saved],visited:[...store.visited]};
+  try{localStorage.setItem('dk-merkliste',JSON.stringify(data));}catch(e){}
+  if(dbDoc){clearTimeout(saveT);saveT=setTimeout(()=>{dbDoc.set({...data,updated:Date.now()}).catch(()=>{dbDoc=null;store.where='browser';if(st.tab==='mine')renderMine();});},500);}
+}
+function toggleStore(kind,id){ const s=store[kind]; s.has(id)?s.delete(id):s.add(id); persist(); onStoreChange(); }
+function onStoreChange(){
+  const n=new Set([...store.saved,...store.visited]).size; $('#tbMine').textContent=fmt(n);
+  refreshDetailButtons(); drawMarks();
+  if(st.tab==='mine'){ renderMine(); applyFilter(); }
+  if(st.tab==='tours'){ renderTours(); if(st.tour) drawTour(); }
+}
+(async()=>{ try{
+  if(!window.claude||!window.claude.use) return;
+  const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
+  if(!db||!user) return; const uid=await user.id(); if(!uid) return;
+  const doc=db.doc('data/users/'+uid+'/merkliste'); const snap=await doc.get();
+  if(snap.exists){const d=snap.data()||{};(d.saved||[]).forEach(x=>store.saved.add(x));(d.visited||[]).forEach(x=>store.visited.add(x));}
+  dbDoc=doc; store.where='account';
+  if(store.saved.size||store.visited.size) persist();
+  doc.onSnapshot(sn=>{ if(!sn.exists||sn.metadata.hasPendingWrites) return; const d=sn.data()||{};
+    store.saved=new Set(d.saved||[]); store.visited=new Set(d.visited||[]); onStoreChange(); },()=>{});
+  onStoreChange();
+}catch(e){ dbDoc=null; store.where='browser'; } })();
+
+const markLayer=L.layerGroup().addTo(map);
+function drawMarks(){
+  markLayer.clearLayers(); if(mapMode()!=='normal') return;
+  const acc=css('--accent'), ok=css('--ok'), r=R(map.getZoom());
+  for(const id of new Set([...store.saved,...store.visited])){
+    const o=BYID[id]; if(!o||o.ens) continue;
+    if(store.visited.has(id)) markLayer.addLayer(L.circleMarker(o.ll,{pane:'mon',radius:r+2.5,color:ok,weight:2.2,fill:false,interactive:false}));
+    if(store.saved.has(id)) markLayer.addLayer(L.circleMarker(o.ll,{pane:'mon',radius:r+(store.visited.has(id)?6:3),color:acc,weight:2.4,fill:false,interactive:false}));
+  }
+}
+
+/* ---------- Tabs & Kartenmodus ---------- */
+function mapMode(){ if(st.tab==='changes') return 'changes'; if(st.tab==='tours'&&st.tour) return 'tour'; return 'normal'; }
+function show(layer,on){ if(on&&!map.hasLayer(layer)) layer.addTo(map); if(!on&&map.hasLayer(layer)) map.removeLayer(layer); }
+function refreshMap(){
+  const m=mapMode();
+  show(monLayer,m==='normal'); show(ensLayer,m==='normal'); show(umLayer,m==='normal'&&st.um); show(bdLayer,m==='normal'&&st.bd); show(markLayer,m==='normal'); show(tourLayer,m==='tour'); show(chgLayer,m==='changes');
+  if(m!=='normal'&&st.tl) closeTl();
+  $('#tl').hidden=m!=='normal';
+  drawMarks();
+}
+function setTab(t){
+  st.tab=t;
+  document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+  $('#pExplore').hidden=t!=='explore'; $('#pTours').hidden=t!=='tours'; $('#pMine').hidden=t!=='mine'; $('#pChanges').hidden=t!=='changes';
+  if(t==='tours') renderTours(); if(t==='mine') renderMine(); if(t==='changes'){ renderChanges(); drawChanges(); }
+  applyFilter(); refreshMap(); $('#sideBody').scrollTop=0;
+  if(t==='tours'&&st.tour) drawTour();
+}
+document.querySelector('.tabs').addEventListener('click',ev=>{const b=ev.target.closest('.tab');if(b)setTab(b.dataset.tab);});
+
+/* ---------- Rundgänge ---------- */
+const tourLayer=L.layerGroup();
+TOURS.forEach(t=>{ t.sm=t.stops.map(i=>BYID['D-1-62-000-'+i]).filter(Boolean);
+  t.legs=t.geom.map(g=>{let l=0;for(let i=2;i<g.length;i+=2)l+=L.latLng(g[i-1],g[i-2]).distanceTo(L.latLng(g[i+1],g[i]));return l;}); });
+$('#tbTours').textContent=TOURS.length;
+const modeTxt=t=>t.mode==='bike'?'Radtour':'Spaziergang';
+const dur=min=>min>=60?`${Math.floor(min/60)} h ${min%60?String(min%60).padStart(2,'0')+' min':''}`.trim():`${min} min`;
+function gmapsUrl(t){
+  const p=t.sm.map(m=>m.ll.lat.toFixed(6)+','+m.ll.lng.toFixed(6));
+  return `https://www.google.com/maps/dir/?api=1&origin=${p[0]}&destination=${p[p.length-1]}&waypoints=${p.slice(1,-1).slice(0,9).join('%7C')}&travelmode=${t.mode==='bike'?'bicycling':'walking'}`;
+}
+function renderTours(){
+  const P=$('#pTours');
+  if(!st.tour){
+    P.innerHTML=`<div class="pad"><p class="p-intro">${TOURS.length} Rundgänge zu Themen aus der Denkmalliste. Stationen und Wege sind aus den Listendaten und dem Münchner Wegenetz berechnet. Besuchte Stationen werden in „Meine Liste“ abgehakt.</p></div>
+    <ul class="tour-cards">${TOURS.map((t,i)=>{const done=t.sm.filter(m=>store.visited.has(m.id)).length;
+      return `<li><button class="tcard" data-t="${i}"><h3>${esc(t.t)}</h3><span class="meta"><span><b>${modeTxt(t)}</b></span><span>${t.sm.length} Stationen</span><span>${String(t.km).replace('.',',')} km</span><span>ca. ${dur(t.min)}</span>${done?`<span style="color:var(--ok)">${done} besucht</span>`:''}</span><p>${esc(t.intro)}</p></button></li>`;}).join('')}</ul>`;
+    P.querySelector('.tour-cards').onclick=ev=>{const b=ev.target.closest('.tcard');if(b)startTour(TOURS[+b.dataset.t]);};
+    return;
+  }
+  const t=st.tour, done=t.sm.filter(m=>store.visited.has(m.id)).length;
+  P.innerHTML=`<div class="pad">
+    <button class="back" id="tBack">← Alle Rundgänge</button>
+    <h2 class="t-title">${esc(t.t)}</h2>
+    <span class="t-meta"><span><b>${modeTxt(t)}</b></span><span>${t.sm.length} Stationen</span><span>${String(t.km).replace('.',',')} km</span><span>ca. ${dur(t.min)} mit Pausen</span></span>
+    <p class="p-intro">${esc(t.intro)}</p>
+    <div class="prog"><span>${done} von ${t.sm.length} besucht</span><span class="bar"><i style="width:${done/t.sm.length*100}%"></i></span></div>
+    <div class="btnrow"><a class="btn primary" href="${gmapsUrl(t)}" target="_blank" rel="noopener">${ICON.map}In Google Maps navigieren ↗</a><button class="btn" id="tFit">Ganze Route zeigen</button></div>
+  </div>
+  <ol class="stops">${t.sm.map((m,i)=>`<li><button class="stop" data-id="${m.id}" data-i="${i}"><span class="num${store.visited.has(m.id)?' done':''}">${store.visited.has(m.id)?'✓':i+1}</span><span><span class="t">${esc(m.t)}</span><span class="a">${esc(shortAddr(m.a))}${m.y?' · '+m.y:''}</span></span></button></li>${i<t.legs.length?`<li class="leg">↓ ${t.legs[i]<1000?Math.round(t.legs[i]/10)*10+' m':(t.legs[i]/1000).toFixed(1).replace('.',',')+' km'} · ${Math.max(1,Math.round(t.legs[i]/(t.mode==='bike'?233:75)))} min</li>`:''}`).join('')}</ol>`;
+  $('#tBack').onclick=()=>{st.tour=null;tourLayer.clearLayers();renderTours();refreshMap();};
+  $('#tFit').onclick=fitTour;
+  P.querySelector('.stops').onclick=ev=>{const b=ev.target.closest('.stop');if(b)select(t.sm[+b.dataset.i],true);};
+  markActive();
+}
+function drawTour(){
+  tourLayer.clearLayers(); const t=st.tour; if(!t) return;
+  const lines=t.geom.map(g=>{const o=[];for(let i=0;i<g.length;i+=2)o.push([g[i+1],g[i]]);return o;});
+  tourLayer.addLayer(L.polyline(lines,{pane:'ens',color:css('--panel'),weight:8,opacity:.9,interactive:false,lineJoin:'round',lineCap:'round'}));
+  tourLayer.addLayer(L.polyline(lines,{pane:'ens',color:css('--accent'),weight:4,interactive:false,lineJoin:'round',lineCap:'round',dashArray:t.mode==='bike'?'1 8':null}));
+  t.sm.forEach((m,i)=>{const done=store.visited.has(m.id);
+    const mk=L.marker(m.ll,{icon:L.divIcon({className:'',html:`<span class="tstop${done?' done':''}${sel===m?' on':''}" data-id="${m.id}">${done?'✓':i+1}</span>`,iconSize:[0,0]}),keyboard:false});
+    mk.on('click',()=>select(m,false)); mk.bindTooltip('<b>'+esc(m.t)+'</b><small>Station '+(i+1)+'</small>',{className:'tt',direction:'top',offset:[0,-14]}); tourLayer.addLayer(mk);});
+}
+function fitTour(){ const t=st.tour; if(!t) return; map.flyToBounds(L.latLngBounds(t.sm.map(m=>m.ll)),{padding:[50,50],duration:.8}); }
+function startTour(t){ st.tour=t; if(st.tl) closeTl(); renderTours(); refreshMap(); drawTour(); fitTour(); select(t.sm[0],false); $('#sideBody').scrollTop=0; }
+
+/* ---------- Meine Liste ---------- */
+let mineList=[];
+function renderMine(){
+  const sv=[...store.saved].map(id=>BYID[id]).filter(Boolean), vi=[...store.visited].map(id=>BYID[id]).filter(Boolean);
+  const byT=(a,b)=>a.t.localeCompare(b.t,'de');
+  const onlySaved=sv.filter(o=>!store.visited.has(o.id)).sort(byT), visited=vi.sort(byT);
+  const phIds=[...new Set(MP.items.map(p=>p.mid))].filter(id=>BYID[id]&&!store.saved.has(id)&&!store.visited.has(id)).map(id=>BYID[id]).sort(byT);
+  const phCount=MP.items.length;
+  mineList=onlySaved.concat(visited,phIds);
+  const item=o=>`<li><button class="item" data-id="${o.id}" style="--c:var(--c-${o.c||'ensemble'})"><span class="dot${o.ens?' ens':''}"></span><span><span class="t">${esc(o.t)}${store.saved.has(o.id)&&store.visited.has(o.id)?' <span class="badge n">gemerkt</span>':''}</span><span class="a">${esc(o.ens?o.id:shortAddr(o.a))}${o.y?` <span class="y">· ${o.y}</span>`:''}</span></span></button></li>`;
+  $('#pMine').innerHTML=`<div class="pad">
+    <div class="mine-sum" style="grid-template-columns:repeat(3,1fr)"><div class="tile"><b>${fmt(sv.length)}</b><span>gemerkt</span></div><div class="tile"><b>${fmt(vi.length)}</b><span>besucht</span></div><div class="tile"><b>${fmt(phCount)}</b><span>eigene Fotos</span></div></div>
+    <label class="toggle"><input type="checkbox" id="onlyMine" ${st.onlyMine?'checked':''}> Karte: nur meine Denkmäler zeigen</label>
+    <p class="store-note">${store.where==='account'?'Gespeichert in deinem Claude-Konto, auf allen Geräten verfügbar und nur für dich sichtbar.':'Gespeichert in diesem Browser. In der veröffentlichten Karte wird die Liste in deinem Konto gesichert.'}</p>
+  </div>
+  ${mineList.length?'':'<p class="empty">Noch nichts gemerkt. In jeder Detailkarte gibt es „Merken“, „Schon besucht?“ und „Foto hinzufügen“.</p>'}
+  ${onlySaved.length?`<div class="sub-h"><span class="lbl">Noch zu besuchen · ${onlySaved.length}</span></div><ul class="list">${onlySaved.map(item).join('')}</ul>`:''}
+  ${visited.length?`<div class="sub-h"><span class="lbl">Besucht · ${visited.length}</span></div><ul class="list">${visited.map(item).join('')}</ul>`:''}
+  ${phIds.length?`<div class="sub-h"><span class="lbl">Weitere mit eigenen Fotos · ${phIds.length}</span></div><ul class="list">${phIds.map(item).join('')}</ul>`:''}`;
+  $('#onlyMine').onchange=ev=>{st.onlyMine=ev.target.checked;applyFilter();};
+  $('#pMine').onclick=ev=>{const b=ev.target.closest('.item');if(b)select(BYID[b.dataset.id],true);};
+  markActive();
+}
+
+/* ---------- Änderungen 12/2024 → 09/2026 ---------- */
+const chgLayer=L.layerGroup(); let chgShown=[];
+const chgKind=o=>o.del?'d':o.chg==='n'?'n':'c';
+const CHG_ALL=M.filter(m=>m.chg).concat(E.filter(e=>e.chg),DEL);
+const chgCount={n:0,c:0,d:0}; CHG_ALL.forEach(o=>chgCount[chgKind(o)]++);
+$('#tbChanges').textContent=fmt(CHG_ALL.length);
+st.chg=new Set(['n','c','d']);
+function renderChanges(){
+  const order={n:0,d:1,c:2};
+  chgShown=CHG_ALL.filter(o=>st.chg.has(chgKind(o))&&(!terms().length||terms().every(w=>o.h.includes(w)))).sort((a,b)=>order[chgKind(a)]-order[chgKind(b)]||(a.a||a.t).localeCompare(b.a||b.t,'de'));
+  const tile=(k,l,c)=>`<button class="tile" data-k="${k}" aria-pressed="${st.chg.has(k)}"><b>${fmt(chgCount[k])}</b><span><i style="background:var(${c})"></i>${l}</span></button>`;
+  $('#pChanges').innerHTML=`<div class="pad">
+    <p class="p-intro">Vergleich der Münchner Denkmalliste vom <b>21.12.2024</b> mit dem Stand vom <b>25.09.2026</b>. Einträge, bei denen sich nur die Reihenfolge der Adressen geändert hat, sind nicht mitgezählt.</p>
+    <div class="chg-sum">${tile('n','neu','--new')}${tile('c','geändert','--chg')}${tile('d','gestrichen','--del')}</div>
+  </div>
+  <div class="results-h"><span><span class="cnt">${fmt(chgShown.length)}</span> Einträge</span><small>neu · gestrichen · geändert</small></div>
+  <ul class="list">${chgShown.map(o=>`<li><button class="item" data-id="${o.id}" style="--c:var(--c-${o.c||'ensemble'})"><span class="dot${o.ens?' ens':''}" ${o.del?'style="background:none;border:1.5px solid var(--del)"':''}></span><span><span class="t">${esc(o.t)} ${chgBadge(o,true)}</span><span class="a">${esc(o.ens?o.id:shortAddr(o.a))}</span></span></button></li>`).join('')}</ul>`;
+  $('#pChanges').querySelector('.chg-sum').onclick=ev=>{const b=ev.target.closest('.tile');if(!b)return;const k=b.dataset.k;
+    if(st.chg.size===3){st.chg=new Set([k]);}else if(st.chg.has(k)){st.chg.delete(k);if(!st.chg.size)st.chg=new Set(['n','c','d']);}else st.chg.add(k);
+    renderChanges();drawChanges();};
+  $('#pChanges').querySelector('.list').onclick=ev=>{const b=ev.target.closest('.item');if(b)select(BYID[b.dataset.id],true);};
+  markActive();
+}
+function drawChanges(){
+  chgLayer.clearLayers(); const col={n:css('--new'),c:css('--chg'),d:css('--del')}, halo=css('--panel'), r=Math.max(4,R(map.getZoom())+1);
+  for(const o of chgShown){ const k=chgKind(o); let lay;
+    if(o.ens) lay=L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{renderer:rEns,color:col[k],weight:2,dashArray:'6 5',fillColor:col[k],fillOpacity:.08});
+    else lay=k==='d'?L.circleMarker(o.ll,{renderer:rMon,radius:r,color:col.d,weight:2.5,fillColor:halo,fillOpacity:.9})
+                    :L.circleMarker(o.ll,{renderer:rMon,radius:r,color:halo,weight:1.2,fillColor:col[k],fillOpacity:.95});
+    lay.on('click',()=>select(o,false));
+    lay.bindTooltip('<b>'+esc(o.t)+'</b><small>'+(k==='n'?'neu':k==='d'?'gestrichen':'geändert')+(o.a?' · '+esc(shortAddr(o.a)):'')+'</small>',{className:'tt',direction:'top',offset:[0,-4]});
+    chgLayer.addLayer(lay);}
+}
+
+/* ---------- Frag Gemini ---------- */
+const chats={}; let GEM=null;
+async function gemStatus(){ if(GEM) return GEM; try{const r=await fetch('api/status',{cache:'no-store'}); const j=r.ok?await r.json():null; GEM=(j&&typeof j==='object'&&'gemini' in j)?j:{gemini:false};}catch(e){GEM={gemini:false};} return GEM; }
+function ctxText(o){
+  const lines=[`Denkmal: ${o.t}`,`Aktennummer: ${o.id}`];
+  if(o.a) lines.push('Adresse: '+o.a.split(';').slice(0,6).join(';'));
+  if(!o.ens&&!o.del&&CATN[o.c]) lines.push('Kategorie: '+CATN[o.c]);
+  if(o.y) lines.push('Erste Jahreszahl im Text: '+o.y);
+  if(o.ar&&o.ar.length) lines.push('Genannte Namen: '+o.ar.map(i=>AR[i]).join(', '));
+  if(o.s&&o.s.length) lines.push('Baustil laut Text: '+o.s.map(i=>STY[i]).join(', '));
+  if(o.k!=null&&BEZ[o.k]) lines.push('Stadtbezirk: '+BEZ[o.k]);
+  lines.push('Ort: '+(o.g||'München')+'. Quelle: Bayerische Denkmalliste'+(o.um||o.bd?' (Denkmal-Atlas).':', Stand 25.09.2026.'));
+  lines.push('Amtlicher Listentext: '+o.d);
+  return lines.join('\n');
+}
+const SUGG=['Was ist das Besondere an diesem Bau?','Erzähl mir etwas zur Geschichte.','Erkläre den Baustil in einfachen Worten.','Worauf soll ich vor Ort achten?'];
+function md(t){
+  const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<i>$2</i>');
+  return t.replace(/^\s*([-*_]\s*){3,}$/gm,'').trim().split(/\n{2,}/).filter(b=>b.trim()).map(block=>{const lines=block.split('\n').filter(l=>l.trim());
+    if(lines.every(l=>/^\s*([-*•]|\d+\.)\s+/.test(l))) return '<ul>'+lines.map(l=>'<li>'+inl(l.replace(/^\s*([-*•]|\d+\.)\s+/,''))+'</li>').join('')+'</ul>';
+    return '<p>'+lines.map(l=>inl(l.replace(/^#+\s*/,''))).join('<br>')+'</p>';}).join('');
+}
+async function renderChat(o){
+  const box=$('#chat'); if(!box) return; const c=chats[o.id]||(chats[o.id]={msgs:[],busy:false});
+  const g=await gemStatus(); if(sel!==o) return;
+  const mode=g.gemini?'server':(!IN_ARTIFACT&&getKey()?'direct':'handoff');
+  const keyForm=!IN_ARTIFACT&&!g.gemini?`<details class="key-form" ${getKey()?'':'open'}><summary class="note">Eigenen Gemini-Schlüssel verwenden (für den eingebauten Chat)</summary>
+      <p class="note">Den Schlüssel bekommst du kostenlos unter aistudio.google.com. Er wird nur auf diesem Gerät gespeichert und direkt an Google gesendet.</p>
+      <div class="chat-in"><input id="keyIn" type="password" autocomplete="off" placeholder="API-Schlüssel einfügen" value="${esc(getKey())}"><button type="button" id="keySave">${getKey()?'Ändern':'Speichern'}</button></div></details>`:'';
+  if(mode==='handoff'){
+    box.innerHTML=`<div class="chat-h"><b>Frag Gemini</b><small>Übergabe an gemini.google.com</small></div>
+      <div class="handoff"><p>${IN_ARTIFACT?'Artifacts dürfen keine Verbindung zu anderen Diensten aufbauen. Deshalb':'Ohne eigenen Schlüssel'} stellst du die Frage direkt bei Gemini: Beim Klick wird die Frage samt Listentext kopiert, dann in Gemini einfügen.${IN_ARTIFACT?' Den eingebauten Chat gibt es in der lokalen Version und in der Handy-Version mit eigenem Schlüssel.':''}</p></div>
+      <div class="sugg">${SUGG.map(s=>`<button data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>
+      <div class="chat-in"><textarea id="chatQ" rows="2" placeholder="Deine Frage zu diesem Denkmal …">${esc(SUGG[0])}</textarea></div>
+      <div class="btnrow"><a class="btn primary" id="gemGo" href="https://gemini.google.com/app" target="_blank" rel="noopener">${ICON.chat}Frage kopieren &amp; Gemini öffnen ↗</a><span class="note" id="gemNote"></span></div>${keyForm}`;
+    bindKey(o);
+    box.querySelector('.sugg').onclick=ev=>{const b=ev.target.closest('button');if(b)$('#chatQ').value=b.dataset.s;};
+    $('#gemGo').addEventListener('click',()=>{const txt=ctxText(o)+'\n\nFrage: '+($('#chatQ').value.trim()||SUGG[0])+'\n\nBitte antworte auf Deutsch und kennzeichne, was über den Listentext hinausgeht.';
+      const p=navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(txt):Promise.reject();
+      p.then(()=>{$('#gemNote').textContent='Kopiert. In Gemini mit ⌘V bzw. Strg+V einfügen.';}).catch(()=>{$('#chatQ').value=txt;$('#chatQ').select();$('#gemNote').textContent='Text markiert: kopieren und in Gemini einfügen.';});});
+    return;
+  }
+  box.innerHTML=`<div class="chat-h"><b>Frag Gemini</b><small>${esc(g.model||GEM_MODEL)} · mit Websuche</small></div>
+    ${c.msgs.length?'':`<div class="sugg">${SUGG.map(s=>`<button data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>`}
+    <div class="msgs" id="msgs">${c.msgs.map(m=>m.role==='user'?`<div class="msg user">${esc(m.text)}</div>`:`<div class="msg model${m.err?' err':''}">${m.err?esc(m.text):md(m.text)}${m.sources&&m.sources.length?`<div class="src-l">Quellen: ${m.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join('')}</div>`:''}</div>`).join('')}${c.busy?'<div class="typing">Gemini denkt nach …</div>':''}</div>
+    <form class="chat-in" id="chatF"><textarea id="chatQ" rows="1" placeholder="Frage zu diesem Denkmal …"></textarea><button type="submit" ${c.busy?'disabled':''}>Senden</button></form>${keyForm}`;
+  bindKey(o);
+  const sg=box.querySelector('.sugg'); if(sg) sg.onclick=ev=>{const b=ev.target.closest('button');if(b)ask(o,b.dataset.s);};
+  $('#chatF').onsubmit=ev=>{ev.preventDefault();const q=$('#chatQ').value.trim();if(q)ask(o,q);};
+  $('#chatQ').onkeydown=ev=>{if(ev.key==='Enter'&&!ev.shiftKey){ev.preventDefault();$('#chatF').requestSubmit();}};
+}
+function bindKey(o){ const b=$('#keySave'); if(!b) return; b.onclick=()=>{ const v=$('#keyIn').value.trim(); try{ v?localStorage.setItem('dk-gemini-key',v):localStorage.removeItem('dk-gemini-key'); }catch(e){} renderChat(o); }; }
+async function ask(o,q){
+  const c=chats[o.id]||(chats[o.id]={msgs:[],busy:false}); if(c.busy) return;
+  c.msgs.push({role:'user',text:q}); c.busy=true; if(sel===o) renderChat(o);
+  try{
+    const msgs=c.msgs.filter(m=>!m.err).map(m=>({role:m.role,text:m.text}));
+    let j;
+    if(GEM&&GEM.gemini){ const r=await fetch('api/gemini',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({context:ctxText(o),messages:msgs})});
+      j=await r.json(); if(!r.ok) throw new Error(j.error||('Fehler '+r.status)); }
+    else j=await gemDirect(ctxText(o),msgs);
+    c.msgs.push({role:'model',text:j.text,sources:j.sources||[]});
+  }catch(e){ c.msgs.push({role:'model',err:1,text:'Gemini hat nicht geantwortet: '+e.message+'. Bitte später erneut versuchen.'}); }
+  c.busy=false; if(sel===o){ renderChat(o); const ms=$('#msgs'); if(ms) ms.lastElementChild&&ms.lastElementChild.scrollIntoView({block:'nearest'}); }
+}
+
+/* ---------- Umgebung ---------- */
+const PAGES_URL='https://oehmm.github.io/denkmalkarte-muenchen/';
+function toast(html,ms=5000){ let t=$('#toast'); if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');$('#map').appendChild(t);} t.innerHTML=html; t.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(()=>{t.hidden=true;},ms); }
+
+/* ---------- Weitere Ebenen: Bodendenkmäler, Umland ---------- */
+const umLayer=L.layerGroup(), bdLayer=L.layerGroup();
+$('#nEnsL').textContent=fmt(E.length); $('#nBd').textContent=fmt(BD.length); $('#nUm').textContent=fmt(U.length);
+$('#bdToggle').onchange=ev=>{st.bd=ev.target.checked;applyFilter();refreshMap();};
+$('#umToggle').onchange=ev=>{st.um=ev.target.checked;applyFilter();refreshMap();
+  if(st.um&&map.getZoom()>12.5) map.flyTo(map.getCenter(),12,{duration:.8});};
+function extraShown(){ const t=terms();
+  return {um:st.um?U.filter(o=>st.cats.has(o.c)&&t.every(w=>o.h.includes(w))&&(st.tab!=='mine'||!st.onlyMine||store.saved.has(o.id)||store.visited.has(o.id))):[],
+          bd:st.bd?BD.filter(o=>t.every(w=>o.h.includes(w))&&(st.tab!=='mine'||!st.onlyMine||store.saved.has(o.id)||store.visited.has(o.id))):[]}; }
+let EX={um:[],bd:[]};
+function drawExtra(){
+  EX=extraShown(); umLayer.clearLayers(); bdLayer.clearLayers();
+  const bc=css('--c-boden'), r=R(map.getZoom());
+  for(const o of EX.bd){ const lay=L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{renderer:rEns,color:bc,weight:1.4,dashArray:'2 4',fillColor:bc,fillOpacity:.14});
+    lay.on('click',()=>select(o,false)); lay.bindTooltip('<b>'+esc(o.t)+'</b><small>Bodendenkmal</small>',{className:'tt',sticky:true}); bdLayer.addLayer(lay); }
+  for(const o of EX.um){ const c=css('--c-'+o.c); const lay=L.circleMarker(o.ll,{renderer:rMon,radius:Math.max(3,r),color:c,weight:2,fillColor:c,fillOpacity:.35});
+    lay.on('click',()=>select(o,false)); lay.bindTooltip('<b>'+esc(o.t)+'</b><small>'+esc(o.g)+' · '+esc(shortAddr(o.a))+'</small>',{className:'tt',direction:'top',offset:[0,-4]}); umLayer.addLayer(lay); }
+}
+
+/* ---------- Commons-Fotos ---------- */
+const FOTO=(FT&&FT.f)||{}, FCAT=(FT&&FT.cat)||{};
+let TIDX=null; const shardCache={};
+async function embeddedThumb(i){
+  if(!TIDX){ try{TIDX=await fetch('thumbs/index.json').then(r=>r.json());}catch(e){TIDX={};} }
+  const e=TIDX[i]; if(!e) return null; const [s,off,len]=e;
+  if(!shardCache[s]) shardCache[s]=fetch('thumbs/s'+s+'.bin').then(r=>r.arrayBuffer());
+  const buf=await shardCache[s]; return URL.createObjectURL(new Blob([buf.slice(off,off+len)],{type:'image/jpeg'}));
+}
+const commonsPage=f=>'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(f.replace(/ /g,'_'));
+async function renderPhoto(o){
+  const box=$('#dPhoto'); if(!box) return; const f=o.i&&!o.um&&!o.bd&&!o.ens&&!o.del?FOTO[o.i]:null;
+  if(!f){ box.remove(); return; }
+  const src=IN_ARTIFACT?await embeddedThumb(o.i):f[1].replace(/\/200px-/,'/960px-');
+  if(sel!==o||!document.body.contains(box)) return;
+  const cap=`Foto: ${esc(f[2]||'unbekannt')}${f[3]?', '+esc(f[3]):''} · <a href="${commonsPage(f[0])}" target="_blank" rel="noopener">Commons ↗</a>${FCAT[o.i]?` · <a href="https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(FCAT[o.i].replace(/ /g,'_'))}" target="_blank" rel="noopener">weitere Fotos ↗</a>`:''}`;
+  if(!src){ box.innerHTML=`<figcaption><a href="${commonsPage(f[0])}" target="_blank" rel="noopener">Foto auf Wikimedia Commons ansehen ↗</a></figcaption>`; return; }
+  box.className='d-photo'+(IN_ARTIFACT?' small':''); box.hidden=false;
+  box.innerHTML=`<img alt="${esc(o.t)}" src="${src}"><figcaption>${cap}</figcaption>`;
+  const img=box.querySelector('img'); img.onerror=()=>{ if(!IN_ARTIFACT&&img.src!==f[1]) img.src=f[1]; else box.hidden=true; };
+}
+
+/* ---------- Eigene Fotos ---------- */
+const MP={be:null,items:[]};
+function idbOpen(){ return new Promise((res,rej)=>{ const r=indexedDB.open('denkmalkarte',1); r.onupgradeneeded=()=>{ r.result.createObjectStore('fotos',{keyPath:'key'}); }; r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+function idbReq(db,mode,fn){ return new Promise((res,rej)=>{ const tx=db.transaction('fotos',mode); const q=fn(tx.objectStore('fotos')); tx.oncomplete=()=>res(q&&q.result); tx.onerror=()=>rej(tx.error); }); }
+(async()=>{
+  try{
+    if(IN_ARTIFACT){
+      const [assets,db,user]=await Promise.all([window.claude.use('assets'),window.claude.use('db'),window.claude.use('user')]);
+      const uid=user&&await user.id();
+      if(assets&&db&&uid){ const col=db.collection('data/users/'+uid); MP.be={type:'artifact',assets,col};
+        const snap=await col.where('type','==','foto').get();
+        MP.items=snap.docs.map(d=>{const x=d.data()||{};return {key:d.id,mid:x.mid,asset:x.asset,url:x.url||('/_blob/'+x.asset),t:x.t};}); }
+    } else if(window.indexedDB){
+      const idb=await idbOpen(); MP.be={type:'idb',idb};
+      const all=await idbReq(idb,'readonly',s=>s.getAll());
+      MP.items=(all||[]).map(r=>({key:r.key,mid:r.mid,t:r.t,url:URL.createObjectURL(r.blob)}));
+    }
+  }catch(e){ MP.be=null; }
+  onPhotosChange();
+})();
+async function shrink(file){
+  try{ const bmp=await createImageBitmap(file,{imageOrientation:'from-image'}); const s=Math.min(1,1600/Math.max(bmp.width,bmp.height));
+    const c=document.createElement('canvas'); c.width=Math.round(bmp.width*s); c.height=Math.round(bmp.height*s); c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+    return await new Promise(r=>c.toBlob(b=>r(b||file),'image/jpeg',.82)); }catch(e){ return file; }
+}
+async function addPhotos(o,files){
+  for(const file of files){
+    const blob=await shrink(file), t=Date.now();
+    if(MP.be.type==='artifact'){ const up=await MP.be.assets.upload(blob); const ref=await MP.be.col.add({type:'foto',mid:o.id,asset:up.id,url:up.url,t});
+      MP.items.push({key:ref.id,mid:o.id,asset:up.id,url:up.url,t}); }
+    else { const key=o.id+'-'+t+'-'+Math.random().toString(36).slice(2,6); await idbReq(MP.be.idb,'readwrite',s=>s.put({key,mid:o.id,t,blob}));
+      MP.items.push({key,mid:o.id,t,url:URL.createObjectURL(blob)}); }
+  }
+  onPhotosChange();
+}
+async function removePhoto(p){
+  if(MP.be.type==='artifact'){ await MP.be.col.doc(p.key).delete(); try{await MP.be.assets.delete(p.asset);}catch(e){} }
+  else await idbReq(MP.be.idb,'readwrite',s=>s.delete(p.key));
+  MP.items=MP.items.filter(x=>x!==p); onPhotosChange();
+}
+function onPhotosChange(){ if(sel) renderMyPhotos(sel); if(st.tab==='mine') renderMine(); }
+function renderMyPhotos(o){
+  const box=$('#myPh'); if(!box) return;
+  if(!MP.be||o.del){ box.hidden=true; return; }
+  const mine=MP.items.filter(p=>p.mid===o.id).sort((a,b)=>a.t-b.t);
+  box.hidden=false;
+  box.innerHTML=`<span class="lbl">Meine Fotos${mine.length?' · '+mine.length:''}</span>
+    <div class="myph-grid">${mine.map(p=>`<button class="ph" data-k="${esc(p.key)}" aria-label="Foto vom ${new Date(p.t).toLocaleDateString('de-DE')} öffnen"><img src="${esc(p.url)}" alt=""></button>`).join('')}
+    <label class="ph add">＋ Foto<br>hinzufügen<input type="file" accept="image/*" multiple id="phIn"></label></div>
+    ${mine.length?'':`<p class="note">${MP.be.type==='artifact'?'Fotos werden in deinem Artifact-Speicher abgelegt.':'Fotos bleiben auf diesem Gerät gespeichert.'}</p>`}`;
+  $('#phIn').onchange=async ev=>{ const files=[...ev.target.files]; if(!files.length) return; const lab=ev.target.closest('.ph'); lab.classList.add('busy'); lab.firstChild.nodeValue='Lädt …';
+    try{ await addPhotos(o,files); }catch(e){ toast('Foto konnte nicht gespeichert werden: '+esc(e.message||e.code||'unbekannter Fehler')); renderMyPhotos(o); } };
+  box.querySelectorAll('.ph[data-k]').forEach(b=>b.onclick=()=>openLb(MP.items.find(p=>p.key===b.dataset.k),o));
+}
+function openLb(p,o){
+  if(!p) return; const lb=document.createElement('div'); lb.className='lb'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-label','Foto');
+  lb.innerHTML=`<img src="${esc(p.url)}" alt="${esc(o.t)}"><div class="lb-bar"><span>${esc(o.t)} · ${new Date(p.t).toLocaleString('de-DE',{dateStyle:'medium',timeStyle:'short'})}</span><span class="btnrow"><button id="lbDel" class="danger">Löschen</button><button id="lbX">Schließen</button></span></div>`;
+  document.body.appendChild(lb);
+  const close=()=>{lb.remove();document.removeEventListener('keydown',kd);}; const kd=ev=>{if(ev.key==='Escape')close();};
+  document.addEventListener('keydown',kd); $('#lbX').onclick=close; lb.onclick=ev=>{if(ev.target===lb)close();};
+  $('#lbDel').onclick=async ev=>{ const b=ev.currentTarget; if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='Wirklich löschen?';return;} b.disabled=true; try{await removePhoto(p);close();}catch(e){b.textContent='Löschen fehlgeschlagen';} };
+}
+
+/* ---------- Standort / In der Nähe ---------- */
+let watchId=null; const meLayer=L.layerGroup().addTo(map); st.me=null;
+const LocCtl=L.Control.extend({options:{position:'topright'},onAdd(){ const d=L.DomUtil.create('div','leaflet-bar'); const b=L.DomUtil.create('button','loc-btn',d);
+  b.id='locBtn'; b.title='In der Nähe: meinen Standort zeigen'; b.setAttribute('aria-label','Meinen Standort zeigen');
+  b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>';
+  L.DomEvent.disableClickPropagation(d); b.onclick=toggleLoc; return d; }});
+new LocCtl().addTo(map);
+function drawMe(acc){ meLayer.clearLayers(); if(!st.me) return; const c=css('--me');
+  meLayer.addLayer(L.circle(st.me,{pane:'mon',radius:Math.min(acc||30,300),color:c,weight:1,fillColor:c,fillOpacity:.12,interactive:false}));
+  meLayer.addLayer(L.circleMarker(st.me,{pane:'mon',radius:7,color:'#fff',weight:2.5,fillColor:c,fillOpacity:1,interactive:false})); }
+function stopLoc(){ if(watchId!=null) navigator.geolocation.clearWatch(watchId); watchId=null; st.me=null; meLayer.clearLayers(); const b=$('#locBtn'); b.classList.remove('on','wait'); renderList(); if(sel) renderDetail(sel); }
+function toggleLoc(){
+  if(IN_ARTIFACT||!navigator.geolocation){ toast(`Die Artifact-Ansicht darf den Standort nicht abfragen. „In der Nähe“ funktioniert in der Handy-Version: <a href="${PAGES_URL}" target="_blank" rel="noopener">${PAGES_URL.replace('https://','')}</a>`,9000); return; }
+  if(watchId!=null){ stopLoc(); return; }
+  const b=$('#locBtn'); b.classList.add('wait'); let first=true;
+  watchId=navigator.geolocation.watchPosition(p=>{
+    st.me=L.latLng(p.coords.latitude,p.coords.longitude); drawMe(p.coords.accuracy); b.classList.remove('wait'); b.classList.add('on');
+    if(first){ first=false; if(!map.options.maxBounds||!L.latLngBounds(map.options.maxBounds).contains(st.me)) toast('Dein Standort liegt außerhalb des Kartenausschnitts München. Die Liste zeigt trotzdem die nächstgelegenen Denkmäler.'); else map.flyTo(st.me,Math.max(map.getZoom(),16.5),{duration:.8}); if(st.tab!=='explore') setTab('explore'); }
+    renderList(); if(sel&&!det.hidden) updateDist();
+  },err=>{ toast(err.code===1?'Standortfreigabe verweigert. Erlaube den Standort für diese Seite in den Browser-Einstellungen.':'Standort derzeit nicht verfügbar.'); stopLoc(); },
+  {enableHighAccuracy:true,maximumAge:10000,timeout:20000});
+}
+const distTxt=m=>m<1000?Math.round(m/10)*10+' m':(m/1000).toFixed(1).replace('.',',')+' km';
+function updateDist(){ const e=$('#dDist'); if(e&&sel&&st.me) e.textContent=distTxt(st.me.distanceTo(sel.ll))+' von dir'; }
+
+/* ---------- Gemini direkt (Handy-Version mit eigenem Schlüssel) ---------- */
+const GEM_MODEL='gemini-3.8-flash';
+const GEM_SYS='Du bist ein kundiger Münchner Architektur- und Stadthistoriker und beantwortest Fragen zu einem einzelnen Baudenkmal aus der Bayerischen Denkmalliste. Antworte auf Deutsch, anschaulich und knapp (meist 80–200 Wörter), gern mit kurzen Absätzen oder Stichpunkten. Grundlage ist der amtliche Listentext im Kontext. Wenn du darüber hinausgehst, stütze dich auf verlässliches Wissen oder die Websuche und mache kenntlich, was nicht aus dem Listentext stammt. Erfinde keine Daten, Namen oder Jahreszahlen; sag offen, wenn du etwas nicht sicher weißt.';
+const getKey=()=>{try{return localStorage.getItem('dk-gemini-key')||'';}catch(e){return '';}};
+async function gemDirect(ctx,msgs){
+  const contents=msgs.map((m,i)=>({role:m.role==='model'?'model':'user',parts:[{text:(i===0?'Kontext zum Denkmal:\n'+ctx+'\n\nFrage: ':'')+m.text}]}));
+  const body={systemInstruction:{parts:[{text:GEM_SYS}]},contents,generationConfig:{temperature:.4,maxOutputTokens:1200},tools:[{google_search:{}}]};
+  const call=()=>fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEM_MODEL}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':getKey()},body:JSON.stringify(body)});
+  let r=await call(); if(r.status===400&&body.tools){ delete body.tools; r=await call(); }
+  const j=await r.json(); if(!r.ok) throw new Error((j.error&&j.error.message)||('Fehler '+r.status));
+  const c=(j.candidates||[{}])[0]; const text=((c.content||{}).parts||[]).map(p=>p.text||'').join('').trim();
+  const sources=(((c.groundingMetadata||{}).groundingChunks)||[]).map(x=>x.web).filter(w=>w&&w.uri).map(w=>({title:w.title||w.uri,url:w.uri}));
+  return {text:text||'(keine Antwort)',sources:sources.slice(0,6),model:GEM_MODEL};
+}
+
+/* ---------- Events & theme ---------- */
+let lastFp=null, lastR=null;
+map.on('zoomend',()=>{styleBase();const z=map.getZoom();const fp=z>=17;
+  if(fp!==lastFp||R(z)!==lastR){lastFp=fp;lastR=R(z);redrawAll();}
+  map.hasLayer(base.case_minor)!==(z>=13.5)&&(z>=13.5?(base.case_minor.addTo(map),base.road_minor.addTo(map)):(map.removeLayer(base.case_minor),map.removeLayer(base.road_minor)));
+  drawLabels(); drawMarks(); if(st.um) drawExtra(); if(st.tab==='changes') drawChanges();});
+map.on('moveend',()=>{drawLabels();if(!timer)renderList();});
+function retheme(){styleBase();redrawAll();drawEnsembles();drawExtra();drawMarks();if(st.me)drawMe();if(st.tab==='changes')drawChanges();if(st.tour)drawTour();if(sel)select(sel,false);}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',retheme);
+new MutationObserver(retheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+styleBase(); lastFp=map.getZoom()>=17; lastR=R(map.getZoom()); buildLayers();
+applyFilter(); drawLabels(); map.fire('zoomend'); refreshMap(); onStoreChange();
+$('#loading').remove();
+const h=location.hash.match(/^#([dex])(\d+)$/);
+if(h){const o=(h[1]==='d'?M:h[1]==='e'?E:DEL).find(x=>x.i===h[2]); if(o){ if(o.del) setTab('changes'); select(o,true);} }
+else if(window.innerWidth>760){ const o=M.find(m=>m.id==='D-1-62-000-4288'); if(o) select(o,false); }
+})().catch(err=>{const l=document.getElementById('loading');if(l)l.textContent='Die Kartendaten konnten nicht geladen werden ('+err.message+'). Seite neu laden.';console.error(err);});
+</script>
+
+<script>if('serviceWorker' in navigator&&location.protocol==='https:'){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}</script>
+</body>
+</html>

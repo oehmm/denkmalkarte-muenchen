@@ -1,0 +1,16 @@
+{
+  "name": "Denkmalkarte München",
+  "short_name": "Denkmalkarte",
+  "description": "Alle Münchner Baudenkmäler auf einer Karte – mit Rundgängen, Fotos, Merkliste und „In der Nähe“.",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#15191B",
+  "theme_color": "#1E272B",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
