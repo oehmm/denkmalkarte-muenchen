@@ -559,7 +559,8 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 
 const IN_ARTIFACT=!!(window.claude&&window.claude.use);
 const opt=f=>fetch(f).then(r=>r.ok?r.json():null).catch(()=>null);
-const [DM,BASE,CH,TOURS,UMD,BDD,FT]=await Promise.all([...['denkmaeler.json','basiskarte.json','aenderungen.json','rundgaenge.json'].map(f=>fetch(f).then(r=>r.json())),opt('umland.json'),opt('bodendenkmaeler.json'),opt('fotos.json')]);
+const [DM,BASE,CH,TOURS,UMD,BDD,FT,UMR]=await Promise.all([...['denkmaeler.json','basiskarte.json','aenderungen.json','rundgaenge.json'].map(f=>fetch(f).then(r=>r.json())),opt('umland.json'),opt('bodendenkmaeler.json'),opt('fotos.json'),opt('umrisse.json')]);
+const OUT=UMR||{};  // OSM-Gebäudegrundrisse je Denkmal (Schlüssel: Kurz-Aktennummer bzw. volle Nummer im Umland)
 const M=DM.m, E=DM.e, BEZ=BASE.bezirke.map(b=>b.n), AR=DM.A, STY=DM.S;
 M.forEach(m=>{m.id='D-1-62-000-'+m.i; m.era=m.y==null?'u':ERAS.find(e=>e[2]&&e[2](m.y))[0];
   m.h=(m.t+' '+m.a+' '+m.d+' '+m.id+' '+(m.f||'')).toLowerCase(); m.ll=L.latLng(m.z,m.x);});
@@ -663,9 +664,9 @@ function buildLayers(){
   const z=map.getZoom(), fp=z>=17, r=R(z), halo=css('--panel'), colors={};
   CATS.forEach(c=>colors[c[0]]=css('--c-'+c[0]));
   for(const m of M){
-    const bw=(m.b[2]-m.b[0])*74000, bh=(m.b[3]-m.b[1])*111000;
-    const lay=(fp&&bw<90&&bh<90&&bw>3&&bh>3)
-      ?L.rectangle([[m.b[1],m.b[0]],[m.b[3],m.b[2]]],{renderer:rMon,color:colors[m.c],weight:1.5,fillColor:colors[m.c],fillOpacity:.35})
+    const ol=fp&&OUT[m.i];
+    const lay=ol
+      ?L.polygon(ol.map(toLL),{renderer:rMon,color:colors[m.c],weight:1.3,fillColor:colors[m.c],fillOpacity:.5})
       :L.circleMarker(m.ll,{renderer:rMon,radius:r,color:halo,weight:z<13?.6:1.2,fillColor:colors[m.c],fillOpacity:.95});
     lay.on('click',()=>select(m,false));
     lay.bindTooltip('<b>'+esc(m.t)+'</b><small>'+esc(shortAddr(m.a))+(m.y?' · '+m.y:'')+'</small>',{className:'tt',direction:'top',offset:[0,-4]});
@@ -815,6 +816,10 @@ function openPop(btn){
 
 /* ---------- Detail ---------- */
 const det=$('#detail');
+// Mausrad, Ziehen und Touch in der Detailkarte und der Zeitreise-Leiste nicht an die Karte weitergeben,
+// damit der Text normal scrollt statt die Karte zu zoomen oder zu verschieben
+[det,$('#tl')].forEach(el=>{ L.DomEvent.disableScrollPropagation(el); L.DomEvent.disableClickPropagation(el);
+  ['mousedown','touchstart','pointerdown','dblclick'].forEach(t=>el.addEventListener(t,ev=>ev.stopPropagation())); });
 det.addEventListener('click',ev=>{
   const g=ev.target.closest('.gl'); if(g){ev.stopPropagation(); g.classList.contains('on')?closePop():openPop(g); return;}
   if(!ev.target.closest('.gloss-pop')) closePop();
@@ -834,9 +839,11 @@ function select(o,fly){
     selMark=L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{pane:'mon',color:acc,weight:3,fill:false,interactive:false}).addTo(map);
     if(fly) map.flyToBounds(selMark.getBounds(),{padding:[40,40],duration:.8});
   } else {
+    const ol=OUT[o.um?o.i:o.i];
     const g=[L.circleMarker(o.ll,{pane:'mon',radius:14,color:acc,weight:3,fill:false,interactive:false})];
     const bw=(o.b[2]-o.b[0])*74000,bh=(o.b[3]-o.b[1])*111000;
-    if(bw>3&&bh>3&&bw<600&&bh<600) g.push(L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{pane:'mon',color:acc,weight:2.5,fillColor:acc,fillOpacity:.2,interactive:false}));
+    if(ol&&!o.del&&!o.bd) g.push(L.polygon(ol.map(toLL),{pane:'mon',color:acc,weight:3,fillColor:acc,fillOpacity:.25,interactive:false}));
+    else if(bw>3&&bh>3&&bw<600&&bh<600) g.push(L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{pane:'mon',color:acc,weight:2.5,fillColor:acc,fillOpacity:.2,interactive:false}));
     selMark=L.layerGroup(g).addTo(map);
     if(fly) map.flyTo(o.ll,Math.max(map.getZoom(),17),{duration:.8});
   }
@@ -1229,7 +1236,8 @@ function drawExtra(){
   const bc=css('--c-boden'), r=R(map.getZoom());
   for(const o of EX.bd){ const lay=L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{renderer:rEns,color:bc,weight:1.4,dashArray:'2 4',fillColor:bc,fillOpacity:.14});
     lay.on('click',()=>select(o,false)); lay.bindTooltip('<b>'+esc(o.t)+'</b><small>Bodendenkmal</small>',{className:'tt',sticky:true}); bdLayer.addLayer(lay); }
-  for(const o of EX.um){ const c=css('--c-'+o.c); const lay=L.circleMarker(o.ll,{renderer:rMon,radius:Math.max(3,r),color:c,weight:2,fillColor:c,fillOpacity:.35});
+  const fp=map.getZoom()>=17;
+  for(const o of EX.um){ const c=css('--c-'+o.c); const ol=fp&&OUT[o.i]; const lay=ol?L.polygon(ol.map(toLL),{renderer:rMon,color:c,weight:1.3,dashArray:'3 3',fillColor:c,fillOpacity:.3}):L.circleMarker(o.ll,{renderer:rMon,radius:Math.max(3,r),color:c,weight:2,fillColor:c,fillOpacity:.35});
     lay.on('click',()=>select(o,false)); lay.bindTooltip('<b>'+esc(o.t)+'</b><small>'+esc(o.g)+' · '+esc(shortAddr(o.a))+'</small>',{className:'tt',direction:'top',offset:[0,-4]}); umLayer.addLayer(lay); }
 }
 
@@ -1361,7 +1369,7 @@ async function gemDirect(ctx,msgs){
 /* ---------- Events & theme ---------- */
 let lastFp=null, lastR=null;
 map.on('zoomend',()=>{styleBase();const z=map.getZoom();const fp=z>=17;
-  if(fp!==lastFp||R(z)!==lastR){lastFp=fp;lastR=R(z);redrawAll();}
+  if(fp!==lastFp||R(z)!==lastR){ if(fp&&lastFp===false&&!window.__fpHint&&Object.keys(OUT).length){window.__fpHint=1;toast('Ab dieser Zoomstufe sind Denkmäler als Gebäudegrundriss eingefärbt (OpenStreetMap). Brunnen, Skulpturen und andere Objekte ohne Gebäude bleiben Punkte.',6000);} lastFp=fp;lastR=R(z);redrawAll();}
   map.hasLayer(base.case_minor)!==(z>=13.5)&&(z>=13.5?(base.case_minor.addTo(map),base.road_minor.addTo(map)):(map.removeLayer(base.case_minor),map.removeLayer(base.road_minor)));
   drawLabels(); drawMarks(); if(st.um) drawExtra(); if(st.tab==='changes') drawChanges();});
 map.on('moveend',()=>{drawLabels();if(!timer)renderList();});

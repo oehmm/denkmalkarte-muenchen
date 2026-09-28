@@ -5,7 +5,7 @@ import os,shutil,urllib.request,time
 P=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 css=urllib.request.urlopen('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css').read().decode()
 s=open(P+'/src.html').read().replace('/*LEAFLET_CSS*/',css)
-DATA=('denkmaeler.json','basiskarte.json','aenderungen.json','rundgaenge.json','umland.json','bodendenkmaeler.json','fotos.json')
+DATA=('denkmaeler.json','basiskarte.json','aenderungen.json','rundgaenge.json','umland.json','bodendenkmaeler.json','fotos.json','umrisse.json')
 os.makedirs(P+'/site',exist_ok=True)
 open(P+'/site/denkmalkarte.html','w').write(s)
 head='<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<meta charset="utf-8">\n'
