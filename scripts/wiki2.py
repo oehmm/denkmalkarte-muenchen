@@ -3,9 +3,13 @@ import json,os,re,time,urllib.request,urllib.parse,collections,unicodedata
 P=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA={'User-Agent':'denkmalkarte-muenchen/1.0 (github.com/oehmm/denkmalkarte-muenchen)'}
 def api(host,params):
-    for a in range(5):
-        try: return json.load(urllib.request.urlopen(urllib.request.Request(f'https://{host}/w/api.php',data=urllib.parse.urlencode({**params,'format':'json'}).encode(),headers=UA),timeout=60))
-        except Exception as e: print('retry',host,e,flush=True); time.sleep(3+a*4)
+    for a in range(8):
+        try:
+            time.sleep(1.0)
+            return json.load(urllib.request.urlopen(urllib.request.Request(f'https://{host}/w/api.php?'+urllib.parse.urlencode({**params,'format':'json','maxlag':5}),headers=UA),timeout=60))
+        except urllib.error.HTTPError as e:
+            wait=int(e.headers.get('Retry-After') or 0) or 20*(a+1); print('warte',wait,'s',host,e.code,flush=True); time.sleep(wait)
+        except Exception as e: print('retry',host,e,flush=True); time.sleep(5+a*5)
     return {}
 S=json.load(open(P+'/raw/wiki_stage1.json')); W,P84,LAB=S['W'],S['P84'],S['L']
 def extracts(titles):
@@ -22,7 +26,10 @@ def extracts(titles):
     return out
 # --- Denkmäler: Auszüge
 titles=sorted({w['de'] for w in W.values() if 'de' in w})
-EX=extracts(titles); print('Denkmal-Auszüge',len(EX),'von',len(titles),flush=True)
+if os.path.exists(P+'/data/wiki.json'):
+    old=json.load(open(P+'/data/wiki.json')); EX={v[1]:v[2] for v in old.values() if v[1] and v[2]}
+else: EX=extracts(titles)
+print('Denkmal-Auszüge',len(EX),'von',len(titles),flush=True)
 wiki={}
 for i,w in W.items():
     key=i[11:] if i.startswith('D-1-62-000-') else i
@@ -44,18 +51,28 @@ for m in dm['m']:
 print('über Denkmal-Architekt zugeordnet',len(match),flush=True)
 OK=re.compile(r'architekt|baumeister|bildhauer|maler|ingenieur|gartenkünstler|landschaftsarchitekt|stuck|künstler|bauunternehmer|baubeamt|zimmermeister|erzgießer|glasmaler|kunsthandwerk',re.I)
 todo=[ai for ai,c in cnt.most_common() if ai not in match and c>=2]
+cache_f=P+'/raw/arch_search.json'; CACHE=json.load(open(cache_f)) if os.path.exists(cache_f) else {}
 print('Namenssuche für',len(todo),flush=True)
+VAR=[('Karl ','Carl '),('Carl ','Karl '),('Konrad ','Conrad '),('Conrad ','Konrad '),('Friedrich ','Fritz '),('Joseph ','Josef '),('Josef ','Joseph '),('Johann ','Johannes '),('ä','ae'),('ö','oe'),('ü','ue')]
+def variants(n): return [n]+[n.replace(a,b) for a,b in VAR if a in n]
 for n,ai in enumerate(todo):
-    name=AR[ai]
-    d=api('www.wikidata.org',{'action':'wbsearchentities','search':name,'language':'de','uselang':'de','type':'item','limit':6})
-    for c in d.get('search',[]):
-        desc=c.get('description','') or ''
-        if same(name,c.get('label','')) and OK.search(desc):
-            m=re.search(r'\b(1[4-9]\d\d)\b',desc)
-            if m and int(m.group(1))>1990: continue
-            match[ai]=c['id']; break
-    time.sleep(0.15)
+    for name in variants(AR[ai]):
+        if ai in match: break
+        if name in CACHE: d=CACHE[name]
+        else:
+            d=api('www.wikidata.org',{'action':'wbsearchentities','search':name,'language':'de','uselang':'de','type':'item','limit':6})
+            if d: CACHE[name]={'search':d.get('search',[])}
+            if n%25==0: json.dump(CACHE,open(cache_f,'w'),ensure_ascii=False)
+        hits=[c for c in d.get('search',[]) if same(name,c.get('label',''))]
+        if len(hits)>1 and sum(1 for c in hits if OK.search(c.get('description','') or ''))>1: continue   # mehrdeutiger Name
+        for c in d.get('search',[]):
+            desc=c.get('description','') or ''
+            if same(name,c.get('label','')) and OK.search(desc):
+                m=re.search(r'\b(1[4-9]\d\d)\b',desc)
+                if m and int(m.group(1))>1990: continue
+                match[ai]=c['id']; break
     if n%100==0: print(' ',n,len(todo),len(match),flush=True)
+json.dump(CACHE,open(cache_f,'w'),ensure_ascii=False)
 print('Architekten zugeordnet',len(match),flush=True)
 # --- Details holen
 qs=sorted(set(match.values())); ENT={}
@@ -92,6 +109,19 @@ for ai,q in match.items():
     arch[AR[ai]]={'q':q,'d':(e.get('descriptions',{}).get('de') or e.get('descriptions',{}).get('en') or {}).get('value'),
         'b':b,'dy':dth,'bp':PL.get(bp['id']) if bp else None,'dp':PL.get(dp['id']) if dp else None,
         'img':img,'wp':wp,'x':AX.get(wp) if wp else None}
+# Plausibilität: bei mindestens der Hälfte der Denkmäler muss eine im Text genannte Jahreszahl
+# in die Schaffenszeit fallen (18 Jahre nach Geburt bis Tod bzw. +90)
+texts=collections.defaultdict(list)
+for m in dm['m']:
+    ys=[int(x) for x in re.findall(r'(?<!\d)(1[2-9]\d\d|20[0-2]\d)(?!\d)',m['d'])]
+    for ai in m.get('ar',[]): texts[AR[ai]].append(ys)
+drop=[]
+for n,a in list(arch.items()):
+    if not a['b'] or not texts.get(n): continue
+    lo,hi=a['b']+18,(a['dy'] or a['b']+90)
+    ok=sum(1 for ys in texts[n] if any(lo<=y<=hi for y in ys))
+    if ok*2<len(texts[n]): drop.append((n,a['b'],f"{ok}/{len(texts[n])}")); del arch[n]
+print('verworfen (Lebensdaten passen nicht):',drop,flush=True)
 json.dump(arch,open(P+'/data/architekten.json','w'),ensure_ascii=False,separators=(',',':'))
 top=[AR[ai] for ai,_ in cnt.most_common(40)]
 print('Details',len(arch),'mit Porträt',sum(1 for a in arch.values() if a['img']),'mit Wikipedia',sum(1 for a in arch.values() if a['wp']))

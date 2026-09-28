@@ -371,6 +371,19 @@ select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background
 .msg .btn{padding:3px 10px;font-size:12px}
 .toast .btn{background:transparent;color:inherit;border-color:color-mix(in srgb,currentColor 40%,transparent)}
 .toast{max-width:min(420px,calc(100% - 28px))}
+.arch .nm{display:flex;align-items:center;gap:8px}
+.arch .pic{width:22px;height:22px;border-radius:50%;object-fit:cover;flex:none;background:var(--chip)}
+.arch .pic.ph0{display:inline-block;background:none;border:1px dashed var(--line)}
+.arch-active{flex-direction:column;align-items:stretch;padding:10px 10px 12px 12px;gap:8px}
+.arch-top{display:flex;align-items:center;gap:10px}
+.arch-top>span{flex:1;min-width:0}
+.arch-top .life{color:var(--ink-2);font-variant-numeric:tabular-nums;font-size:12.5px}
+.portrait{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;background:var(--chip);border:2px solid var(--panel)}
+.arch-desc{margin:0;font-size:12.5px;color:var(--ink-2)}
+.arch-bio{margin:0;font-size:12.5px;line-height:1.5;max-height:7.5em;overflow:auto}
+.arch-active .btn{padding:4px 10px;font-size:12px}
+.wp-box{display:grid;gap:4px;padding:10px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.wp-x{margin:0;font-size:13px;line-height:1.55}
 @media (max-width:1100px){ .detail:not([hidden]) ~ .tl{display:none} }
 @media (max-width:760px){
   .tab{font-size:12px}
@@ -567,7 +580,23 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 
 const IN_ARTIFACT=!!(window.claude&&window.claude.use);
 const opt=f=>fetch(f).then(r=>r.ok?r.json():null).catch(()=>null);
-const [DM,BASE,CH,TOURS,UMD,BDD,FT,UMR]=await Promise.all([...['denkmaeler.json','basiskarte.json','aenderungen.json','rundgaenge.json'].map(f=>fetch(f).then(r=>r.json())),opt('umland.json'),opt('bodendenkmaeler.json'),opt('fotos.json'),opt('umrisse.json')]);
+const [DM,BASE,CH,TOURS,UMD,BDD,FT,UMR,WIKI,ARCH]=await Promise.all([...['denkmaeler.json','basiskarte.json','aenderungen.json','rundgaenge.json'].map(f=>fetch(f).then(r=>r.json())),opt('umland.json'),opt('bodendenkmaeler.json'),opt('fotos.json'),opt('umrisse.json'),opt('wiki.json'),opt('architekten.json')]);
+const WK=WIKI||{}, AX=ARCH||{};   // Wikipedia/Wikidata je Denkmal, Architekten-Details je Name
+const wkOf=o=>WK[o.um||o.ens?o.id:o.i];
+const wpUrl=(t,lang='de')=>`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(t.replace(/ /g,'_'))}`;
+const life=a=>!a?'':a.b&&a.dy?`${a.b}–${a.dy}`:a.b?`* ${a.b}`:a.dy?`† ${a.dy}`:'';
+let AIDX=null, ashard=null;
+async function portraitUrl(name){
+  const a=AX[name]; if(!a||!a.img) return null;
+  if(!IN_ARTIFACT) return 'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(a.img)+'?width=160';
+  if(!AIDX){ try{AIDX=await fetch('thumbs/arch.json').then(r=>r.json());}catch(e){AIDX={};} }
+  const e=AIDX[name]; if(!e) return null;
+  if(!ashard) ashard=fetch('thumbs/arch.jpg').then(r=>r.arrayBuffer());
+  const buf=await ashard; return URL.createObjectURL(new Blob([buf.slice(e[0],e[0]+e[1])],{type:'image/jpeg'}));
+}
+async function fillPortraits(root){
+  for(const img of root.querySelectorAll('img[data-portrait]')){ const u=await portraitUrl(img.dataset.portrait); if(u){ img.src=u; img.hidden=false; } else img.remove(); }
+}
 const OUT=UMR||{};  // OSM-Gebäudegrundrisse je Denkmal (Schlüssel: Kurz-Aktennummer bzw. volle Nummer im Umland)
 const M=DM.m, E=DM.e, BEZ=BASE.bezirke.map(b=>b.n), AR=DM.A, STY=DM.S;
 M.forEach(m=>{m.id='D-1-62-000-'+m.i; m.era=m.y==null?'u':ERAS.find(e=>e[2]&&e[2](m.y))[0];
@@ -756,15 +785,21 @@ function renderArch(){
   const box=$('#archActive');
   if(st.arch!=null){
     const n=shown.length;
-    box.innerHTML=`<div class="arch-active"><span><b>${esc(AR[st.arch])}</b><small>${fmt(n)} ${n===1?'Denkmal':'Denkmäler'} auf der Karte</small></span><button id="archX" aria-label="Architekt-Filter entfernen">×</button></div>`;
-    $('#archX').onclick=()=>setArch(null);
+    const nm=AR[st.arch], a=AX[nm];
+    const place=a?[a.bp&&('geboren in '+a.bp),a.dp&&('gestorben in '+a.dp)].filter(Boolean).join(', '):'';
+    box.innerHTML=`<div class="arch-active">
+      <div class="arch-top">${a&&a.img?`<img class="portrait" data-portrait="${esc(nm)}" alt="Porträt ${esc(nm)}" hidden>`:''}<span><b>${esc(nm)}</b>${a&&life(a)?` <span class="life">${esc(life(a))}</span>`:''}<small>${fmt(n)} ${n===1?'Denkmal':'Denkmäler'} auf der Karte</small></span><button id="archX" aria-label="Architekt-Filter entfernen">×</button></div>
+      ${a?`${a.d?`<p class="arch-desc">${esc(a.d)}${place?' · '+esc(place):''}</p>`:''}${a.x?`<p class="arch-bio">${esc(a.x)}</p>`:''}
+      <div class="btnrow">${a.wp?`<a class="btn" href="${wpUrl(a.wp)}" target="_blank" rel="noopener">Wikipedia ↗</a>`:''}<a class="btn" href="https://www.wikidata.org/wiki/${a.q}" target="_blank" rel="noopener">Wikidata ↗</a></div>`:''}
+    </div>`;
+    $('#archX').onclick=()=>setArch(null); fillPortraits(box);
   } else box.innerHTML='';
   const q=$('#archQ').value.trim().toLowerCase();
   let idx=AR.map((_,i)=>i);
   if(q) idx=idx.filter(i=>arNorm[i].includes(q));
   idx=idx.filter(i=>arCount[i]>0).sort((a,b)=>arCount[b]-arCount[a]).slice(0,q?60:25);
-  const mx=Math.max(1,...idx.map(i=>arCount[i]));
-  $('#archList').innerHTML=idx.length?idx.map(i=>`<li><button class="arch" data-a="${i}"><span class="nm">${esc(AR[i])}</span><span class="bar"><i style="width:${arCount[i]/mx*100}%"></i></span><span class="n">${arCount[i]}</span></button></li>`).join(''):'<li class="note" style="padding:4px 6px">Kein Name gefunden.</li>';
+  const mx=Math.max(1,...idx.map(i=>arCount[i])); setTimeout(()=>fillPortraits($('#archList')),0);
+  $('#archList').innerHTML=idx.length?idx.map(i=>`<li><button class="arch" data-a="${i}" ${AX[AR[i]]&&life(AX[AR[i]])?`title="${esc(AR[i])}, ${esc(life(AX[AR[i]]))}"`:''}><span class="nm">${AX[AR[i]]&&AX[AR[i]].img?`<img class="pic" data-portrait="${esc(AR[i])}" alt="" hidden>`:'<span class="pic ph0"></span>'}${esc(AR[i])}</span><span class="bar"><i style="width:${arCount[i]/mx*100}%"></i></span><span class="n">${arCount[i]}</span></button></li>`).join(''):'<li class="note" style="padding:4px 6px">Kein Name gefunden.</li>';
 }
 function setArch(i,fit=true){
   st.arch=i; applyFilter();
@@ -890,7 +925,8 @@ function renderDetail(o){
   const osm=`https://www.openstreetmap.org/?mlat=${o.ll.lat.toFixed(6)}&mlon=${o.ll.lng.toFixed(6)}#map=18/${o.ll.lat.toFixed(5)}/${o.ll.lng.toFixed(5)}`;
   const gm=`https://www.google.com/maps/search/?api=1&query=${o.ll.lat.toFixed(6)},${o.ll.lng.toFixed(6)}`;
   const nl=navList(o), idx=nl.arr.indexOf(o);
-  const arch=(o.ar||[]).map(i=>`<button class="alink" data-arch="${i}" title="Alle Denkmäler von ${esc(AR[i])} zeigen">${esc(AR[i])} <small>(${arCount[i]})</small></button>`).join('');
+  const arch=(o.ar||[]).map(i=>`<button class="alink" data-arch="${i}" title="Alle Denkmäler von ${esc(AR[i])} zeigen">${esc(AR[i])} <small>(${AX[AR[i]]&&life(AX[AR[i]])?esc(life(AX[AR[i]]))+' · ':''}${arCount[i]})</small></button>`).join('');
+  const wk=o.del||o.bd?null:wkOf(o);
   const sty=(o.s||[]).map(i=>`<button class="stag" data-sty="${i}" title="Alle Denkmäler dieses Stils zeigen">${esc(STY[i])}</button>`).join('');
   const sv=store.saved.has(o.id), vi=store.visited.has(o.id);
   let chg='';
@@ -913,6 +949,7 @@ function renderDetail(o){
     <div class="chat" id="chat" hidden></div>
     <div class="myph" id="myPh" hidden></div>
     <p class="d-text">${glossify(o.d)}</p>
+    ${wk&&wk[2]?`<div class="wp-box"><p class="diff-h">Aus Wikipedia</p><p class="wp-x">${esc(wk[2])}</p><a class="link-btn" href="${wpUrl(wk[1])}" target="_blank" rel="noopener">Ganzen Artikel lesen ↗</a></div>`:''}
     ${chg}
     <dl class="d-meta">
       ${arch?`<dt>Namen im Text</dt><dd>${arch}</dd>`:''}
@@ -923,7 +960,7 @@ function renderDetail(o){
       ${o.k!=null&&BEZ[o.k]?`<dt>Stadtbezirk</dt><dd>${esc(BEZ[o.k])}</dd>`:''}
       ${o.ens?`<dt>Fläche</dt><dd>Auf der Karte als vereinfachtes Rechteck dargestellt</dd>`:''}
     </dl>
-    <div class="d-links"><a href="${osm}" target="_blank" rel="noopener">In OpenStreetMap öffnen ↗</a><a href="${gm}" target="_blank" rel="noopener">Google Maps ↗</a></div>
+    <div class="d-links">${wk&&wk[1]?`<a href="${wpUrl(wk[1])}" target="_blank" rel="noopener">Wikipedia ↗</a>`:wk&&wk[3]?`<a href="${wpUrl(wk[3],'en')}" target="_blank" rel="noopener">Wikipedia (englisch) ↗</a>`:''}<a href="${osm}" target="_blank" rel="noopener">In OpenStreetMap öffnen ↗</a><a href="${gm}" target="_blank" rel="noopener">Google Maps ↗</a>${wk?`<a href="https://www.wikidata.org/wiki/${wk[0]}" target="_blank" rel="noopener">Wikidata ↗</a>`:''}</div>
   </div>
   ${idx>=0?`<div class="d-nav"><button id="dPrev" ${idx<=0?'disabled':''}>← Vorheriges</button><span>${nl.lbl(idx,nl.arr.length)}</span><button id="dNext" ${idx>=nl.arr.length-1?'disabled':''}>Nächstes →</button></div>`:''}`;
   det.hidden=false; det.querySelector('.d-scroll').scrollTop=0;
