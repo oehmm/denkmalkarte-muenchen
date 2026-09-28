@@ -1225,14 +1225,14 @@ let TIDX=null; const shardCache={};
 async function embeddedThumb(i){
   if(!TIDX){ try{TIDX=await fetch('thumbs/index.json').then(r=>r.json());}catch(e){TIDX={};} }
   const e=TIDX[i]; if(!e) return null; const [s,off,len]=e;
-  if(!shardCache[s]) shardCache[s]=fetch('thumbs/s'+s+'.bin').then(r=>r.arrayBuffer());
+  if(!shardCache[s]) shardCache[s]=fetch('thumbs/s'+s+'.jpg').then(r=>r.arrayBuffer());
   const buf=await shardCache[s]; return URL.createObjectURL(new Blob([buf.slice(off,off+len)],{type:'image/jpeg'}));
 }
 const commonsPage=f=>'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(f.replace(/ /g,'_'));
 async function renderPhoto(o){
   const box=$('#dPhoto'); if(!box) return; const f=o.i&&!o.um&&!o.bd&&!o.ens&&!o.del?FOTO[o.i]:null;
   if(!f){ box.remove(); return; }
-  const src=IN_ARTIFACT?await embeddedThumb(o.i):f[1].replace(/\/200px-/,'/960px-');
+  const src=IN_ARTIFACT?await embeddedThumb(o.i):f[1].split('?')[0].replace(/\/\d+px-/,'/960px-');
   if(sel!==o||!document.body.contains(box)) return;
   const cap=`Foto: ${esc(f[2]||'unbekannt')}${f[3]?', '+esc(f[3]):''} · <a href="${commonsPage(f[0])}" target="_blank" rel="noopener">Commons ↗</a>${FCAT[o.i]?` · <a href="https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(FCAT[o.i].replace(/ /g,'_'))}" target="_blank" rel="noopener">weitere Fotos ↗</a>`:''}`;
   if(!src){ box.innerHTML=`<figcaption><a href="${commonsPage(f[0])}" target="_blank" rel="noopener">Foto auf Wikimedia Commons ansehen ↗</a></figcaption>`; return; }

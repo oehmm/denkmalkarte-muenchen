@@ -16,13 +16,16 @@ for k in range(0,len(titles),50):
     batch=titles[k:k+50]
     q=urllib.parse.urlencode({'action':'query','format':'json','prop':'imageinfo','iiprop':'url|extmetadata','iiurlwidth':'200',
         'iiextmetadatafilter':'Artist|LicenseShortName','titles':'|'.join('File:'+t for t in batch)})
-    for a in range(4):
+    d=None
+    for a in range(6):
         try: d=json.load(urllib.request.urlopen(urllib.request.Request('https://commons.wikimedia.org/w/api.php?'+q,headers=UA),timeout=60));break
-        except Exception as e: time.sleep(3)
-    norm={n['to']:n['from'] for n in d['query'].get('normalized',[])}
+        except Exception as e: print('retry meta',k,e,flush=True); time.sleep(5+a*5)
+    if not d: continue
+    back={n['to'][5:]:n['from'][5:] for n in d['query'].get('normalized',[])}
     for pg in d['query']['pages'].values():
         t=pg['title'][5:]
         ii=(pg.get('imageinfo') or [{}])[0]; em=ii.get('extmetadata',{})
+        t=back.get(t,t)
         meta[t]={'th':ii.get('thumburl'),'pg':ii.get('descriptionurl'),'ar':clean(em.get('Artist',{}).get('value'))[:80],'li':clean(em.get('LicenseShortName',{}).get('value'))}
     if k%1000==0: print('meta',k,len(titles),flush=True)
     time.sleep(0.3)

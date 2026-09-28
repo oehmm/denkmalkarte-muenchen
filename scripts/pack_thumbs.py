@@ -13,6 +13,6 @@ idx={};total=0
 for s,items in sorted(shards.items()):
     buf=bytearray()
     for i,data in sorted(items): idx[i]=[s,len(buf),len(data)]; buf+=data
-    open(f'{out}/s{s}.bin','wb').write(buf); total+=len(buf)
+    open(f'{out}/s{s}.jpg','wb').write(buf); total+=len(buf)
 json.dump(idx,open(out+'/index.json','w'),separators=(',',':'))
 print(len(idx),'Bilder in',len(shards),'Blöcken,',round(total/1e6,1),'MB')
