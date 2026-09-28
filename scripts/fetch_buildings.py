@@ -6,7 +6,7 @@ um=json.load(open(P+'/data/umland.json')) if os.path.exists(P+'/data/umland.json
 DY,DX=0.01,0.015
 tiles=sorted({(math.floor(o['z']/DY),math.floor(o['x']/DX)) for o in d+um})
 print(len(tiles),'Kacheln',flush=True)
-EPS=['https://overpass.private.coffee/api/interpreter','https://overpass-api.de/api/interpreter']
+EPS=['https://overpass-api.de/api/interpreter','https://overpass-api.de/api/interpreter','https://overpass.private.coffee/api/interpreter']
 for n,(ty,tx) in enumerate(tiles):
     f=f'{P}/raw/buildings/{ty}_{tx}.json'
     if os.path.exists(f): continue
@@ -14,7 +14,7 @@ for n,(ty,tx) in enumerate(tiles):
     q=f'[out:json][timeout:120];(way["building"]({s},{w},{nn},{e});rel["building"]({s},{w},{nn},{e});way["ref:BLfD"]({s},{w},{nn},{e}););out geom tags;'
     for a in range(8):
         try:
-            req=urllib.request.Request(EPS[a%2],data=urllib.parse.urlencode({'data':q}).encode(),headers={'User-Agent':'denkmalkarte-muenchen/1.0'})
+            req=urllib.request.Request(EPS[a%3],data=urllib.parse.urlencode({'data':q}).encode(),headers={'User-Agent':'denkmalkarte-muenchen/1.0'})
             res=json.load(urllib.request.urlopen(req,timeout=150))
             if 'remark' in res and 'runtime error' in res['remark']: raise Exception(res['remark'][:60])
             els=[{'t':x['type'],'id':x['id'],'g':x.get('geometry'),'m':[{'r':m.get('role'),'g':m.get('geometry')} for m in x.get('members',[]) if m.get('type')=='way'],

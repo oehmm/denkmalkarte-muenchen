@@ -353,7 +353,7 @@ select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background
 .lb-bar button.danger{border-color:#F0705E;color:#FFB4A8}
 
 /* Location + toast */
-.loc-btn{width:34px;height:34px;display:grid;place-items:center;background:var(--panel);border:0;cursor:pointer;color:var(--ink)}
+.loc-btn{position:relative;width:34px;height:34px;display:grid;place-items:center;background:var(--panel);border:0;cursor:pointer;color:var(--ink)}
 .loc-btn svg{width:18px;height:18px}
 .loc-btn.on{color:var(--me)}
 .loc-btn.wait svg{animation:spin 1.2s linear infinite}
@@ -363,6 +363,14 @@ select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background
 .key-form{display:grid;gap:6px}
 .key-form input{border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:8px 10px;font:inherit;font-size:13px;min-width:0}
 
+.near-ctl{display:grid}
+.near-ctl .loc-btn+.loc-btn{border-top:1px solid var(--line)}
+.near-ctl .loc-btn:not(.on){color:var(--ink-3)}
+#nearBtn[data-mode="alle"]::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--me);transform:translate(9px,-9px)}
+.btn[data-speak] svg{width:14px;height:14px}
+.msg .btn{padding:3px 10px;font-size:12px}
+.toast .btn{background:transparent;color:inherit;border-color:color-mix(in srgb,currentColor 40%,transparent)}
+.toast{max-width:min(420px,calc(100% - 28px))}
 @media (max-width:1100px){ .detail:not([hidden]) ~ .tl{display:none} }
 @media (max-width:760px){
   .tab{font-size:12px}
@@ -639,7 +647,7 @@ function drawLabels(){
 /* ---------- State & filtering ---------- */
 const monLayer=L.layerGroup().addTo(map), ensLayer=L.layerGroup().addTo(map);
 let shown=[], sel=null, selMark=null;
-const st={cats:new Set(CATS.map(c=>c[0])),eras:new Set(ERAS.map(e=>e[0])),bez:'',q:'',ens:true,arch:null,styles:new Set(),tl:false,year:2026,tab:'explore',tour:null,onlyMine:false,bd:false,um:false};
+const st={cats:new Set(CATS.map(c=>c[0])),eras:new Set(ERAS.map(e=>e[0])),bez:'',q:'',ens:true,arch:null,styles:new Set(),tl:false,year:2026,tab:'explore',tour:null,onlyMine:false,bd:false,um:false,audioTour:false};
 const terms=()=>st.q.toLowerCase().split(/\s+/).filter(Boolean);
 // skip: name of the facet to ignore (for facet counts)
 function pass(m,skip,t){
@@ -848,6 +856,7 @@ function select(o,fly){
     if(fly) map.flyTo(o.ll,Math.max(map.getZoom(),17),{duration:.8});
   }
   renderDetail(o); markActive();
+  if(st.audioTour&&st.tour&&st.tour.sm.includes(o)&&TTS.ok) speak(speechText(o),'d:'+o.id);
   try{history.replaceState(null,'','#'+(o.del?'x':o.ens?'e':'d')+o.i);}catch(e){}
   if(window.innerWidth<=760) $('#side').classList.remove('open');
 }
@@ -897,6 +906,7 @@ function renderDetail(o){
       <button class="btn" id="dSave" aria-pressed="${sv}">${sv?ICON.starOn:ICON.star}${sv?'Gemerkt':'Merken'}</button>
       <button class="btn ok" id="dVisit" aria-pressed="${vi}">${ICON.check}${vi?'Besucht':'Schon besucht?'}</button>
       <button class="btn" id="dAsk" aria-expanded="false">${ICON.chat}Frag Gemini</button>
+      <button class="btn" data-speak="d:${esc(o.id)}" data-label="Vorlesen" aria-pressed="false">Vorlesen</button>
     </div>`}
     ${st.me?`<p class="d-addr" id="dDist" style="color:var(--me)">${distTxt(st.me.distanceTo(o.ll))} von dir</p>`:''}
     <div class="chat" id="chat" hidden></div>
@@ -921,7 +931,7 @@ function renderDetail(o){
   $('#dCopy').onclick=async ev=>{const b=ev.currentTarget;try{await navigator.clipboard.writeText(o.id);b.textContent='kopiert';}catch(e){const r=document.createRange();r.selectNodeContents(det.querySelector('.mono'));getSelection().removeAllRanges();getSelection().addRange(r);b.textContent='markiert';}};
   if($('#dPrev')) $('#dPrev').onclick=()=>select(nl.arr[idx-1],true);
   if($('#dNext')) $('#dNext').onclick=()=>select(nl.arr[idx+1],true);
-  renderPhoto(o); renderMyPhotos(o);
+  renderPhoto(o); renderMyPhotos(o); refreshSpeakBtns();
   if($('#dDiffBtn')) $('#dDiffBtn').onclick=ev=>{const d=$('#dDiff');d.hidden=!d.hidden;ev.currentTarget.textContent=d.hidden?'Änderungen zeigen':'Änderungen ausblenden';};
   if($('#dSave')){
     $('#dSave').onclick=()=>{toggleStore('saved',o.id);};
@@ -1073,11 +1083,13 @@ function renderTours(){
     <span class="t-meta"><span><b>${modeTxt(t)}</b></span><span>${t.sm.length} Stationen</span><span>${String(t.km).replace('.',',')} km</span><span>ca. ${dur(t.min)} mit Pausen</span></span>
     <p class="p-intro">${esc(t.intro)}</p>
     <div class="prog"><span>${done} von ${t.sm.length} besucht</span><span class="bar"><i style="width:${done/t.sm.length*100}%"></i></span></div>
-    <div class="btnrow"><a class="btn primary" href="${gmapsUrl(t)}" target="_blank" rel="noopener">${ICON.map}In Google Maps navigieren ↗</a><button class="btn" id="tFit">Ganze Route zeigen</button></div>
+    <div class="btnrow">${gmapsLinks(t)}<button class="btn" id="tFit">Ganze Route zeigen</button></div>
+    <label class="toggle"><input type="checkbox" id="tAudio" ${st.audioTour?'checked':''}> Audio-Guide: Stationen vorlesen, beim Antippen und${IN_ARTIFACT?'':' mit GPS'} beim Ankommen</label>
   </div>
   <ol class="stops">${t.sm.map((m,i)=>`<li><button class="stop" data-id="${m.id}" data-i="${i}"><span class="num${store.visited.has(m.id)?' done':''}">${store.visited.has(m.id)?'✓':i+1}</span><span><span class="t">${esc(m.t)}</span><span class="a">${esc(shortAddr(m.a))}${m.y?' · '+m.y:''}</span></span></button></li>${i<t.legs.length?`<li class="leg">↓ ${t.legs[i]<1000?Math.round(t.legs[i]/10)*10+' m':(t.legs[i]/1000).toFixed(1).replace('.',',')+' km'} · ${Math.max(1,Math.round(t.legs[i]/(t.mode==='bike'?233:75)))} min</li>`:''}`).join('')}</ol>`;
   $('#tBack').onclick=()=>{st.tour=null;tourLayer.clearLayers();renderTours();refreshMap();};
   $('#tFit').onclick=fitTour;
+  $('#tAudio').onchange=ev=>{ st.audioTour=ev.target.checked; if(st.audioTour){ if(!TTS.ok) toast('Vorlesen wird von diesem Browser nicht unterstützt.'); else if(sel&&t.sm.includes(sel)) speak(speechText(sel),'d:'+sel.id); if(!IN_ARTIFACT&&watchId==null) toast('Tipp: Schalte oben rechts den Standort ein, dann wird jede Station beim Ankommen vorgelesen.',6000);} else stopSpeak(); };
   P.querySelector('.stops').onclick=ev=>{const b=ev.target.closest('.stop');if(b)select(t.sm[+b.dataset.i],true);};
   markActive();
 }
@@ -1085,7 +1097,7 @@ function drawTour(){
   tourLayer.clearLayers(); const t=st.tour; if(!t) return;
   const lines=t.geom.map(g=>{const o=[];for(let i=0;i<g.length;i+=2)o.push([g[i+1],g[i]]);return o;});
   tourLayer.addLayer(L.polyline(lines,{pane:'ens',color:css('--panel'),weight:8,opacity:.9,interactive:false,lineJoin:'round',lineCap:'round'}));
-  tourLayer.addLayer(L.polyline(lines,{pane:'ens',color:css('--accent'),weight:4,interactive:false,lineJoin:'round',lineCap:'round',dashArray:t.mode==='bike'?'1 8':null}));
+  tourLayer.addLayer(L.polyline(lines,{pane:'ens',color:css('--accent'),weight:4,interactive:false,lineJoin:'round',lineCap:'round',dashArray:t.custom?'7 7':t.mode==='bike'?'1 8':null}));
   t.sm.forEach((m,i)=>{const done=store.visited.has(m.id);
     const mk=L.marker(m.ll,{icon:L.divIcon({className:'',html:`<span class="tstop${done?' done':''}${sel===m?' on':''}" data-id="${m.id}">${done?'✓':i+1}</span>`,iconSize:[0,0]}),keyboard:false});
     mk.on('click',()=>select(m,false)); mk.bindTooltip('<b>'+esc(m.t)+'</b><small>Station '+(i+1)+'</small>',{className:'tt',direction:'top',offset:[0,-14]}); tourLayer.addLayer(mk);});
@@ -1105,6 +1117,7 @@ function renderMine(){
   const item=o=>`<li><button class="item" data-id="${o.id}" style="--c:var(--c-${o.c||'ensemble'})"><span class="dot${o.ens?' ens':''}"></span><span><span class="t">${esc(o.t)}${store.saved.has(o.id)&&store.visited.has(o.id)?' <span class="badge n">gemerkt</span>':''}</span><span class="a">${esc(o.ens?o.id:shortAddr(o.a))}${o.y?` <span class="y">· ${o.y}</span>`:''}</span></span></button></li>`;
   $('#pMine').innerHTML=`<div class="pad">
     <div class="mine-sum" style="grid-template-columns:repeat(3,1fr)"><div class="tile"><b>${fmt(sv.length)}</b><span>gemerkt</span></div><div class="tile"><b>${fmt(vi.length)}</b><span>besucht</span></div><div class="tile"><b>${fmt(phCount)}</b><span>eigene Fotos</span></div></div>
+    ${onlySaved.length>=2?`<button class="btn primary" id="mineRoute" style="justify-self:start">${ICON.map}Route aus meiner Liste (${Math.min(onlySaved.length,25)} Stationen)</button>`:''}
     <label class="toggle"><input type="checkbox" id="onlyMine" ${st.onlyMine?'checked':''}> Karte: nur meine Denkmäler zeigen</label>
     <p class="store-note">${store.where==='account'?'Gespeichert in deinem Claude-Konto, auf allen Geräten verfügbar und nur für dich sichtbar.':'Gespeichert in diesem Browser. In der veröffentlichten Karte wird die Liste in deinem Konto gesichert.'}</p>
   </div>
@@ -1113,6 +1126,7 @@ function renderMine(){
   ${visited.length?`<div class="sub-h"><span class="lbl">Besucht · ${visited.length}</span></div><ul class="list">${visited.map(item).join('')}</ul>`:''}
   ${phIds.length?`<div class="sub-h"><span class="lbl">Weitere mit eigenen Fotos · ${phIds.length}</span></div><ul class="list">${phIds.map(item).join('')}</ul>`:''}`;
   $('#onlyMine').onchange=ev=>{st.onlyMine=ev.target.checked;applyFilter();};
+  if($('#mineRoute')) $('#mineRoute').onclick=routeFromList;
   $('#pMine').onclick=ev=>{const b=ev.target.closest('.item');if(b)select(BYID[b.dataset.id],true);};
   markActive();
 }
@@ -1166,7 +1180,7 @@ function ctxText(o){
   lines.push('Amtlicher Listentext: '+o.d);
   return lines.join('\n');
 }
-const SUGG=['Was ist das Besondere an diesem Bau?','Erzähl mir etwas zur Geschichte.','Erkläre den Baustil in einfachen Worten.','Worauf soll ich vor Ort achten?'];
+const SUGG=['Was ist das Besondere an diesem Bau?','Erzähl mir etwas zur Geschichte.','Erkläre den Baustil in einfachen Worten.','Worauf soll ich vor Ort achten?','Erzähl es mir als Audio-Guide, etwa eine Minute zum Anhören.'];
 function md(t){
   const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,'$1<i>$2</i>');
   return t.replace(/^\s*([-*_]\s*){3,}$/gm,'').trim().split(/\n{2,}/).filter(b=>b.trim()).map(block=>{const lines=block.split('\n').filter(l=>l.trim());
@@ -1195,7 +1209,7 @@ async function renderChat(o){
   }
   box.innerHTML=`<div class="chat-h"><b>Frag Gemini</b><small>${esc(g.model||GEM_MODEL)} · mit Websuche</small></div>
     ${c.msgs.length?'':`<div class="sugg">${SUGG.map(s=>`<button data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div>`}
-    <div class="msgs" id="msgs">${c.msgs.map(m=>m.role==='user'?`<div class="msg user">${esc(m.text)}</div>`:`<div class="msg model${m.err?' err':''}">${m.err?esc(m.text):md(m.text)}${m.sources&&m.sources.length?`<div class="src-l">Quellen: ${m.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join('')}</div>`:''}</div>`).join('')}${c.busy?'<div class="typing">Gemini denkt nach …</div>':''}</div>
+    <div class="msgs" id="msgs">${c.msgs.map((m,i)=>m.role==='user'?`<div class="msg user">${esc(m.text)}</div>`:`<div class="msg model${m.err?' err':''}">${m.err?esc(m.text):md(m.text)}${m.err?'':`<div class="btnrow" style="margin-top:6px"><button class="btn" data-speak="m:${esc(o.id)}:${i}" data-label="Anhören" aria-pressed="false">Anhören</button></div>`}${m.sources&&m.sources.length?`<div class="src-l">Quellen: ${m.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join('')}</div>`:''}</div>`).join('')}${c.busy?'<div class="typing">Gemini denkt nach …</div>':''}</div>
     <form class="chat-in" id="chatF"><textarea id="chatQ" rows="1" placeholder="Frage zu diesem Denkmal …"></textarea><button type="submit" ${c.busy?'disabled':''}>Senden</button></form>${keyForm}`;
   bindKey(o);
   const sg=box.querySelector('.sugg'); if(sg) sg.onclick=ev=>{const b=ev.target.closest('button');if(b)ask(o,b.dataset.s);};
@@ -1213,8 +1227,9 @@ async function ask(o,q){
       j=await r.json(); if(!r.ok) throw new Error(j.error||('Fehler '+r.status)); }
     else j=await gemDirect(ctxText(o),msgs);
     c.msgs.push({role:'model',text:j.text,sources:j.sources||[]});
+    if(/Audio-Guide/.test(q)&&sel===o) setTimeout(()=>speak(j.text.replace(/[*#_]/g,''),'m:'+o.id+':'+(c.msgs.length-1)),50);
   }catch(e){ c.msgs.push({role:'model',err:1,text:'Gemini hat nicht geantwortet: '+e.message+'. Bitte später erneut versuchen.'}); }
-  c.busy=false; if(sel===o){ renderChat(o); const ms=$('#msgs'); if(ms) ms.lastElementChild&&ms.lastElementChild.scrollIntoView({block:'nearest'}); }
+  c.busy=false; if(sel===o){ await renderChat(o); refreshSpeakBtns(); const ms=$('#msgs'); if(ms) ms.lastElementChild&&ms.lastElementChild.scrollIntoView({block:'nearest'}); }
 }
 
 /* ---------- Umgebung ---------- */
@@ -1336,15 +1351,16 @@ new LocCtl().addTo(map);
 function drawMe(acc){ meLayer.clearLayers(); if(!st.me) return; const c=css('--me');
   meLayer.addLayer(L.circle(st.me,{pane:'mon',radius:Math.min(acc||30,300),color:c,weight:1,fillColor:c,fillOpacity:.12,interactive:false}));
   meLayer.addLayer(L.circleMarker(st.me,{pane:'mon',radius:7,color:'#fff',weight:2.5,fillColor:c,fillOpacity:1,interactive:false})); }
-function stopLoc(){ if(watchId!=null) navigator.geolocation.clearWatch(watchId); watchId=null; st.me=null; meLayer.clearLayers(); const b=$('#locBtn'); b.classList.remove('on','wait'); renderList(); if(sel) renderDetail(sel); }
+function stopLoc(){ const nc=$('#nearCtl'); if(nc) nc.hidden=true; try{NEAR.wake&&NEAR.wake.release();}catch(e){} if(watchId!=null) navigator.geolocation.clearWatch(watchId); watchId=null; st.me=null; meLayer.clearLayers(); const b=$('#locBtn'); b.classList.remove('on','wait'); renderList(); if(sel) renderDetail(sel); }
 function toggleLoc(){
   if(IN_ARTIFACT||!navigator.geolocation){ toast(`Die Artifact-Ansicht darf den Standort nicht abfragen. „In der Nähe“ funktioniert in der Handy-Version: <a href="${PAGES_URL}" target="_blank" rel="noopener">${PAGES_URL.replace('https://','')}</a>`,9000); return; }
   if(watchId!=null){ stopLoc(); return; }
   const b=$('#locBtn'); b.classList.add('wait'); let first=true;
   watchId=navigator.geolocation.watchPosition(p=>{
     st.me=L.latLng(p.coords.latitude,p.coords.longitude); drawMe(p.coords.accuracy); b.classList.remove('wait'); b.classList.add('on');
-    if(first){ first=false; if(!map.options.maxBounds||!L.latLngBounds(map.options.maxBounds).contains(st.me)) toast('Dein Standort liegt außerhalb des Kartenausschnitts München. Die Liste zeigt trotzdem die nächstgelegenen Denkmäler.'); else map.flyTo(st.me,Math.max(map.getZoom(),16.5),{duration:.8}); if(st.tab!=='explore') setTab('explore'); }
+    if(first){ first=false; if(!map.options.maxBounds||!L.latLngBounds(map.options.maxBounds).contains(st.me)) toast('Dein Standort liegt außerhalb des Kartenausschnitts München. Die Liste zeigt trotzdem die nächstgelegenen Denkmäler.'); else map.flyTo(st.me,Math.max(map.getZoom(),16.5),{duration:.8}); if(st.tab!=='explore'&&st.tab!=='tours') setTab('explore'); }
     renderList(); if(sel&&!det.hidden) updateDist();
+    $('#nearCtl').hidden=false; wakeOn(); checkNearby(p.coords.accuracy);
   },err=>{ toast(err.code===1?'Standortfreigabe verweigert. Erlaube den Standort für diese Seite in den Browser-Einstellungen.':'Standort derzeit nicht verfügbar.'); stopLoc(); },
   {enableHighAccuracy:true,maximumAge:10000,timeout:20000});
 }
@@ -1364,6 +1380,116 @@ async function gemDirect(ctx,msgs){
   const c=(j.candidates||[{}])[0]; const text=((c.content||{}).parts||[]).map(p=>p.text||'').join('').trim();
   const sources=(((c.groundingMetadata||{}).groundingChunks)||[]).map(x=>x.web).filter(w=>w&&w.uri).map(w=>({title:w.title||w.uri,url:w.uri}));
   return {text:text||'(keine Antwort)',sources:sources.slice(0,6),model:GEM_MODEL};
+}
+
+/* ---------- Audio-Guide (Sprachausgabe des Browsers) ---------- */
+const TTS={ok:'speechSynthesis' in window, voice:null, speaking:null};
+function pickVoice(){ if(!TTS.ok) return; const vs=speechSynthesis.getVoices().filter(v=>/^de/i.test(v.lang));
+  TTS.voice=vs.find(v=>/Anna|Helena|Petra|Markus|Google Deutsch|Katja|Conrad/i.test(v.name))||vs.find(v=>/de[-_]DE/i.test(v.lang))||vs[0]||null; }
+if(TTS.ok){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
+const ABBR_SPEECH=[[/\behem\./g,'ehemalige'],[/\bbez\./g,'bezeichnet'],[/\bsog\./g,'sogenannte'],[/\bNr\./g,'Nummer'],[/\bNrn\./g,'Nummern'],[/\bJh\./g,'Jahrhundert'],[/\bKath\./g,'Katholische'],[/\bkath\./g,'katholische'],[/\bEv\.-Luth\./g,'Evangelisch-lutherische'],[/\bev\./g,'evangelische'],[/\bhl\./gi,'heilige'],[/\bSt\. /g,'Sankt '],[/\bca\./g,'circa'],[/\bu\. a\./g,'unter anderem'],[/\bz\. T\./g,'zum Teil'],[/\bsogn\./g,'sogenannte'],[/(\d{4})\/(\d{2,4})\b/g,'$1'],[/(\d{4})\s*[-–]\s*(\d{2,4})\b/g,'$1 bis $2'],[/;/g,'.']];
+function speechText(o){
+  let t=o.t+'. ';
+  if(o.a) t+=o.a.split(';').map(s=>s.trim()).filter(s=>s&&!s.startsWith('Nähe'))[0]+'. ';
+  t+=o.d||''; ABBR_SPEECH.forEach(([r,s])=>t=t.replace(r,s)); return t;
+}
+function speak(text,key){
+  if(!TTS.ok){ toast('Vorlesen wird von diesem Browser nicht unterstützt.'); return; }
+  speechSynthesis.cancel(); TTS.speaking=key||'x';
+  // Chrome bricht lange Äußerungen ab: in Sätze teilen
+  const parts=(text.replace(/\s+/g,' ').match(/[^.!?]+[.!?]*/g)||[text]).reduce((a,s)=>{ if(a.length&&(a[a.length-1]+s).length<220) a[a.length-1]+=s; else a.push(s); return a; },[]);
+  parts.forEach((p,i)=>{ const u=new SpeechSynthesisUtterance(p.trim()); u.lang='de-DE'; if(TTS.voice) u.voice=TTS.voice; u.rate=1.02;
+    if(i===parts.length-1) u.onend=u.onerror=()=>{ if(TTS.speaking===(key||'x')){TTS.speaking=null; refreshSpeakBtns();} };
+    speechSynthesis.speak(u); });
+  refreshSpeakBtns();
+}
+function stopSpeak(){ if(TTS.ok) speechSynthesis.cancel(); TTS.speaking=null; refreshSpeakBtns(); }
+const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h4l5-4v13l-5-4H4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
+const STOPI='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/></svg>';
+function refreshSpeakBtns(){
+  document.querySelectorAll('[data-speak]').forEach(b=>{ const on=TTS.speaking===b.dataset.speak; b.setAttribute('aria-pressed',on);
+    b.innerHTML=(on?STOPI:SPK)+(b.dataset.label?(on?'Stopp':b.dataset.label):''); });
+}
+document.addEventListener('click',ev=>{ const b=ev.target.closest('[data-speak]'); if(!b) return;
+  const key=b.dataset.speak; if(TTS.speaking===key){ stopSpeak(); return; }
+  if(key.startsWith('d:')){ const o=BYID[key.slice(2)]; if(o) speak(speechText(o),key); }
+  else if(key.startsWith('m:')){ const [,id,i]=key.split(':'); const m=chats[id]&&chats[id].msgs[+i]; if(m) speak(m.text.replace(/[*#_]/g,''),key); }
+});
+
+/* ---------- Hinweise im Vorbeigehen ---------- */
+const NEAR={mode:'besondere', voice:false, alerted:new Set(), last:0, wake:null};
+const NEAR_MODES={aus:'Hinweise aus',besondere:'Hinweise: Sehenswertes (ohne gewöhnliche Wohnhäuser), Merkliste und Rundgang',alle:'Hinweise: alle Denkmäler'};
+try{ const s=JSON.parse(localStorage.getItem('dk-near')||'{}'); if(s.mode) NEAR.mode=s.mode; NEAR.voice=!!s.voice; }catch(e){}
+const saveNear=()=>{ try{localStorage.setItem('dk-near',JSON.stringify({mode:NEAR.mode,voice:NEAR.voice}));}catch(e){} };
+const BELL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>';
+const NearCtl=L.Control.extend({options:{position:'topright'},onAdd(){ const d=L.DomUtil.create('div','leaflet-bar near-ctl'); d.id='nearCtl'; d.hidden=true;
+  const b1=L.DomUtil.create('button','loc-btn',d); b1.id='nearBtn'; b1.innerHTML=BELL;
+  const b2=L.DomUtil.create('button','loc-btn',d); b2.id='nearVoice'; b2.innerHTML=SPK;
+  L.DomEvent.disableClickPropagation(d);
+  b1.onclick=()=>{ NEAR.mode=NEAR.mode==='aus'?'besondere':NEAR.mode==='besondere'?'alle':'aus'; saveNear(); paintNear(); toast(NEAR_MODES[NEAR.mode]+'.',3500); };
+  b2.onclick=()=>{ NEAR.voice=!NEAR.voice; saveNear(); paintNear(); toast(NEAR.voice?'Ansage an: Beim Vorbeigehen wird der Name vorgelesen.':'Ansage aus.',3500); if(NEAR.voice&&TTS.ok){ const u=new SpeechSynthesisUtterance(''); speechSynthesis.speak(u); } };
+  return d; }});
+new NearCtl().addTo(map);
+function paintNear(){ const b1=$('#nearBtn'), b2=$('#nearVoice'); if(!b1) return;
+  b1.classList.toggle('on',NEAR.mode!=='aus'); b1.title=NEAR_MODES[NEAR.mode]; b1.setAttribute('aria-label',NEAR_MODES[NEAR.mode]);
+  b1.dataset.mode=NEAR.mode; b2.classList.toggle('on',NEAR.voice); b2.title=NEAR.voice?'Ansage an':'Ansage aus'; b2.setAttribute('aria-label',b2.title); }
+paintNear();
+async function wakeOn(){ try{ if('wakeLock' in navigator&&!NEAR.wake) NEAR.wake=await navigator.wakeLock.request('screen'); NEAR.wake&&NEAR.wake.addEventListener('release',()=>{NEAR.wake=null;}); }catch(e){} }
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'&&watchId!=null) wakeOn(); });
+function isSpecial(o){ return o.c!=='wohnen'||store.saved.has(o.id)||(st.tour&&st.tour.sm.includes(o)); }
+function checkNearby(acc){
+  if(NEAR.mode==='aus'||!st.me||acc>60) return;
+  const now=Date.now(); if(now-NEAR.last<15000) return;
+  const tourIds=new Set(st.tour?st.tour.sm.map(m=>m.id):[]);
+  let best=null, bd=1e9;
+  const pool=(st.tour?st.tour.sm:[]).concat(M, st.um?U:[]);
+  for(const o of pool){ if(NEAR.alerted.has(o.id)) continue;
+    const lim=tourIds.has(o.id)?40:28; if(Math.abs(o.ll.lat-st.me.lat)>0.0005||Math.abs(o.ll.lng-st.me.lng)>0.0008) continue;
+    if(NEAR.mode==='besondere'&&!isSpecial(o)) continue;
+    const d=st.me.distanceTo(o.ll); if(d<=lim&&d<bd){ bd=d; best=o; } }
+  if(!best) return;
+  NEAR.alerted.add(best.id); NEAR.last=now;
+  try{ navigator.vibrate&&navigator.vibrate([180,90,180]); }catch(e){}
+  const inTour=tourIds.has(best.id), idx=inTour?st.tour.sm.indexOf(best)+1:0;
+  const vis=store.visited.has(best.id);
+  toast(`<b>${inTour?'Station '+idx+': ':'In der Nähe: '}${esc(best.t)}</b> · ${distTxt(bd)}<div class="btnrow" style="margin-top:8px"><button class="btn" data-near="show">Anzeigen</button><button class="btn" data-near="read">Vorlesen</button>${inTour&&!vis?'<button class="btn" data-near="visit">✓ Besucht</button>':''}</div>`,14000);
+  const t=$('#toast'); t.onclick=ev=>{ const b=ev.target.closest('[data-near]'); if(!b) return; const a=b.dataset.near;
+    if(a==='show') select(best,true); if(a==='read') speak(speechText(best),'d:'+best.id); if(a==='visit'){ if(!store.visited.has(best.id)) toggleStore('visited',best.id); b.remove(); } };
+  if(NEAR.voice||(inTour&&st.audioTour)) speak(inTour&&st.audioTour?speechText(best):(inTour?'Station '+idx+'. ':'In der Nähe: ')+best.t,'d:'+best.id);
+}
+
+/* ---------- Eigene Route aus der Merkliste ---------- */
+function orderOpen(pts,start){
+  const d=(a,b)=>a.distanceTo(b); let rest=pts.slice(), p=[], cur=start;
+  while(rest.length){ let bi=0; rest.forEach((o,i)=>{ if(d(cur,o.ll)<d(cur,rest[bi].ll)) bi=i; }); cur=rest[bi].ll; p.push(rest.splice(bi,1)[0]); }
+  let imp=true, guard=0;
+  while(imp&&guard++<50){ imp=false;
+    for(let i=0;i<p.length-1;i++) for(let j=i+1;j<p.length;j++){
+      const a=i===0?start:p[i-1].ll, b=p[i].ll, c=p[j].ll, e=j+1<p.length?p[j+1].ll:null;
+      const old=d(a,b)+(e?d(c,e):0), nw=d(a,c)+(e?d(b,e):0);
+      if(nw<old-1){ p.splice(i,j-i+1,...p.slice(i,j+1).reverse()); imp=true; } } }
+  return p;
+}
+function routeFromList(){
+  let pts=[...store.saved].filter(id=>!store.visited.has(id)).map(id=>BYID[id]).filter(o=>o&&!o.bd&&!o.del);
+  if(pts.length<2){ toast('Merke dir mindestens zwei Denkmäler, die du noch nicht besucht hast.'); return; }
+  const start=st.me||map.getCenter(); let cut=0;
+  if(pts.length>25){ pts.sort((a,b)=>start.distanceTo(a.ll)-start.distanceTo(b.ll)); cut=pts.length-25; pts=pts.slice(0,25); }
+  const sm=orderOpen(pts,start);
+  const legs=sm.slice(1).map((o,i)=>sm[i].ll.distanceTo(o.ll)*1.3);
+  const km=legs.reduce((a,b)=>a+b,0)/1000, bike=km>7;
+  const t={id:'mine',custom:1,t:'Meine Route',mode:bike?'bike':'walk',sm,legs,km:Math.round(km*10)/10,
+    min:Math.round((km/(bike?14:4.5)*60+sm.length*(bike?5:4))/5)*5,
+    geom:sm.slice(1).map((o,i)=>[sm[i].ll.lng,sm[i].ll.lat,o.ll.lng,o.ll.lat]),
+    intro:`${sm.length} gemerkte, noch nicht besuchte Denkmäler, geordnet ${st.me?'ab deinem Standort':'ab der Kartenmitte'}${cut?` (die ${sm.length} nächstgelegenen; ${cut} weitere ausgelassen)`:''}. Entfernungen sind geschätzt (Luftlinie plus 30 %), den genauen Weg zeigt Google Maps.`};
+  setTab('tours'); startTour(t);
+}
+function gmapsLinks(t){
+  const p=t.sm.map(m=>m.ll.lat.toFixed(6)+','+m.ll.lng.toFixed(6)), mode=t.mode==='bike'?'bicycling':'walking';
+  if(p.length<=11) return `<a class="btn primary" href="${gmapsUrl(t)}" target="_blank" rel="noopener">${ICON.map}In Google Maps navigieren ↗</a>`;
+  const out=[]; for(let s=0,k=1;s<p.length-1;s+=10,k++){ const seg=p.slice(s,s+11);
+    out.push(`<a class="btn${k===1?' primary':''}" href="https://www.google.com/maps/dir/?api=1&origin=${seg[0]}&destination=${seg[seg.length-1]}&waypoints=${seg.slice(1,-1).join('%7C')}&travelmode=${mode}" target="_blank" rel="noopener">${k===1?ICON.map:''}Google Maps, Teil ${k} ↗</a>`); }
+  return out.join('');
 }
 
 /* ---------- Events & theme ---------- */
