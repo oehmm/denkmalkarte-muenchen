@@ -1,5 +1,5 @@
 // Offline-Speicher: App und Kartendaten aus dem Cache, Commons-Fotos nach erstem Laden ebenfalls.
-const VERSION = '20260928075244';
+const VERSION = '20260928114448';
 const CORE = ['./', 'index.html', 'denkmaeler.json', 'basiskarte.json', 'aenderungen.json', 'rundgaenge.json',
   'umland.json', 'bodendenkmaeler.json', 'fotos.json', 'manifest.webmanifest', 'icon-192.png'];
 self.addEventListener('install', e => {
