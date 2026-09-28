@@ -826,18 +826,19 @@ function navList(o){
   if(st.tab==='mine'&&mineList.includes(o)) return {arr:mineList,lbl:(i,n)=>`${i+1} von ${n} in meiner Liste`};
   return {arr:listed,lbl:(i,n)=>`${i+1} von ${n} in der Nähe`};
 }
+let lastSelectAt=0;
 function select(o,fly){
-  sel=o; closePop(); if(selMark){map.removeLayer(selMark);selMark=null;}
+  lastSelectAt=performance.now(); sel=o; closePop(); if(selMark){map.removeLayer(selMark);selMark=null;}
   const acc=css('--accent');
   if(o.ens){
-    selMark=L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{pane:'mon',color:acc,weight:3,fill:false,interactive:false}).addTo(map);
+    selMark=L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{renderer:rMon,color:acc,weight:3,fill:false,interactive:false}).addTo(map);
     if(fly) map.flyToBounds(selMark.getBounds(),{padding:[40,40],duration:.8});
   } else {
     const ol=OUT[o.um?o.i:o.i];
-    const g=[L.circleMarker(o.ll,{pane:'mon',radius:14,color:acc,weight:3,fill:false,interactive:false})];
+    const g=[L.circleMarker(o.ll,{renderer:rMon,radius:14,color:acc,weight:3,fill:false,interactive:false})];
     const bw=(o.b[2]-o.b[0])*74000,bh=(o.b[3]-o.b[1])*111000;
-    if(ol&&!o.del&&!o.bd) g.push(L.polygon(ol.map(toLL),{pane:'mon',color:acc,weight:3,fillColor:acc,fillOpacity:.25,interactive:false}));
-    else if(bw>3&&bh>3&&bw<600&&bh<600) g.push(L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{pane:'mon',color:acc,weight:2.5,fillColor:acc,fillOpacity:.2,interactive:false}));
+    if(ol&&!o.del&&!o.bd) g.push(L.polygon(ol.map(toLL),{renderer:rMon,color:acc,weight:3,fillColor:acc,fillOpacity:.25,interactive:false}));
+    else if(bw>3&&bh>3&&bw<600&&bh<600) g.push(L.rectangle([[o.b[1],o.b[0]],[o.b[3],o.b[2]]],{renderer:rMon,color:acc,weight:2.5,fillColor:acc,fillOpacity:.2,interactive:false}));
     selMark=L.layerGroup(g).addTo(map);
     if(fly) map.flyTo(o.ll,Math.max(map.getZoom(),17),{duration:.8});
   }
@@ -1017,8 +1018,8 @@ function drawMarks(){
   const acc=css('--accent'), ok=css('--ok'), r=R(map.getZoom());
   for(const id of new Set([...store.saved,...store.visited])){
     const o=BYID[id]; if(!o||o.ens) continue;
-    if(store.visited.has(id)) markLayer.addLayer(L.circleMarker(o.ll,{pane:'mon',radius:r+2.5,color:ok,weight:2.2,fill:false,interactive:false}));
-    if(store.saved.has(id)) markLayer.addLayer(L.circleMarker(o.ll,{pane:'mon',radius:r+(store.visited.has(id)?6:3),color:acc,weight:2.4,fill:false,interactive:false}));
+    if(store.visited.has(id)) markLayer.addLayer(L.circleMarker(o.ll,{renderer:rMon,radius:r+2.5,color:ok,weight:2.2,fill:false,interactive:false}));
+    if(store.saved.has(id)) markLayer.addLayer(L.circleMarker(o.ll,{renderer:rMon,radius:r+(store.visited.has(id)?6:3),color:acc,weight:2.4,fill:false,interactive:false}));
   }
 }
 
@@ -1082,8 +1083,8 @@ function renderTours(){
 function drawTour(){
   tourLayer.clearLayers(); const t=st.tour; if(!t) return;
   const lines=t.geom.map(g=>{const o=[];for(let i=0;i<g.length;i+=2)o.push([g[i+1],g[i]]);return o;});
-  tourLayer.addLayer(L.polyline(lines,{pane:'ens',color:css('--panel'),weight:8,opacity:.9,interactive:false,lineJoin:'round',lineCap:'round'}));
-  tourLayer.addLayer(L.polyline(lines,{pane:'ens',color:css('--accent'),weight:4,interactive:false,lineJoin:'round',lineCap:'round',dashArray:t.custom?'7 7':t.mode==='bike'?'1 8':null}));
+  tourLayer.addLayer(L.polyline(lines,{renderer:rEns,color:css('--panel'),weight:8,opacity:.9,interactive:false,lineJoin:'round',lineCap:'round'}));
+  tourLayer.addLayer(L.polyline(lines,{renderer:rEns,color:css('--accent'),weight:4,interactive:false,lineJoin:'round',lineCap:'round',dashArray:t.custom?'7 7':t.mode==='bike'?'1 8':null}));
   t.sm.forEach((m,i)=>{const done=store.visited.has(m.id);
     const mk=L.marker(m.ll,{icon:L.divIcon({className:'',html:`<span class="tstop${done?' done':''}${sel===m?' on':''}" data-id="${m.id}">${done?'✓':i+1}</span>`,iconSize:[0,0]}),keyboard:false});
     mk.on('click',()=>select(m,false)); mk.bindTooltip('<b>'+esc(m.t)+'</b><small>Station '+(i+1)+'</small>',{className:'tt',direction:'top',offset:[0,-14]}); tourLayer.addLayer(mk);});
@@ -1335,8 +1336,8 @@ const LocCtl=L.Control.extend({options:{position:'topright'},onAdd(){ const d=L.
   L.DomEvent.disableClickPropagation(d); b.onclick=toggleLoc; return d; }});
 new LocCtl().addTo(map);
 function drawMe(acc){ meLayer.clearLayers(); if(!st.me) return; const c=css('--me');
-  meLayer.addLayer(L.circle(st.me,{pane:'mon',radius:Math.min(acc||30,300),color:c,weight:1,fillColor:c,fillOpacity:.12,interactive:false}));
-  meLayer.addLayer(L.circleMarker(st.me,{pane:'mon',radius:7,color:'#fff',weight:2.5,fillColor:c,fillOpacity:1,interactive:false})); }
+  meLayer.addLayer(L.circle(st.me,{renderer:rMon,radius:Math.min(acc||30,300),color:c,weight:1,fillColor:c,fillOpacity:.12,interactive:false}));
+  meLayer.addLayer(L.circleMarker(st.me,{renderer:rMon,radius:7,color:'#fff',weight:2.5,fillColor:c,fillOpacity:1,interactive:false})); }
 function stopLoc(){ const nc=$('#nearCtl'); if(nc) nc.hidden=true; try{NEAR.wake&&NEAR.wake.release();}catch(e){} if(watchId!=null) navigator.geolocation.clearWatch(watchId); watchId=null; st.me=null; meLayer.clearLayers(); const b=$('#locBtn'); b.classList.remove('on','wait'); renderList(); if(sel) renderDetail(sel); }
 function toggleLoc(){
   if(IN_ARTIFACT||!navigator.geolocation){ toast(`Die Artifact-Ansicht darf den Standort nicht abfragen. „In der Nähe“ funktioniert in der Handy-Version: <a href="${PAGES_URL}" target="_blank" rel="noopener">${PAGES_URL.replace('https://','')}</a>`,9000); return; }
@@ -1478,6 +1479,18 @@ function gmapsLinks(t){
   return out.join('');
 }
 
+/* Klick auf Ensemble- und Bodendenkmal-Flächen: deren Zeichenfläche liegt unter den Punkten,
+   daher werden Klicks, die keinen Punkt treffen, hier den Flächen zugeordnet (kleinste Fläche gewinnt) */
+map.on('click',ev=>{
+  if(mapMode()!=='normal'||performance.now()-lastSelectAt<400) return;   // Klick hat bereits ein Denkmal getroffen
+  const ll=ev.latlng, hit=[];
+  const inB=b=>ll.lng>=b[0]&&ll.lng<=b[2]&&ll.lat>=b[1]&&ll.lat<=b[3];
+  if(st.ens&&!st.tl){ const t=terms(); for(const e of E) if(inB(e.b)&&passE(e,t)) hit.push(e); }
+  if(st.bd) for(const o of EX.bd) if(inB(o.b)) hit.push(o);
+  if(!hit.length) return;
+  hit.sort((a,b)=>(a.b[2]-a.b[0])*(a.b[3]-a.b[1])-(b.b[2]-b.b[0])*(b.b[3]-b.b[1]));
+  select(hit[0],false);
+});
 /* ---------- Events & theme ---------- */
 let lastFp=null, lastR=null;
 map.on('zoomend',()=>{styleBase();const z=map.getZoom();const fp=z>=17;
