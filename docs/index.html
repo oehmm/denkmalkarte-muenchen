@@ -167,15 +167,15 @@ select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background
 .d-cat .dot.ens{border-radius:2px;background:none;border:1.5px dashed var(--c-ensemble)}
 .x{border:0;background:var(--chip);width:30px;height:30px;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none}
 .x svg{width:14px;height:14px;stroke:var(--ink-2)}
-.d-title{font:400 24px/1.18 var(--f-display);margin:0;text-wrap:balance}
-.d-addr{font-weight:500;color:var(--ink-2);margin:0}
+.d-title{font:400 calc(24px*(1 + (var(--fs,1) - 1)*.45))/1.18 var(--f-display);margin:0;text-wrap:balance}
+.d-addr{font-weight:500;color:var(--ink-2);margin:0;font-size:calc(14px*var(--fs,1))}
 .d-addr .more-addr{border:0;background:none;padding:0;color:var(--accent-ink);cursor:pointer;font-size:12.5px;font-weight:400}
-.d-text{margin:0;max-width:65ch;line-height:1.6;font-size:14px}
+.d-text{margin:0;max-width:65ch;line-height:1.6;font-size:calc(14px*var(--fs,1))}
 .gl{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:help;text-decoration:underline dotted var(--accent);text-decoration-thickness:1.5px;text-underline-offset:3px}
 .gl:hover,.gl.on{color:var(--accent-ink);text-decoration-style:solid}
 .gloss-pop{position:absolute;z-index:5;width:min(300px,calc(100% - 40px));background:var(--ink);color:var(--panel);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.45;box-shadow:var(--shadow)}
 .gloss-pop b{display:block;font-family:var(--f-display);font-weight:400;font-size:15px;margin-bottom:2px}
-.d-meta{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:12.5px;border-top:1px solid var(--line);padding-top:12px}
+.d-meta{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:calc(12.5px*var(--fs,1));border-top:1px solid var(--line);padding-top:12px}
 .d-meta dt{color:var(--ink-3)}
 .d-meta dd{margin:0;min-width:0;overflow-wrap:anywhere;display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline}
 .alink{border:0;background:none;padding:0;color:var(--accent-ink);cursor:pointer;font:inherit;text-align:left;text-decoration:underline;text-underline-offset:2px;text-decoration-color:color-mix(in srgb,var(--accent) 50%,transparent)}
@@ -287,7 +287,7 @@ select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background
 .badge.c{background:color-mix(in srgb,var(--chg) 18%,transparent);color:var(--accent-ink)}
 .badge.d{background:color-mix(in srgb,var(--del) 16%,transparent);color:var(--del)}
 .item .badge{margin-left:4px;font-size:9.5px;padding:1px 6px;vertical-align:1px}
-.diff{font-size:13px;line-height:1.6;margin:0;padding:10px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.diff{font-size:calc(13px*var(--fs,1));line-height:1.6;margin:0;padding:10px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
 .diff ins{background:var(--ins-bg);text-decoration:none;border-radius:2px}
 .diff del{background:var(--del-bg);text-decoration:line-through;text-decoration-color:var(--del);border-radius:2px;color:var(--ink-2)}
 .diff-h{font-size:11.5px;color:var(--ink-3);margin:0 0 4px}
@@ -304,7 +304,7 @@ select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background
 .sugg button{border:1px dashed var(--line);background:none;border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--ink-2)}
 .sugg button:hover{border-color:var(--accent);color:var(--ink)}
 .msgs{display:grid;gap:8px}
-.msg{padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.55;max-width:100%;overflow-wrap:anywhere}
+.msg{padding:9px 12px;border-radius:10px;font-size:calc(13.5px*var(--fs,1));line-height:1.55;max-width:100%;overflow-wrap:anywhere}
 .msg.user{background:var(--accent-soft);justify-self:end;border-bottom-right-radius:3px;max-width:88%}
 .msg.model{background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:3px}
 .msg.model p{margin:0 0 6px}.msg.model p:last-child{margin:0}
@@ -383,7 +383,15 @@ select{padding:7px 8px;border:1px solid var(--line);border-radius:8px;background
 .arch-bio{margin:0;font-size:12.5px;line-height:1.5;max-height:7.5em;overflow:auto}
 .arch-active .btn{padding:4px 10px;font-size:12px}
 .wp-box{display:grid;gap:4px;padding:10px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
-.wp-x{margin:0;font-size:13px;line-height:1.55}
+.wp-x{margin:0;font-size:calc(13px*var(--fs,1));line-height:1.55}
+.fs-ctl{display:inline-flex;gap:2px;margin-left:auto;flex:none}
+.d-top{flex-wrap:wrap}
+.d-top .d-cat{flex:1 1 auto;min-width:0;flex-wrap:wrap}
+.d-top .x{flex:none}
+.fs-ctl button{border:1px solid var(--line);background:var(--panel);color:var(--ink-2);border-radius:6px;min-width:34px;height:30px;cursor:pointer;font:600 13px/1 var(--f-body)}
+.fs-ctl button:first-child{font-size:11px}
+.fs-ctl button:disabled{opacity:.35}
+.detail{touch-action:pan-y}
 @media (max-width:1100px){ .detail:not([hidden]) ~ .tl{display:none} }
 @media (max-width:760px){
   .tab{font-size:12px}
@@ -859,6 +867,16 @@ function openPop(btn){
 
 /* ---------- Detail ---------- */
 const det=$('#detail');
+/* Textgröße der Detailkarte: A−/A+ und Zwei-Finger-Geste (die Karte blockiert das Browser-Zoomen) */
+const FS={v:1,min:.85,max:2.4};
+try{ const v=parseFloat(localStorage.getItem('dk-fs')); FS.v=v>0?v:(innerWidth<=760?1.15:1); }catch(e){ FS.v=innerWidth<=760?1.15:1; }
+function setFs(v,save){ FS.v=Math.min(FS.max,Math.max(FS.min,v)); det.style.setProperty('--fs',FS.v.toFixed(3)); paintFs(); if(save){ try{localStorage.setItem('dk-fs',FS.v.toFixed(3));}catch(e){} } }
+function paintFs(){ const a=$('#fsMinus'),b=$('#fsPlus'); if(a){a.disabled=FS.v<=FS.min+.001; b.disabled=FS.v>=FS.max-.001;} }
+setFs(FS.v,false);
+let pinch=null;
+det.addEventListener('touchstart',ev=>{ if(ev.touches.length===2){ const [a,b]=ev.touches; pinch={d:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY),v:FS.v}; } },{passive:true});
+det.addEventListener('touchmove',ev=>{ if(pinch&&ev.touches.length===2){ ev.preventDefault(); const [a,b]=ev.touches; setFs(pinch.v*Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)/pinch.d,false); } },{passive:false});
+det.addEventListener('touchend',ev=>{ if(pinch&&ev.touches.length<2){ pinch=null; setFs(FS.v,true); } });
 // Mausrad, Ziehen und Touch in der Detailkarte und der Zeitreise-Leiste nicht an die Karte weitergeben,
 // damit der Text normal scrollt statt die Karte zu zoomen oder zu verschieben
 [det,$('#tl')].forEach(el=>{ L.DomEvent.disableScrollPropagation(el); L.DomEvent.disableClickPropagation(el);
@@ -936,6 +954,7 @@ function renderDetail(o){
   det.innerHTML=`<div class="d-scroll">
     <figure class="d-photo" id="dPhoto" hidden></figure>
     <div class="d-top"><span class="d-cat" style="--c:var(--c-${o.c||'ensemble'})"><span class="dot${o.ens?' ens':''}"></span>${o.del?'Früheres Denkmal':o.ens?'Ensemble':o.bd?'Bodendenkmal':esc(CATN[o.c])+(o.um?' · '+esc(o.g):'')}${o.y?' · '+o.y:''} ${chgBadge(o)}</span>
+      <span class="fs-ctl" role="group" aria-label="Textgröße"><button id="fsMinus" aria-label="Text kleiner">A−</button><button id="fsPlus" aria-label="Text größer">A+</button></span>
       <button class="x" id="dClose" aria-label="Schließen"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <h2 class="d-title">${esc(o.t)}</h2>
     ${addrs.length?`<p class="d-addr" id="dAddr">${esc(addrs.slice(0,3).join(' · '))}${addrs.length>3?` <button class="more-addr" id="dMore">+ ${addrs.length-3} weitere Adressen</button>`:''}</p>`:''}
@@ -965,6 +984,7 @@ function renderDetail(o){
   ${idx>=0?`<div class="d-nav"><button id="dPrev" ${idx<=0?'disabled':''}>← Vorheriges</button><span>${nl.lbl(idx,nl.arr.length)}</span><button id="dNext" ${idx>=nl.arr.length-1?'disabled':''}>Nächstes →</button></div>`:''}`;
   det.hidden=false; det.querySelector('.d-scroll').scrollTop=0;
   $('#dClose').onclick=closeDetail;
+  $('#fsMinus').onclick=()=>setFs(FS.v/1.12,true); $('#fsPlus').onclick=()=>setFs(FS.v*1.12,true); paintFs();
   const more=$('#dMore'); if(more) more.onclick=()=>{$('#dAddr').textContent=addrs.join(' · ');};
   $('#dCopy').onclick=async ev=>{const b=ev.currentTarget;try{await navigator.clipboard.writeText(o.id);b.textContent='kopiert';}catch(e){const r=document.createRange();r.selectNodeContents(det.querySelector('.mono'));getSelection().removeAllRanges();getSelection().addRange(r);b.textContent='markiert';}};
   if($('#dPrev')) $('#dPrev').onclick=()=>select(nl.arr[idx-1],true);
